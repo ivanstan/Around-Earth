@@ -1,0 +1,67 @@
+{
+  "name": "ivanstan/around-earth",
+  "description": "NASA SpaceApp Challange 2015 - ISS Telemetry",
+  "version": "1.0",
+  "type": "library",
+  "keywords": [
+    "NASA",
+    "ISS",
+    "Telemetry"
+  ],
+  "homepage": "http://dev.byteout.com/around-earth",
+  "time": "2015-04-13",
+  "license": "GPL 3.0",
+  "authors": [
+    {
+      "name": "Margot Gabel",
+      "role": "Designer"
+    },
+    {
+      "name": "Nikola Tucakovic",
+      "role": "Developer"
+    },
+    {
+      "name": "Gert Sterenborg",
+      "role": "Front End Developer"
+    },
+    {
+      "name": "Ivan Stanojevic",
+      "email": "ivanstan@gmail.com",
+      "role": "Developer"
+    }
+  ],
+  "support": {
+    "email": "ivanstan@gmail.com",
+    "issues": "https://jcp.byteout.com",
+    "source": "https://github.com/ivanstan/around-earth"
+  },
+  "require": {
+    "twig/twig": "*",
+    "symfony/dom-crawler": "*",
+    "symfony/css-selector": "*",
+    "guzzle/guzzle": "*",
+    "symfony/event-dispatcher": "*",
+    "symfony/yaml": "*"
+  },
+  "suggest": {
+  },
+  "minimum-stability": "stable",
+  "config": {
+    "vendor-dir": "vendor"
+  },
+  "prefer-stable": true,
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://packagist.org"
+    },
+    { "packagist": false }
+  ],
+  "autoload": {
+    "psr-0": {
+      "system": "application",
+      "controllers": "application",
+      "models": "application"
+    }
+  }
+}

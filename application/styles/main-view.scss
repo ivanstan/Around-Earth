@@ -1,0 +1,254 @@
+html,
+body {
+  min-height: 100%;
+  height: 100%;
+}
+
+body {
+  padding-top: 50px;
+}
+
+body {
+  margin: 0;
+  overflow: hidden;
+}
+
+.navbar.navbar-fixed-top {
+  @include box-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
+}
+
+.container-fluid {
+  position: relative;
+}
+
+#map {
+  width: 100%;
+}
+
+.container-fluid,
+.row,
+#map {
+  height: 100%;
+}
+
+.sidebar-toggle {
+  display: block;
+  border-top: 21px solid transparent;
+  border-bottom: 20px solid transparent;
+  border-right: 30px solid #B4B9D6;
+}
+
+.sidebar-toggle--right {
+  position: absolute;
+  left: -30px;
+  top: 20px;
+  z-index: 1;
+}
+
+.navbar-message {
+  margin-right: 15px;
+}
+
+.icon-heart {
+  color: tomato;
+}
+
+.sidebar {
+  background-color: #f9f9f9;
+}
+
+.sidebar--right {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  max-width: 500px;
+  z-index: 1;
+  @include box-shadow(-1px 0px 1px rgba(0, 0, 0, 0.2));
+}
+
+.toolbar--bottom.active {
+  top: -416px;
+}
+
+.sidebar--right.active {
+  right: 0;
+}
+
+.footer__inner{
+  height: 50px;
+}
+
+.sidebar__inner {
+  height: 100%;
+  overflow: auto;
+}
+
+#user-view-compass {
+  position: relative;
+  color: #AFB5DC;
+  height: 110px;
+  width: 110px;
+  display: inline-block;
+  left: 20px;
+  top: 6px;
+
+  #station {
+    transform-origin: 7px 47px;
+    transform: rotate(7deg);
+    position: absolute;
+    left: 35px;
+    top: -8px;
+    width: 0;
+    height: 0;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-bottom: 7px solid #4757bd;
+  }
+
+  #compass-circle {
+    background-color: #3646a7;
+    border: 10px solid #C1C5DE;
+    width: 100px;
+    height: 100px;
+    position: relative;
+    border-radius: 50px;
+  }
+
+  #label-azimuth {
+    position: absolute;
+    top: 26px;
+    width: 45px;
+    left: 22px;
+    font-size: 1.5em;
+    text-align: center;
+  }
+
+  .north {
+    font-family: Times New Romain;
+    position: absolute;
+    left: 37px;
+  }
+
+  .south {
+    font-family: Times New Romain;
+    position: absolute;
+    left: 37px;
+    bottom: -8px;
+  }
+
+  .east {
+    font-family: Times New Romain;
+    position: absolute;
+    right: 3px;
+    top: 32px;
+  }
+
+  .west {
+    font-family: Times New Romain;
+    position: absolute;
+    top: 32px;
+    left: 3px;
+  }
+
+}
+
+#user-view-elevation {
+  position: relative;
+  display: inline-block;
+  width: 55px;
+  height: 110px;
+  margin-left: 60px;
+
+  #label-elvation {
+    color: #AFB5DC;
+    position: absolute;
+    top: 14px;
+    width: 41px;
+    left: 8px;
+    font-size: 1.5em;
+    text-align: center;
+  }
+
+  #circle {
+    height: 55px;
+    width: 55px;
+    background: #3646a7;
+    border-radius: 55px;
+    position: absolute;
+    top: 27px;
+    z-index: 99999999;
+    position: absolute;
+  }
+
+  svg {
+    margin-left: 27px;
+    z-index: 10;
+    position: absolute;
+  }
+
+  #arcs div {
+    border: 20px solid #C1C5DE;
+    display: inline-block;
+    min-width: -5em;
+    min-height: 108px;
+    padding: 32px;
+    border-radius: 60%;
+    border-top-color: transparent;
+    border-bottom-color: transparent;
+    position: absolute;
+    left: -25px;
+}
+
+}
+
+@media (max-width: $screen-xs-max) {
+  #user-view-compass,
+  #user-view-elevation {
+    display: block;
+    margin: 0 auto;
+  }
+
+  #user-view-elevation {
+    left: -5px;
+    top: 0;
+  }
+}
+
+.multiselect-container {
+  input {
+    display: none;
+  }
+}
+
+.multiselect-container > li > a > label {
+  padding: 3px 20px 3px 0px;
+}
+
+.select-satellite-wrapper {
+  padding: 11px 12px;
+
+  #select-satellite {
+    width: 150px;
+  }
+}
+
+.satellite-num {
+  color: #fff;
+  padding-left: 15px;
+}
+
+#float-bar {
+  position: absolute;
+  top: 50px;
+  left: 10px;
+  z-index: 9;
+}
+
+.infoBox {
+  padding: 5px;
+}
+
+.infoBox > img {
+  visibility: hidden;
+
+}

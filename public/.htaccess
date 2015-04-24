@@ -1,0 +1,24 @@
+Options All -Indexes
+ServerSignature Off
+
+<Files ~ ".tpl">
+	Order allow,deny
+	Deny from all
+</Files>
+
+<IfModule mod_rewrite.c>
+  RewriteEngine on
+
+#  <IfModule mod_ssl.c>
+#    RewriteCond %{HTTPS} !=on
+#    RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+#  </IfModule>
+
+  RewriteCond %{REQUEST_URI} !\/fonts\/.*$ [NC]
+  RewriteCond %{REQUEST_URI} !\/images\/.*$ [NC]
+  RewriteCond %{REQUEST_URI} !\/stylesheets\/.*$ [NC]
+  RewriteCond %{REQUEST_URI} !\/vendor\/.*$ [NC]
+  RewriteCond %{REQUEST_URI} !\/javascripts\/.*$ [NC]
+  RewriteCond %{REQUEST_URI} !\/docs\/.*$ [NC]
+  RewriteRule ^(.*)$ index.php?q=$1 [L,QSA]
+</IfModule>

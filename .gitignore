@@ -1,0 +1,4 @@
+vendor/*
+settings.yaml
+.idea
+.bowerrc
