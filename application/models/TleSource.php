@@ -1,17 +1,22 @@
 <?php
 namespace models;
 
+use system\Application as Application;
+
 class TleSource
 {
-	const tleFile = '/backend/stations.txt';
+	private $tleFile;
+	private $scriptRoot;
 	const cacheLifeTime = 300;
 	const memcacheHost = 'localhost';
 	const memcachePort = 11211;
 
 	private $memcache;
 
-	function __construct() {
-		$this->memcache = class_exists('Memcache') ? new Memcache() : null;
+	function __construct(Application $app) {
+		$this->tleFile = $app->appRoot . 'scripts/stations.txt';
+
+		$this->memcache = class_exists('Memcache') ? new \Memcache() : null;
 		if($this->memcache) {
 			$success = $this->memcache->connect(self::memcacheHost, self::memcachePort);
 
@@ -67,11 +72,11 @@ class TleSource
 	}
 
 	public function parseTleFile() {
-		if(!file_exists(APP_ROOT . self::tleFile)) {
-			throw new Exception('File ' . APP_ROOT . self::tleFile . ' does not exists');
+		if(!file_exists($this->tleFile)) {
+			throw new \Exception('File ' . $this->tleFile . ' does not exists');
 		}
 
-		$stations      = file_get_contents(APP_ROOT . self::tleFile);
+		$stations      = file_get_contents($this->tleFile);
 		$stations      = explode("\n", $stations);
 		$satelliteList = array();
 		$tleList       = array();
