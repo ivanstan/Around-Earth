@@ -54,6 +54,11 @@ class Application {
 		$yaml = new Parser();
 		$this->config = $yaml->parse(file_get_contents($this->appRoot . 'settings.yaml'));
 
+		if($this->config['debug'] == 1) {
+			error_reporting(E_ALL);
+			ini_set('display_errors', 1);
+		}
+
 		$baseUrl = $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['SERVER_NAME'];
 		$this->baseUrl = $baseUrl;
 
@@ -73,12 +78,12 @@ class Application {
 
 			// CALL APPROPRIATE CONTROLLER ACTION
 			$actionMethodName = $this->route['action_method'];
-			$controllerObject->$actionMethodName();
+			$variables = $controllerObject->$actionMethodName();
 
 			$this->setupTwig();
 			$template = $this->twig->loadTemplate($this->route['action'] . '.html.twig');
 
-			echo $template->render(array());
+			echo $template->render($variables);
 		}
 	}
 
@@ -130,17 +135,20 @@ class Application {
 
 	private function connectToDatabase() {
 		// INSTANTIATE PDO
-		$databaseHost = $this->config['database']['host'];
-		$databaseName = $this->config['database']['database'];
-		$databaseUsername = $this->config['database']['username'];
-		$databasePassword = $this->config['database']['password'];
 
-		$dsn = "mysql:dbname={$databaseName};host={$databaseHost}";
+		if(isset($this->config['database'])) {
+			$databaseHost = $this->config['database']['host'];
+			$databaseName = $this->config['database']['database'];
+			$databaseUsername = $this->config['database']['username'];
+			$databasePassword = $this->config['database']['password'];
 
-		try {
-			$this->pdo = new \PDO($dsn, $databaseUsername, $databasePassword);
-		} catch (PDOException $e) {
-			echo 'Connection failed: ' . $e->getMessage();
+			$dsn = "mysql:dbname={$databaseName};host={$databaseHost}";
+
+			try {
+				$this->pdo = new \PDO($dsn, $databaseUsername, $databasePassword);
+			} catch (\PDOException $e) {
+				echo 'Connection failed: ' . $e->getMessage();
+			}
 		}
 	}
 

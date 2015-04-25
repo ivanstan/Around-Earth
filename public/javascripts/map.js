@@ -32,7 +32,7 @@ var App = {
     toolbarRightOpen: true,
     dashboardOpen: localStorage.getItem('dashboardOpen'),
     mapInitialized: false,
-    apiEndpoint: 'http://dev.byteout.com/around-earth-dev/public/',
+    apiEndpoint: '',
     trackSatellite: 'ISS (ZARYA)',
     orbitLine: null,
     dayNightTerminator: null,

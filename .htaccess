@@ -1,0 +1,7 @@
+RewriteEngine On
+RewriteRule ^$ public [L,R=301]
+
+<FilesMatch "\.(?:inc|py|rb|yaml|sh|txt)$">
+  Order allow,deny
+  Deny from all
+</FilesMatch>
