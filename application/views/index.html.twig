@@ -10,6 +10,8 @@
     <script type="text/javascript" src="vendor/daynightoverlay.js"></script>
     <script type="text/javascript" src="javascripts/mapStyles.js"></script>
     <script type="text/javascript" src="javascripts/map.js"></script>
+    <script type="text/javascript" src="javascripts/orbit.js"></script>
+    <script type="text/javascript" src="javascripts/altitudeChart.js"></script>
     <script type="text/javascript" src="vendor/highcharts/highcharts.js"></script>
     <script type="text/javascript" src="vendor/lightstreamer.js"></script>
     <script type="text/javascript" src="javascripts/isstelemetry.js"></script>
@@ -19,7 +21,9 @@
     <script type="text/javascript" src="vendor/infobox.js"></script>
     <script type="text/javascript" src="vendor/select2.full.min.js"></script>
     <script type="text/javascript">
-        App.apiEndpoint = '{{ apiEndpoint }}';
+{% for key, value in javascriptSettings %}
+    App.settings.{{ key }} = '{{ value }}'
+{% endfor %}
     </script>
 </head>
 <body>

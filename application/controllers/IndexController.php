@@ -1,5 +1,4 @@
-<?php
-namespace controllers;
+<?php namespace controllers;
 
 use system\Controller;
 use system\Application;
@@ -14,18 +13,16 @@ class IndexController extends Controller {
 	 * @param \system\Application $app Application singleton
 	 */
 	public function __construct($app) {
-		$this->app = $app;
 		parent::__construct($app);
 	}
 
 	/**
-	 * @path example/index
+	 * @path index/index
 	 */
 	public function indexAction() {
 		$variables = array(
-			'apiEndpoint' => $this->app->config['javascript']['apiEndpoint']
+			'javascriptSettings' => $this->app->config['javascript']
 		);
-
 
 		return $variables;
 	}

@@ -1,6 +1,4 @@
-<?php
-
-namespace controllers;
+<?php namespace controllers;
 
 /**
  * Created by PhpStorm.
@@ -17,15 +15,14 @@ class ApiController extends Controller {
 	protected $scriptRoot;
 
 	public function __construct($app) {
-		$this->app = $app;
+		header('Content Type: application/json');
+		header('Access-Control-Allow-Origin: *');
+
 		$this->scriptRoot = $app->appRoot . 'scripts/';
 		parent::__construct($app);
 	}
 
 	public function satelliteAction() {
-		header('Content Type: application/json');
-		header('Access-Control-Allow-Origin: *');
-
 		$satellite = escapeshellarg($_REQUEST['satellite']);
 		$userLatitude = escapeshellarg($_REQUEST['user_latitude']);
 		$userLongitude = escapeshellarg($_REQUEST['user_longitude']);
