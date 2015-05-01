@@ -1,7 +1,7 @@
 /*
 Error: Undefined mixin 'box-shadow'.
-        on line 17 of c:/xampp/htdocs/around-earth/sass/main-view.scss, in `box-shadow'
-        from line 17 of c:/xampp/htdocs/around-earth/sass/main-view.scss
+        on line 17 of c:/xampp/htdocs/around-earth/application/styles/main-view.scss, in `box-shadow'
+        from line 17 of c:/xampp/htdocs/around-earth/application/styles/main-view.scss
 
 12:   margin: 0;
 13:   overflow: hidden;
@@ -16,8 +16,8 @@ Error: Undefined mixin 'box-shadow'.
 22: }
 
 Backtrace:
-c:/xampp/htdocs/around-earth/sass/main-view.scss:17:in `box-shadow'
-c:/xampp/htdocs/around-earth/sass/main-view.scss:17
+c:/xampp/htdocs/around-earth/application/styles/main-view.scss:17:in `box-shadow'
+c:/xampp/htdocs/around-earth/application/styles/main-view.scss:17
 c:/Ruby200/lib/ruby/gems/2.0.0/gems/sass-3.4.4/lib/sass/tree/visitors/perform.rb:338:in `block in visit_mixin'
 c:/Ruby200/lib/ruby/gems/2.0.0/gems/sass-3.4.4/lib/sass/stack.rb:98:in `block in with_mixin'
 c:/Ruby200/lib/ruby/gems/2.0.0/gems/sass-3.4.4/lib/sass/stack.rb:115:in `with_frame'
@@ -76,4 +76,4 @@ c:/Ruby200/bin/compass:23:in `<main>'
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined mixin 'box-shadow'.\A         on line 17 of c:/xampp/htdocs/around-earth/sass/main-view.scss, in `box-shadow'\A         from line 17 of c:/xampp/htdocs/around-earth/sass/main-view.scss\A \A 12:   margin: 0;\A 13:   overflow: hidden;\A 14: }\A 15: \A 16: .navbar.navbar-fixed-top {\A 17:   @include box-shadow(0 1px 2px rgba(0, 0, 0, 0.2));\A 18: }\A 19: \A 20: .container-fluid {\A 21:   position: relative;\A 22: }"; }
+  content: "Error: Undefined mixin 'box-shadow'.\A         on line 17 of c:/xampp/htdocs/around-earth/application/styles/main-view.scss, in `box-shadow'\A         from line 17 of c:/xampp/htdocs/around-earth/application/styles/main-view.scss\A \A 12:   margin: 0;\A 13:   overflow: hidden;\A 14: }\A 15: \A 16: .navbar.navbar-fixed-top {\A 17:   @include box-shadow(0 1px 2px rgba(0, 0, 0, 0.2));\A 18: }\A 19: \A 20: .container-fluid {\A 21:   position: relative;\A 22: }"; }

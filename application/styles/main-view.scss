@@ -252,3 +252,20 @@ body {
   visibility: hidden;
 
 }
+
+#ajax-loader {
+  position: absolute;
+  top: 100px;
+  left: 50%;
+  height: 75px;
+  width: 163px;
+
+  background-image: url('../images/ajax.gif');
+  background-color: rgba(0, 0, 0, 0.4);
+  background-size: 33px;
+  background-repeat: no-repeat;
+  background-position: 20px 20px;
+  color: #AFB5DC;
+  font-size: 1.3em;
+  padding: 25px 70px;
+}

@@ -59,7 +59,8 @@ class Application {
 			ini_set('display_errors', 1);
 		}
 
-		$baseUrl = $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['SERVER_NAME'];
+		$scheme = isset($_SERVER['REQUEST_SCHEME']) ? $_SERVER['REQUEST_SCHEME'] : 'http';
+		$baseUrl = $scheme . '://' . $_SERVER['SERVER_NAME'];
 		$this->baseUrl = $baseUrl;
 
 		// PARSE ROUTE

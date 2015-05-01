@@ -1,6 +1,7 @@
 import ephem
 import json
-from datetime import datetime
+import calendar
+from datetime import datetime, timedelta
 from math import atan, atan2, degrees, floor, pi, radians, sin, sqrt
 from skyfield.api import earth, JulianDate, now, sun, moon, utc
 
@@ -39,11 +40,17 @@ time = datetime.utcnow()
 time = time.replace(tzinfo=utc)
 
 data = {}
+data['moon'] = {}
+data['sun'] = {}
 
 x, y, z = earth(JulianDate(utc=time)).observe(moon).apparent().position.AU
-data['moon'] = earth_latlon(x, y, z, time)
+lat, lng = earth_latlon(x, y, z, time)
+data['moon']['latitude'] = lat
+data['moon']['longitude'] = lng
 
 x, y, z = earth(JulianDate(utc=time)).observe(sun).apparent().position.AU
-data['sun'] = earth_latlon(x, y, z, time)
+lat, lng = earth_latlon(x, y, z, time)
+data['sun']['latitude'] = lat
+data['sun']['longitude'] = lng
 
 print json.dumps(data)

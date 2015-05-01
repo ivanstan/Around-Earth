@@ -13,13 +13,26 @@ class ApiController extends Controller {
 
 	protected $app;
 	protected $scriptRoot;
+	protected $debug;
 
 	public function __construct($app) {
-		header('Content Type: application/json');
-		header('Access-Control-Allow-Origin: *');
-
-		$this->scriptRoot = $app->appRoot . 'scripts/';
 		parent::__construct($app);
+		$config = $this->app->config;
+		$this->debug = $config['debug'] == 1 ? '2>&1' : '';
+		$this->scriptRoot = $this->app->appRoot . 'scripts/';
+
+		header('Content Type: application/json');
+		if($this->debug) header('Access-Control-Allow-Origin: *');
+	}
+
+	public function astronomicalPositionAction() {
+		print shell_exec("python {$this->scriptRoot}astronomical_position.py {$this->debug}");
+		exit();
+	}
+
+	public function astronomicalOrbitAction() {
+		print shell_exec("python {$this->scriptRoot}astronomical_orbit.py {$this->debug}");
+		exit();
 	}
 
 	public function satelliteAction() {
@@ -31,13 +44,24 @@ class ApiController extends Controller {
 		$tleSource = new TleSource($this->app);
 		$tle = $tleSource->getTle($satellite);
 
-		if(!$tle) {
-			die('Tle not found');
-		}
+		if(!$tle) die('Tle not found');
 
-		echo shell_exec("python {$this->scriptRoot}calculate.py $satellite $userLatitude $userLongitude $userAltitude '{$tle['line1']}' '{$tle['line2']}' 2>&1");
-
+		print shell_exec("python {$this->scriptRoot}calculate.py $satellite $userLatitude $userLongitude $userAltitude '{$tle['line1']}' '{$tle['line2']}' {$this->debug}");
 		exit();
+	}
+
+	public function groundStationsAction() {
+		$stmt = $this->app->pdo->query("SELECT * FROM launch_sites");
+		$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+		print json_encode($result);
+		exit();
+	}
+
+	public function searchSatellitesAction() {
+		if(!isset($_REQUEST['q'])) exit();
+		$tleSource = new TleSource($this->app);
+		$found = $tleSource->find($_REQUEST['q']);
+		print json_encode($found);
 	}
 
 }

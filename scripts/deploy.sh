@@ -20,3 +20,6 @@
 
 #install pyephem
 # pip install pyephem
+
+# install sky field
+# pin pinstall skyfield

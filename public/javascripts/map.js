@@ -1,9 +1,10 @@
-var App = {
+App = {
     modules: {},
     user: {
         position: {
             latitude: 0,
-            longitude: 0
+            longitude: 0,
+            altitude: 0
         },
         timezoneOffset: 0,
         timestamp: function () {
@@ -34,7 +35,6 @@ var App = {
     dashboardOpen: localStorage.getItem('dashboardOpen'),
     mapInitialized: false,
     trackSatellite: 'ISS (ZARYA)',
-    orbitLine: null,
     dayNightTerminator: null,
     defaultPosition: {
         latitude: 28.396837,
@@ -44,6 +44,12 @@ var App = {
     altitudeChart: null,
     mapFeatures: {
         groundStations: []
+    },
+    infoWindowStyle: {
+        background: '#0F6388',
+        opacity: 0.5,
+        width: '130px',
+        color: '#ffffff'
     },
 
     toggleSidebar: function () {
@@ -103,6 +109,8 @@ var App = {
 
         App.map = new google.maps.Map(document.getElementById("map"), options);
 
+        App.modules.astronomical.init();
+
         App.dayNightTerminator = new DayNightOverlay({
             map: App.map,
             fillColor: 'rgba(0,0,0,0.3)',
@@ -130,7 +138,7 @@ var App = {
             anchor: new google.maps.Point(40, 55),
         };
 
-        var userPosition = new google.maps.LatLng(App.userPosition.latitude, App.userPosition.longitude);
+        var userPosition = new google.maps.LatLng(App.user.position.latitude, App.user.position.longitude);
         App.userMarker = new google.maps.Marker({
             position: userPosition,
             icon: locationImg,
@@ -139,8 +147,8 @@ var App = {
         });
 
         google.maps.event.addListener(App.userMarker, 'dragend', function (event) {
-            App.userPosition.latitude = event.latLng.lat();
-            App.userPosition.longitude = event.latLng.lng();
+            App.user.position.latitude = event.latLng.lat();
+            App.user.position.longitude = event.latLng.lng();
         });
 
         $('#label-satellite').html(data.satellite);
@@ -170,11 +178,7 @@ var App = {
 
     updateStationPosition: function (position) {
         if (App.mapInitialized) {
-            position = {
-                latitude: App.userPosition.latitude,
-                longitude: App.userPosition.longitude,
-                altitude: App.userPosition.altitude
-            }
+            position = App.user.position;
         }
 
         $.ajax({
@@ -266,6 +270,20 @@ var App = {
     isInfoWindowOpen: function (infoWindow) {
         var map = infoWindow.getMap();
         return (map !== null && typeof map !== "undefined");
+    },
+
+    ajaxLoaderShow: function () {
+        if (App.toolbarRightOpen) {
+            var left = $(window).width() / 2 - $('#toolbar-right').width();
+            $('#ajax-loader').css('left', left);
+        } else {
+            $('#ajax-loader').css('transform', 'translate(-50%, 0)');
+        }
+        $('#ajax-loader').show();
+    },
+
+    ajaxLoaderHide: function () {
+        $('#ajax-loader').hide();
     }
 };
 
@@ -280,7 +298,7 @@ var App = {
                 position.longitude = position.coords.longitude;
                 position.altitude = position.coords.altitude ? position.coords.altitude : 0;
 
-                App.userPosition = position;
+                App.user.position = position;
                 App.updateStationPosition(position);
 
                 if (App.userMarker) {
@@ -289,7 +307,7 @@ var App = {
                 }
 
             }, function () {
-                App.userPosition = App.defaultPosition;
+                App.user.position = App.defaultPosition;
                 App.updateStationPosition(App.defaultPosition);
             }, {
                 timeout: 10,
@@ -297,12 +315,12 @@ var App = {
                 timeout: 5000
             });
         } else {
-            App.userPosition = App.defaultPosition;
+            App.user.position = App.defaultPosition;
             App.updateStationPosition(App.defaultPosition);
         }
 
         if (App.mapInitialized == false) {
-            App.userPosition = App.defaultPosition;
+            App.user.position = App.defaultPosition;
             App.updateStationPosition(App.defaultPosition);
         }
 
@@ -350,6 +368,23 @@ var App = {
 
         $('#select-satellite').change(function () {
             App.trackSatellite = $(this).val();
+
+            App.ajaxLoaderShow();
+            $.ajax({
+                data: {
+                    satellite: App.trackSatellite,
+                    user_latitude: App.user.position.latitude,
+                    user_longitude: App.user.position.longitude,
+                    user_altitude: App.user.position.altitude
+                },
+                method: 'POST',
+                url: App.settings.apiEndpoint + 'api/satellite',
+                dataType: 'json',
+                success: function (data) {
+                    App.modules.orbit.draw(data);
+                    App.ajaxLoaderHide()
+                }
+            });
         });
 
         if (typeof(Storage) !== "undefined") {
@@ -365,6 +400,7 @@ var App = {
             App.settings.perigeeInfoWindowOpen = true;
             App.settings.apogeeInfoWindowOpen = true;
         }
+
 
     });
 })(jQuery)

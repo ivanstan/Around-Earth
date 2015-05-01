@@ -5,6 +5,12 @@ import json
 import ephem
 from datetime import datetime
 
+# define functions
+
+
+
+# main
+
 time = sys.argv[4]
 
 moon = ephem.Moon(time)
@@ -53,3 +59,5 @@ data['moon']['previous_last_quarter_moon'] = str(ephem.localtime(ephem.previous_
 data['moon']['next_last_quarter_moon'] = str(ephem.localtime(ephem.next_last_quarter_moon(time)))
 
 print json.dumps(data)
+
+

@@ -5,6 +5,7 @@
  * Created by Ivan on 4/29/2015.
  */
 App.modules.orbit = {
+    satelliteOrbit: null,
 
     initialize: function() {
 
@@ -53,12 +54,7 @@ App.modules.orbit = {
             App.orbit.apogeeMarkerInfoWindow = new InfoBox({
                 content: 'Apogee<br>Altitude: ' + parseFloat(apogee.altitude).toFixed(2) + ' km',
                 pixelOffset: new google.maps.Size(-65, 15),
-                boxStyle: {
-                    background: '#0F6388',
-                    opacity: 0.5,
-                    width: '130px',
-                    color: '#ffffff'
-                }
+                boxStyle: App.infoWindowStyle
             });
 
             if(App.settings.apogeeInfoWindowOpen) {
@@ -98,12 +94,7 @@ App.modules.orbit = {
             App.orbit.perigeeMarkerInfoWindow = new InfoBox({
                 content: 'Perigee<br>Altitude: ' + parseFloat(perigee.altitude).toFixed(2) + ' km',
                 pixelOffset: new google.maps.Size(-65, 15),
-                boxStyle: {
-                    background: '#0F6388',
-                    opacity: 0.5,
-                    width: '130px',
-                    color: '#ffffff'
-                }
+                boxStyle: App.infoWindowStyle
             });
 
             if(App.settings.perigeeInfoWindowOpen) {
@@ -128,19 +119,19 @@ App.modules.orbit = {
             App.orbit.perigeeMarker.setPosition(perigeePosition);
         }
 
-        if (App.orbitLine) {
-            App.orbitLine.setMap(null);
+        if (App.modules.orbit.satelliteOrbit) {
+            App.modules.orbit.satelliteOrbit.setMap(null);
         }
 
-        App.orbitLine = new google.maps.Polyline({
+        App.modules.orbit.satelliteOrbit = new google.maps.Polyline({
             path: orbit,
             geodesic: false,
             strokeColor: '#ffffff', // orbitPath color
             strokeOpacity: 0.5,
-            strokeWeight: 3
+            strokeWeight: 2
         });
 
-        App.orbitLine.setMap(App.map);
+        App.modules.orbit.satelliteOrbit.setMap(App.map);
     }
 
 }

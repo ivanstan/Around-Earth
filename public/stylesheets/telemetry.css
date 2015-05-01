@@ -1,4 +1,4 @@
-/* line 1, ../../sass/telemetry.scss */
+/* line 1, ../../application/styles/telemetry.scss */
 .toolbar--bottom {
   width: 100%;
   position: relative;
@@ -6,7 +6,7 @@
   top: 0;
 }
 
-/* line 8, ../../sass/telemetry.scss */
+/* line 8, ../../application/styles/telemetry.scss */
 #temperature-chart,
 #pressure-chart {
   height: 180px;
@@ -14,7 +14,7 @@
   display: inline-block;
 }
 
-/* line 15, ../../sass/telemetry.scss */
+/* line 15, ../../application/styles/telemetry.scss */
 .sidebar-toggle--bottom {
   position: absolute;
   left: 21px;
@@ -22,7 +22,7 @@
   transform: rotate(90deg);
 }
 
-/* line 22, ../../sass/telemetry.scss */
+/* line 22, ../../application/styles/telemetry.scss */
 #air-chart,
 #water-chart {
   height: 200px;
@@ -30,13 +30,13 @@
   display: inline-block;
 }
 
-/* line 29, ../../sass/telemetry.scss */
+/* line 29, ../../application/styles/telemetry.scss */
 #voltage-chart {
   display: inline-block;
   width: 750px;
 }
 
-/* line 34, ../../sass/telemetry.scss */
+/* line 34, ../../application/styles/telemetry.scss */
 .telemetry-inline {
   display: inline-block;
 }

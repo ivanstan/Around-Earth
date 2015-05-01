@@ -42,41 +42,41 @@
  * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-/* line 44, ../../sass/bootstrap-multiselect.scss */
+/* line 44, ../../application/styles/bootstrap-multiselect.scss */
 .multiselect-container {
   position: absolute;
   list-style-type: none;
   margin: 0;
   padding: 0;
 }
-/* line 50, ../../sass/bootstrap-multiselect.scss */
+/* line 50, ../../application/styles/bootstrap-multiselect.scss */
 .multiselect-container .input-group {
   margin: 5px;
 }
-/* line 54, ../../sass/bootstrap-multiselect.scss */
+/* line 54, ../../application/styles/bootstrap-multiselect.scss */
 .multiselect-container > li {
   padding: 0;
 }
-/* line 57, ../../sass/bootstrap-multiselect.scss */
+/* line 57, ../../application/styles/bootstrap-multiselect.scss */
 .multiselect-container > li > a.multiselect-all label {
   font-weight: bold;
 }
-/* line 61, ../../sass/bootstrap-multiselect.scss */
+/* line 61, ../../application/styles/bootstrap-multiselect.scss */
 .multiselect-container > li.multiselect-group label {
   margin: 0;
   padding: 3px 20px 3px 20px;
   height: 100%;
   font-weight: bold;
 }
-/* line 68, ../../sass/bootstrap-multiselect.scss */
+/* line 68, ../../application/styles/bootstrap-multiselect.scss */
 .multiselect-container > li.multiselect-group-clickable label {
   cursor: pointer;
 }
-/* line 72, ../../sass/bootstrap-multiselect.scss */
+/* line 72, ../../application/styles/bootstrap-multiselect.scss */
 .multiselect-container > li > a {
   padding: 0;
 }
-/* line 75, ../../sass/bootstrap-multiselect.scss */
+/* line 75, ../../application/styles/bootstrap-multiselect.scss */
 .multiselect-container > li > a > label {
   margin: 0;
   height: 100%;
@@ -84,26 +84,26 @@
   font-weight: normal;
   padding: 3px 20px 3px 40px;
 }
-/* line 82, ../../sass/bootstrap-multiselect.scss */
+/* line 82, ../../application/styles/bootstrap-multiselect.scss */
 .multiselect-container > li > a > label.radio, .multiselect-container > li > a > label.checkbox {
   margin: 0;
 }
-/* line 86, ../../sass/bootstrap-multiselect.scss */
+/* line 86, ../../application/styles/bootstrap-multiselect.scss */
 .multiselect-container > li > a > label > input[type="checkbox"] {
   margin-bottom: 5px;
 }
 
-/* line 94, ../../sass/bootstrap-multiselect.scss */
+/* line 94, ../../application/styles/bootstrap-multiselect.scss */
 .btn-group > .btn-group:nth-child(2) > .multiselect.btn {
   border-top-left-radius: 4px;
   border-bottom-left-radius: 4px;
 }
 
-/* line 101, ../../sass/bootstrap-multiselect.scss */
+/* line 101, ../../application/styles/bootstrap-multiselect.scss */
 .form-inline .multiselect-container label.checkbox, .form-inline .multiselect-container label.radio {
   padding: 3px 20px 3px 40px;
 }
-/* line 107, ../../sass/bootstrap-multiselect.scss */
+/* line 107, ../../application/styles/bootstrap-multiselect.scss */
 .form-inline .multiselect-container li a label.checkbox input[type="checkbox"], .form-inline .multiselect-container li a label.radio input[type="radio"] {
   margin-left: -20px;
   margin-right: 0;
@@ -8649,48 +8649,48 @@ button.close {
     display: none !important;
   }
 }
-/* line 1, ../../sass/main-view.scss */
+/* line 1, ../../application/styles/main-view.scss */
 html,
 body {
   min-height: 100%;
   height: 100%;
 }
 
-/* line 7, ../../sass/main-view.scss */
+/* line 7, ../../application/styles/main-view.scss */
 body {
   padding-top: 50px;
 }
 
-/* line 11, ../../sass/main-view.scss */
+/* line 11, ../../application/styles/main-view.scss */
 body {
   margin: 0;
   overflow: hidden;
 }
 
-/* line 16, ../../sass/main-view.scss */
+/* line 16, ../../application/styles/main-view.scss */
 .navbar.navbar-fixed-top {
   -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
-/* line 20, ../../sass/main-view.scss */
+/* line 20, ../../application/styles/main-view.scss */
 .container-fluid {
   position: relative;
 }
 
-/* line 24, ../../sass/main-view.scss */
+/* line 24, ../../application/styles/main-view.scss */
 #map {
   width: 100%;
 }
 
-/* line 28, ../../sass/main-view.scss */
+/* line 28, ../../application/styles/main-view.scss */
 .container-fluid,
 .row,
 #map {
   height: 100%;
 }
 
-/* line 34, ../../sass/main-view.scss */
+/* line 34, ../../application/styles/main-view.scss */
 .sidebar-toggle {
   display: block;
   border-top: 21px solid transparent;
@@ -8698,7 +8698,7 @@ body {
   border-right: 30px solid #B4B9D6;
 }
 
-/* line 41, ../../sass/main-view.scss */
+/* line 41, ../../application/styles/main-view.scss */
 .sidebar-toggle--right {
   position: absolute;
   left: -30px;
@@ -8706,22 +8706,22 @@ body {
   z-index: 1;
 }
 
-/* line 48, ../../sass/main-view.scss */
+/* line 48, ../../application/styles/main-view.scss */
 .navbar-message {
   margin-right: 15px;
 }
 
-/* line 52, ../../sass/main-view.scss */
+/* line 52, ../../application/styles/main-view.scss */
 .icon-heart {
   color: tomato;
 }
 
-/* line 56, ../../sass/main-view.scss */
+/* line 56, ../../application/styles/main-view.scss */
 .sidebar {
   background-color: #f9f9f9;
 }
 
-/* line 60, ../../sass/main-view.scss */
+/* line 60, ../../application/styles/main-view.scss */
 .sidebar--right {
   position: absolute;
   top: 0;
@@ -8732,28 +8732,28 @@ body {
   box-shadow: -1px 0px 1px rgba(0, 0, 0, 0.2);
 }
 
-/* line 69, ../../sass/main-view.scss */
+/* line 69, ../../application/styles/main-view.scss */
 .toolbar--bottom.active {
   top: -416px;
 }
 
-/* line 73, ../../sass/main-view.scss */
+/* line 73, ../../application/styles/main-view.scss */
 .sidebar--right.active {
   right: 0;
 }
 
-/* line 77, ../../sass/main-view.scss */
+/* line 77, ../../application/styles/main-view.scss */
 .footer__inner {
   height: 50px;
 }
 
-/* line 81, ../../sass/main-view.scss */
+/* line 81, ../../application/styles/main-view.scss */
 .sidebar__inner {
   height: 100%;
   overflow: auto;
 }
 
-/* line 86, ../../sass/main-view.scss */
+/* line 86, ../../application/styles/main-view.scss */
 #user-view-compass {
   position: relative;
   color: #AFB5DC;
@@ -8763,7 +8763,7 @@ body {
   left: 20px;
   top: 6px;
 }
-/* line 95, ../../sass/main-view.scss */
+/* line 95, ../../application/styles/main-view.scss */
 #user-view-compass #station {
   transform-origin: 7px 47px;
   transform: rotate(7deg);
@@ -8776,7 +8776,7 @@ body {
   border-right: 7px solid transparent;
   border-bottom: 7px solid #4757bd;
 }
-/* line 108, ../../sass/main-view.scss */
+/* line 108, ../../application/styles/main-view.scss */
 #user-view-compass #compass-circle {
   background-color: #3646a7;
   border: 10px solid #C1C5DE;
@@ -8785,7 +8785,7 @@ body {
   position: relative;
   border-radius: 50px;
 }
-/* line 117, ../../sass/main-view.scss */
+/* line 117, ../../application/styles/main-view.scss */
 #user-view-compass #label-azimuth {
   position: absolute;
   top: 26px;
@@ -8794,27 +8794,27 @@ body {
   font-size: 1.5em;
   text-align: center;
 }
-/* line 126, ../../sass/main-view.scss */
+/* line 126, ../../application/styles/main-view.scss */
 #user-view-compass .north {
   font-family: Times New Romain;
   position: absolute;
   left: 37px;
 }
-/* line 132, ../../sass/main-view.scss */
+/* line 132, ../../application/styles/main-view.scss */
 #user-view-compass .south {
   font-family: Times New Romain;
   position: absolute;
   left: 37px;
   bottom: -8px;
 }
-/* line 139, ../../sass/main-view.scss */
+/* line 139, ../../application/styles/main-view.scss */
 #user-view-compass .east {
   font-family: Times New Romain;
   position: absolute;
   right: 3px;
   top: 32px;
 }
-/* line 146, ../../sass/main-view.scss */
+/* line 146, ../../application/styles/main-view.scss */
 #user-view-compass .west {
   font-family: Times New Romain;
   position: absolute;
@@ -8822,7 +8822,7 @@ body {
   left: 3px;
 }
 
-/* line 155, ../../sass/main-view.scss */
+/* line 155, ../../application/styles/main-view.scss */
 #user-view-elevation {
   position: relative;
   display: inline-block;
@@ -8830,7 +8830,7 @@ body {
   height: 110px;
   margin-left: 60px;
 }
-/* line 162, ../../sass/main-view.scss */
+/* line 162, ../../application/styles/main-view.scss */
 #user-view-elevation #label-elvation {
   color: #AFB5DC;
   position: absolute;
@@ -8840,7 +8840,7 @@ body {
   font-size: 1.5em;
   text-align: center;
 }
-/* line 172, ../../sass/main-view.scss */
+/* line 172, ../../application/styles/main-view.scss */
 #user-view-elevation #circle {
   height: 55px;
   width: 55px;
@@ -8851,13 +8851,13 @@ body {
   z-index: 99999999;
   position: absolute;
 }
-/* line 183, ../../sass/main-view.scss */
+/* line 183, ../../application/styles/main-view.scss */
 #user-view-elevation svg {
   margin-left: 27px;
   z-index: 10;
   position: absolute;
 }
-/* line 189, ../../sass/main-view.scss */
+/* line 189, ../../application/styles/main-view.scss */
 #user-view-elevation #arcs div {
   border: 20px solid #C1C5DE;
   display: inline-block;
@@ -8872,45 +8872,45 @@ body {
 }
 
 @media (max-width: 767px) {
-  /* line 205, ../../sass/main-view.scss */
+  /* line 205, ../../application/styles/main-view.scss */
   #user-view-compass,
   #user-view-elevation {
     display: block;
     margin: 0 auto;
   }
 
-  /* line 211, ../../sass/main-view.scss */
+  /* line 211, ../../application/styles/main-view.scss */
   #user-view-elevation {
     left: -5px;
     top: 0;
   }
 }
-/* line 218, ../../sass/main-view.scss */
+/* line 218, ../../application/styles/main-view.scss */
 .multiselect-container input {
   display: none;
 }
 
-/* line 223, ../../sass/main-view.scss */
+/* line 223, ../../application/styles/main-view.scss */
 .multiselect-container > li > a > label {
   padding: 3px 20px 3px 0px;
 }
 
-/* line 227, ../../sass/main-view.scss */
+/* line 227, ../../application/styles/main-view.scss */
 .select-satellite-wrapper {
   padding: 11px 12px;
 }
-/* line 230, ../../sass/main-view.scss */
+/* line 230, ../../application/styles/main-view.scss */
 .select-satellite-wrapper #select-satellite {
   width: 150px;
 }
 
-/* line 235, ../../sass/main-view.scss */
+/* line 235, ../../application/styles/main-view.scss */
 .satellite-num {
   color: #fff;
   padding-left: 15px;
 }
 
-/* line 240, ../../sass/main-view.scss */
+/* line 240, ../../application/styles/main-view.scss */
 #float-bar {
   position: absolute;
   top: 50px;
@@ -8918,17 +8918,34 @@ body {
   z-index: 9;
 }
 
-/* line 247, ../../sass/main-view.scss */
+/* line 247, ../../application/styles/main-view.scss */
 .infoBox {
   padding: 5px;
 }
 
-/* line 251, ../../sass/main-view.scss */
+/* line 251, ../../application/styles/main-view.scss */
 .infoBox > img {
   visibility: hidden;
 }
 
-/* line 1, ../../sass/telemetry.scss */
+/* line 256, ../../application/styles/main-view.scss */
+#ajax-loader {
+  position: absolute;
+  top: 100px;
+  left: 50%;
+  height: 75px;
+  width: 163px;
+  background-image: url("../images/ajax.gif");
+  background-color: rgba(0, 0, 0, 0.4);
+  background-size: 33px;
+  background-repeat: no-repeat;
+  background-position: 20px 20px;
+  color: #AFB5DC;
+  font-size: 1.3em;
+  padding: 25px 70px;
+}
+
+/* line 1, ../../application/styles/telemetry.scss */
 .toolbar--bottom {
   width: 100%;
   position: relative;
@@ -8936,7 +8953,7 @@ body {
   top: 0;
 }
 
-/* line 8, ../../sass/telemetry.scss */
+/* line 8, ../../application/styles/telemetry.scss */
 #temperature-chart,
 #pressure-chart {
   height: 180px;
@@ -8944,7 +8961,7 @@ body {
   display: inline-block;
 }
 
-/* line 15, ../../sass/telemetry.scss */
+/* line 15, ../../application/styles/telemetry.scss */
 .sidebar-toggle--bottom {
   position: absolute;
   left: 21px;
@@ -8952,7 +8969,7 @@ body {
   transform: rotate(90deg);
 }
 
-/* line 22, ../../sass/telemetry.scss */
+/* line 22, ../../application/styles/telemetry.scss */
 #air-chart,
 #water-chart {
   height: 200px;
@@ -8960,13 +8977,13 @@ body {
   display: inline-block;
 }
 
-/* line 29, ../../sass/telemetry.scss */
+/* line 29, ../../application/styles/telemetry.scss */
 #voltage-chart {
   display: inline-block;
   width: 750px;
 }
 
-/* line 34, ../../sass/telemetry.scss */
+/* line 34, ../../application/styles/telemetry.scss */
 .telemetry-inline {
   display: inline-block;
 }

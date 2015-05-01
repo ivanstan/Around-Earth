@@ -1,6 +1,6 @@
-import ephem
 import json
-from datetime import datetime
+import calendar
+from datetime import datetime, timedelta
 from math import atan, atan2, degrees, floor, pi, radians, sin, sqrt
 from skyfield.api import earth, JulianDate, now, sun, moon, utc
 
@@ -34,16 +34,42 @@ def earth_latlon(x, y, z, time):
 
     return degrees(lat), degrees(-lon)
 
+SIDERAL_DAY_SEC = 86164
+halforbit = SIDERAL_DAY_SEC / 2
 
 time = datetime.utcnow()
 time = time.replace(tzinfo=utc)
 
+timestamp = calendar.timegm(time.utctimetuple())
+start = timestamp - halforbit
+from_date = time - timedelta(seconds=halforbit)
+to_date = time + timedelta(seconds=halforbit)
+
+delta=timedelta(minutes=5)
+sunOrbit = []
+moonOrbit = []
+while from_date <= to_date:
+    x, y, z = earth(JulianDate(utc=from_date)).observe(sun).apparent().position.AU
+    lat, lng = earth_latlon(x, y, z, from_date)
+
+    onePoint = {}
+    onePoint['latitude'] = lat
+    onePoint['longitude'] = lng
+    onePoint['time'] = from_date.strftime("%Y-%m-%d %H:%M:%S")
+    sunOrbit.append(onePoint)
+
+    x, y, z = earth(JulianDate(utc=from_date)).observe(moon).apparent().position.AU
+    lat, lng = earth_latlon(x, y, z, from_date)
+
+    onePoint = {}
+    onePoint['latitude'] = lat
+    onePoint['longitude'] = lng
+    onePoint['time'] = from_date.strftime("%Y-%m-%d %H:%M:%S")
+    moonOrbit.append(onePoint)
+
+    from_date = from_date + delta
+
 data = {}
-
-x, y, z = earth(JulianDate(utc=time)).observe(moon).apparent().position.AU
-data['moon'] = earth_latlon(x, y, z, time)
-
-x, y, z = earth(JulianDate(utc=time)).observe(sun).apparent().position.AU
-data['sun'] = earth_latlon(x, y, z, time)
-
+data['sun_orbit'] = sunOrbit
+data['moon_orbit'] = moonOrbit
 print json.dumps(data)

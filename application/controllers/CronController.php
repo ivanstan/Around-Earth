@@ -21,6 +21,23 @@ class CronController extends Controller {
 		}
 	}
 
+	public function getTleDataAction() {
+		set_time_limit(0);
+
+		$output = '';
+		foreach($this->app->config['tle_sources'] as $tle_file) {
+			$curl = curl_init();
+			curl_setopt_array($curl, array(
+				CURLOPT_RETURNTRANSFER => 1,
+				CURLOPT_URL => $tle_file
+			));
+			$output .= curl_exec($curl);
+			curl_close($curl);
+		}
+
+		file_put_contents($this->app->appRoot . 'scripts/stations.txt', $output);
+	}
+
 	public function indexAction() {
 		return array();
 	}
