@@ -27,16 +27,18 @@ class TleSource
 	}
 
 	public function getTle($satellite) {
+		$satellite = trim($satellite,'\'');
+
 		$cached = $this->memcache->get('tleList');
 		if($cached) {
 			$tleList = $cached;
 		} else {
 			$tleList = $this->parseTleFile()['tleList'];
-			$this->memcache->set('tleList', $tleList['tleList'], false, time() + self::cacheLifeTime);
+			$this->memcache->set('tleList', $tleList, false, time() + self::cacheLifeTime);
 		}
 
 		foreach($tleList as $tle) {
-			if(strcmp($satellite, $tle['name'])) {
+			if($satellite == $tle['name']) {
 				return $tle;
 			}
 		}

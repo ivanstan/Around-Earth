@@ -58,10 +58,12 @@ class ApiController extends Controller {
 	}
 
 	public function searchSatellitesAction() {
-		if(!isset($_REQUEST['q'])) exit();
+		if(!isset($_REQUEST['search'])) exit();
 		$tleSource = new TleSource($this->app);
-		$found = $tleSource->find($_REQUEST['q']);
+		$found = $tleSource->find($_REQUEST['search']);
+		$found = array_unique($found);
 		print json_encode($found);
+		exit();
 	}
 
 }

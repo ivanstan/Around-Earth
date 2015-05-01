@@ -340,28 +340,28 @@ App = {
         });
 
         $('#select-satellite').select2({
-            //ajax: {
-            //    // url: "https://api.github.com/search/repositories",
-            //    url: App.settings.apiEndpoint + "satellites.php",
-            //    dataType: 'json',
-            //    delay: 250,
-            //    data: function (params) {
-            //      return {
-            //        q: params.term,
-            //      };
-            //    },
-            //    processResults: function (data, page) {
-            //        var rval = [];
-            //        for(var i in data) {
-            //            rval.push({id: data[i], name: data[i]});
-            //        }
-            //
-            //        return {
-            //            results: rval
-            //        };
-            //    },
-            //    cache: true
-            //  },
+            ajax: {
+                // url: "https://api.github.com/search/repositories",
+                url: App.settings.apiEndpoint + "api/search-satellites",
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                  return {
+                    search: params.term
+                  };
+                },
+                processResults: function (data, page) {
+                    var rval = [];
+                    for(var i in data) {
+                        rval.push({id: data[i], name: data[i]});
+                    }
+
+                    return {
+                        results: rval
+                    };
+                },
+                cache: false
+              }
         });
         $('[data-toggle="tooltip"]').tooltip();
         $('[data-toggle="popover"]').popover();
@@ -383,6 +383,9 @@ App = {
                 success: function (data) {
                     App.modules.orbit.draw(data);
                     App.ajaxLoaderHide()
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+
                 }
             });
         });
