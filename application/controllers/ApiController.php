@@ -62,7 +62,17 @@ class ApiController extends Controller {
 		$tleSource = new TleSource($this->app);
 		$found = $tleSource->find($_REQUEST['search']);
 		$found = array_unique($found);
-		print json_encode($found);
+
+		$response = array();
+		foreach($found as $item) {
+			$response[] = array('id'=>$item, 'text' => $item);
+		}
+
+		if(empty($response)) {
+			$answer[] = array('id' => 0, 'text' => 'No results found...');
+		}
+
+		print json_encode($response);
 		exit();
 	}
 

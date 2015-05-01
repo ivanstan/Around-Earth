@@ -341,7 +341,6 @@ App = {
 
         $('#select-satellite').select2({
             ajax: {
-                // url: "https://api.github.com/search/repositories",
                 url: App.settings.apiEndpoint + "api/search-satellites",
                 dataType: 'json',
                 delay: 250,
@@ -351,13 +350,8 @@ App = {
                   };
                 },
                 processResults: function (data, page) {
-                    var rval = [];
-                    for(var i in data) {
-                        rval.push({id: data[i], name: data[i]});
-                    }
-
                     return {
-                        results: rval
+                        results: data
                     };
                 },
                 cache: false
