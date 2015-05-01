@@ -10,6 +10,8 @@ import calendar
 
 SIDERAL_DAY_SEC = 86164.0905
 MU = 398600 # Earth standard gravitational parameter
+EARTH_MASS = 5.972E24
+C_GRAVITATIONAL = 6.67384E-11
 
 satellite = sys.argv[1]
 userLat = float(sys.argv[2])
@@ -17,27 +19,46 @@ userLng = float(sys.argv[3])
 userAlt = float(sys.argv[4])
 line1 = sys.argv[5]
 line2 = sys.argv[6]
+orbits = int(sys.argv[7])
 
 tle = tlefile.read(satellite, None, line1, line2)
-
 orb = Orbital(satellite, None, line1, line2)
 
 now = datetime.utcnow()
+timestamp = calendar.timegm(now.utctimetuple())
+ephemNow = ephem.now()
 # Get normalized position and velocity of the satellite:
 pos, vel = orb.get_position(now)
 # Get longitude, latitude and altitude of the satellite:
 position = orb.get_lonlatalt(now)
 
+eph = ephem.readtle("Unknown", line1, line2);
+ephObserver = ephem.Observer()
+ephObserver.date = now
+ephObserver.lat = userLat
+ephObserver.lon = userLng
+ephObserver.elevation = userAlt
+rt, razi, tt, televation, st, sazi = ephObserver.next_pass(eph)
+
+eph.compute(ephObserver)
+
 data = {}
+data['next_pass'] = {}
+data['next_pass']['until'] = "%d" % round((rt - ephemNow) * 3600 * 24)
+data['next_pass']['rise_time'] = calendar.timegm(rt.datetime().utctimetuple())
+data['next_pass']['transit_time'] = calendar.timegm(tt.datetime().utctimetuple())
+data['next_pass']['set_time'] = calendar.timegm(st.datetime().utctimetuple())
+data['next_pass']['rise_azimuth'] = "%5.1f" % math.degrees(razi)
+data['next_pass']['max_elevation'] = "%5.1f" % math.degrees(televation)
+data['next_pass']['set_azimuth'] = "%5.1f" % math.degrees(sazi)
 
-timestamp = calendar.timegm(now.utctimetuple())
-
-
-az, el = orb.get_observer_look(now, userLng, userLat, userAlt);
+# azimuth = eph.az
+# elevation = eph.alt
+azimuth, elevation = orb.get_observer_look(now, userLng, userLat, userAlt);
 
 data['user_view'] = {}
-data['user_view']['azimuth'] = az
-data['user_view']['elevation'] = el
+data['user_view']['azimuth'] = azimuth
+data['user_view']['elevation'] = elevation
 
 data['timestamp'] = timestamp
 data['satellite'] = satellite
@@ -63,34 +84,33 @@ data['tle']['mean_motion_sec_derivative'] = orb.tle.mean_motion_sec_derivative
 data['tle']['orbit'] = orb.tle.orbit
 data['tle']['right_ascension'] = orb.tle.right_ascension
 data['tle']['satnumber'] = orb.tle.satnumber
-
 data['tle']['orbit_time']  =  SIDERAL_DAY_SEC / orb.tle.mean_motion
+data['tle']['magintude'] = eph.mag
 
 semi_major_axis = (MU/pow(orb.tle.mean_motion*2*math.pi/(24*3600), 2)) ** (1 / 3.0)
 data['tle']['semi_major_axis'] = semi_major_axis
 data['tle']['semi_minor_axis'] = semi_major_axis * math.sqrt(1 - pow(orb.tle.excentricity, 2))
+data['tle']['elevation'] = eph.elevation
+data['tle']['range'] = eph.range
+data['tle']['range_velocity'] = eph.range_velocity
+data['tle']['eclipsed'] = eph.eclipsed
 
 data['position'] = {}
 data['position']['longitude'] = position[0]
 data['position']['latitude'] = position[1]
 data['position']['altitude'] = position[2]
-# data['position']['velocity'] = vel
 
-earth_mass = 5.972E24
-g_constant = 6.67384E-11
 orbital_radius = ephem.earth_radius + position[2]
-velocity = math.sqrt(g_constant * earth_mass / orbital_radius);
+velocity = math.sqrt(C_GRAVITATIONAL * EARTH_MASS / orbital_radius);
 data['position']['velocity'] = velocity
 
 # calculate orbit line
 halforbit = data['tle']['orbit_time'] / 2
+halforbit = halforbit * orbits
 
 start = timestamp - halforbit
 from_date = now - timedelta(seconds=halforbit)
 to_date = now + timedelta(seconds=halforbit)
-
-# data['1'] = from_date.strftime("%Y-%m-%d %H:%M:%S")
-# data['2'] = to_date.strftime("%Y-%m-%d %H:%M:%S")
 
 delta=timedelta(minutes=1)
 lineArray = []

@@ -21,6 +21,10 @@
                 <td id="label-altitude" ></td>
             </tr>
             <tr>
+                <td><span>Velocity</span></td>
+                <td id="label-velocity" ></td>
+            </tr>
+            <tr>
                 <td><span data-toggle="tooltip" data-placement="left" title="Time period needed for satellite to finish one orbit">Period</span></td>
                 <td id="label-period" ></td>
             </tr>
@@ -28,6 +32,44 @@
                 <td>Passing over</td>
                 <td id="label-passing-over" >-</td>
             </tr>
+            <tr>
+                <td colspan="2"><strong>User's View</strong></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <div id="user-view-compass" data-toggle="tooltip" data-placement="left" title="Azimuth">
+                        <div id="compass-circle">
+                            <div id="station"></div>
+                            <label class="north">N</label>
+                            <label class="south">S</label>
+                            <label class="east">E</label>
+                            <label class="west">W</label>
+                            <label id="label-azimuth"></label>
+                        </div>
+                    </div>
+
+                    <!--       <svg width="110" height="110" id="user-view-compass">
+                            <circle cx="50" cy="50" r="50" stroke="black" stroke-width="3" fill="red" />
+                            <image id="station" xlink:href="assets/station.png" x="0" y="0" height="12px" width="12px" transform="rotate(-90 0 0)"/>
+                          </svg> -->
+
+                    <div id="user-view-elevation" data-toggle="tooltip" data-placement="left" title="Elevation">
+                        <div id="arcs"><div></div></div>
+                        <div id="circle"><span id="label-elvation"></span></div>
+                        <svg width="82" height="110">
+                            <line id="elevation" x1="0" y1="55" x2="55" y2="55" style="stroke:#4757bd; stroke-width:2"
+                                  transform="rotate(0 0 55)"/>
+                            <line id="horizon" x1="0" y1="55" x2="55" y2="55" style="stroke:#3646a7; stroke-width:2"/>
+                        </svg>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td><span>Passing over in:</span></td>
+                <td id="passing-over-time"></td>
+            </tr>
+
             <tr>
                 <td><strong>Orbital Elements</strong></td>
                 <td><a target="_blank" data-toggle="tooltip" data-placement="left" title="Learn more about orbits on Wikipedia" href="https://en.wikipedia.org/wiki/Orbital_elements"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></a></td>
@@ -65,36 +107,8 @@
                 <td id="label-drag"></td>
             </tr>
             <tr>
-                <td colspan="2"><strong>User's View</strong></td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <div id="user-view-compass" data-toggle="tooltip" data-placement="left" title="Azimuth">
-                        <div id="compass-circle">
-                            <div id="station"></div>
-                            <label class="north">N</label>
-                            <label class="south">S</label>
-                            <label class="east">E</label>
-                            <label class="west">W</label>
-                            <label id="label-azimuth"></label>
-                        </div>
-                    </div>
-
-                    <!--       <svg width="110" height="110" id="user-view-compass">
-                            <circle cx="50" cy="50" r="50" stroke="black" stroke-width="3" fill="red" />
-                            <image id="station" xlink:href="assets/station.png" x="0" y="0" height="12px" width="12px" transform="rotate(-90 0 0)"/>
-                          </svg> -->
-
-                    <div id="user-view-elevation" data-toggle="tooltip" data-placement="left" title="Elevation">
-                    <div id="arcs"><div></div></div>
-                    <div id="circle"><span id="label-elvation"></span></div>
-                    <svg width="82" height="110">
-                        <line id="elevation" x1="0" y1="55" x2="55" y2="55" style="stroke:#4757bd; stroke-width:2"
-                              transform="rotate(0 0 55)"/>
-                        <line id="horizon" x1="0" y1="55" x2="55" y2="55" style="stroke:#3646a7; stroke-width:2"/>
-                    </svg>
-                    </div>
-                </td>
+                <td><span data-toggle="tooltip" data-placement="left" title="Number of orbits since launch">Orbit Nr.</span></td>
+                <td id="label-orbit-number"></td>
             </tr>
             <tr>
                 <td colspan="2"><strong>Altitude Change</strong></td>

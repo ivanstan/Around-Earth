@@ -14,9 +14,6 @@ App.modules.astronomical = {
         // SETUP MARKERS
         App.modules.astronomical.getAstronomicalPosition(App.modules.astronomical.setupAstronomicalMarkers);
 
-        // SETUP ORBIT
-        //App.modules.astronomical.getAstronomicalOrbit(App.modules.astronomical.setupAstronomicalOrbit);
-
         // UPDATE MARKERS
         var interval = 1000 * App.modules.astronomical.updateInterval;
         setInterval((function () {
@@ -24,18 +21,9 @@ App.modules.astronomical = {
         }), interval);
     },
 
-    getAstronomicalOrbit: function (callback) {
-        $.ajax({
-            url: App.settings.apiEndpoint + 'api/astronomical-orbit',
-            dataType: 'json',
-            success: function (data) {
-                callback(data);
-            }
-        });
-    },
-
     getAstronomicalPosition: function (callback) {
         $.ajax({
+            data: App.user.position,
             url: App.settings.apiEndpoint + 'api/astronomical-position',
             dataType: 'json',
             success: function (data) {
@@ -80,45 +68,6 @@ App.modules.astronomical = {
 
         var moonPosition = new google.maps.LatLng(data.moon.latitude, data.moon.longitude);
         App.modules.astronomical.moonMarker.setPosition(moonPosition);
-    },
-
-    setupAstronomicalOrbit: function (data) {
-        sunOrbit = [];
-        moonOrbit = [];
-
-        for (var j in data.sun_orbit) {
-            var latitude = parseFloat(data.sun_orbit[j].latitude);
-            var longitude = parseFloat(data.sun_orbit[j].longitude);
-
-            var point = new google.maps.LatLng(latitude, longitude);
-            sunOrbit.push(point);
-        }
-
-        for (var i in data.moon_orbit) {
-            var latitude = parseFloat(data.moon_orbit[i].latitude);
-            var longitude = parseFloat(data.moon_orbit[i].longitude);
-
-            var point = new google.maps.LatLng(latitude, longitude);
-            moonOrbit.push(point);
-        }
-
-        App.modules.astronomical.sunOrbit = new google.maps.Polyline({
-            path: sunOrbit,
-            geodesic: false,
-            strokeColor: '#ffffff', // orbitPath color
-            strokeOpacity: 0.5,
-            strokeWeight: 2
-        });
-        App.modules.astronomical.sunOrbit.setMap(App.map);
-
-        App.modules.astronomical.moonOrbit = new google.maps.Polyline({
-            path: moonOrbit,
-            geodesic: false,
-            strokeColor: '#ffffff', // orbitPath color
-            strokeOpacity: 0.5,
-            strokeWeight: 2
-        });
-        App.modules.astronomical.moonOrbit.setMap(App.map);
     }
 
 }

@@ -135,7 +135,7 @@ App = {
             url: 'images/location.png',
             size: new google.maps.Size(81, 81),
             origin: new google.maps.Point(0, 0),
-            anchor: new google.maps.Point(40, 55),
+            anchor: new google.maps.Point(40, 55)
         };
 
         var userPosition = new google.maps.LatLng(App.user.position.latitude, App.user.position.longitude);
@@ -154,26 +154,8 @@ App = {
         $('#label-satellite').html(data.satellite);
 
         if (App.settings.showGroundStations) {
-            // App.initGroundStations();
+            //App.modules.groundStations.init();
         }
-    },
-
-    initGroundStations: function () {
-        $.ajax({
-            url: App.settings.apiEndpoint + 'api/ground-stations',
-            dataType: 'json',
-            success: function (data) {
-                for (var i in data) {
-                    var position = new google.maps.LatLng(parseFloat(data[i].latitude), parseFloat(data[i].longitude));
-                    var marker = new google.maps.Marker({
-                        position: position,
-                        map: App.map
-                    });
-
-                    App.mapFeatures.groundStations.push(marker);
-                }
-            }
-        });
     },
 
     updateStationPosition: function (position) {
@@ -184,9 +166,9 @@ App = {
         $.ajax({
             data: {
                 satellite: App.trackSatellite,
-                user_latitude: position.latitude,
-                user_longitude: position.longitude,
-                user_altitude: position.altitude
+                latitude: position.latitude,
+                longitude: position.longitude,
+                altitude: position.altitude
             },
             method: 'POST',
             url: App.settings.apiEndpoint + 'api/satellite',
@@ -207,7 +189,7 @@ App = {
                     App.mapInitialized = true;
                 }
 
-                App.updateRightPanel(data);
+                App.modules.rightPanel.updateRightPanel(data);
                 App.updateTicker(data);
                 App.modules.orbit.draw(data);
                 App.modules.altitudeChart.update(data);
@@ -230,41 +212,6 @@ App = {
                 }
             });
         }
-    },
-
-    updateRightPanel: function (data) {
-        $('#label-latitude').html(parseFloat(data.position.latitude).toFixed(5));
-        $('#label-longitude').html(parseFloat(data.position.longitude).toFixed(5));
-        $('#label-altitude').html(parseFloat(data.position.altitude).toFixed(2) + ' km');
-        $('#label-epoch').html(data.tle.epoch_year + data.tle.epoch_day);
-        $('#label-raan').html(data.tle.right_ascension);
-        $('#label-argp').html(data.tle.arg_perigee);
-        $('#label-ecce').html(data.tle.eccentricity);
-        $('#label-inclination').html(data.tle.inclination);
-        $('#label-mean-motion').html(data.tle.mean_motion);
-        $('#label-ma').html(data.tle.mean_anomaly);
-        $('#label-drag').html(data.tle.bstar);
-        $('#label-satellite').html(data.satellite);
-        var periodMins = parseInt(data.tle.orbit_time / 60);
-        $('#label-period').html('~' + periodMins + ' min');
-
-        var userPosition = App.userMarker.getPosition();
-        var userLat = userPosition.lat();
-        var userLng = userPosition.lat();
-        var satLat = data.position.latitude;
-        var satLng = data.position.longitude;
-
-        var userLocation = new LatLon(userLat, userLng);
-        var stationLocation = new LatLon(satLat, satLng);
-        var bearing = userLocation.bearingTo(stationLocation);
-
-        var compass_rotation = data.user_view.azimuth;
-        var elevation = data.user_view.elevation * -1;
-
-        $('#user-view-elevation #label-elvation').html(parseInt(data.user_view.elevation) + '°');
-        $('#user-view-compass #label-azimuth').html(parseInt(compass_rotation) + '°');
-        $('#user-view-compass #station').css('transform', 'rotate(' + compass_rotation + 'deg)');
-        $('#user-view-elevation #elevation').attr('transform', 'rotate(' + elevation + ' 0 55)');
     },
 
     isInfoWindowOpen: function (infoWindow) {
@@ -341,13 +288,14 @@ App = {
 
         $('#select-satellite').select2({
             ajax: {
+
                 url: App.settings.apiEndpoint + "api/search-satellites",
                 dataType: 'json',
                 delay: 250,
                 data: function (params) {
-                  return {
-                    search: params.term
-                  };
+                    return {
+                        search: params.term
+                    };
                 },
                 processResults: function (data, page) {
                     return {
@@ -355,7 +303,7 @@ App = {
                     };
                 },
                 cache: false
-              }
+            }
         });
         $('[data-toggle="tooltip"]').tooltip();
         $('[data-toggle="popover"]').popover();
@@ -367,18 +315,19 @@ App = {
             $.ajax({
                 data: {
                     satellite: App.trackSatellite,
-                    user_latitude: App.user.position.latitude,
-                    user_longitude: App.user.position.longitude,
-                    user_altitude: App.user.position.altitude
+                    latitude: App.user.position.latitude,
+                    longitude: App.user.position.longitude,
+                    altitude: App.user.position.altitude
                 },
                 method: 'POST',
                 url: App.settings.apiEndpoint + 'api/satellite',
                 dataType: 'json',
                 success: function (data) {
                     App.modules.orbit.draw(data);
+                    App.modules.altitudeChart.init(data);
                     App.ajaxLoaderHide()
                 },
-                error: function(jqXHR, textStatus, errorThrown) {
+                error: function (jqXHR, textStatus, errorThrown) {
 
                 }
             });
@@ -401,3 +350,12 @@ App = {
 
     });
 })(jQuery)
+
+function secondstotime(secs) {
+    var t = new Date(1970, 0, 1);
+    t.setSeconds(secs);
+    var s = t.toTimeString().substr(0, 8);
+    if (secs > 86399)
+        s = Math.floor((t - Date.parse("1/1/70")) / 3600000) + s.substr(2);
+    return s;
+}

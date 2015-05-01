@@ -26,27 +26,27 @@ class ApiController extends Controller {
 	}
 
 	public function astronomicalPositionAction() {
-		print shell_exec("python {$this->scriptRoot}astronomical_position.py {$this->debug}");
-		exit();
-	}
+		$lat = escapeshellarg($_REQUEST['latitude']);
+		$lon = escapeshellarg($_REQUEST['longitude']);
+		$alt = escapeshellarg($_REQUEST['altitude']);
 
-	public function astronomicalOrbitAction() {
-		print shell_exec("python {$this->scriptRoot}astronomical_orbit.py {$this->debug}");
+		print shell_exec("python {$this->scriptRoot}astronomical_position.py $lat $lon $alt {$this->debug}");
 		exit();
 	}
 
 	public function satelliteAction() {
-		$satellite = escapeshellarg($_REQUEST['satellite']);
-		$userLatitude = escapeshellarg($_REQUEST['user_latitude']);
-		$userLongitude = escapeshellarg($_REQUEST['user_longitude']);
-		$userAltitude = escapeshellarg($_REQUEST['user_altitude']);
+		$sat = escapeshellarg($_REQUEST['satellite']);
+		$lat = escapeshellarg($_REQUEST['latitude']);
+		$lon = escapeshellarg($_REQUEST['longitude']);
+		$alt = escapeshellarg($_REQUEST['altitude']);
+		$orb = isset($_REQUEST['orbits']) ? escapeshellarg($_REQUEST['orbits']) : 1;
 
 		$tleSource = new TleSource($this->app);
-		$tle = $tleSource->getTle($satellite);
+		$tle = $tleSource->getTle($sat);
 
 		if(!$tle) die('Tle not found');
 
-		print shell_exec("python {$this->scriptRoot}calculate.py $satellite $userLatitude $userLongitude $userAltitude '{$tle['line1']}' '{$tle['line2']}' {$this->debug}");
+		print shell_exec("python {$this->scriptRoot}calculate.py $sat $lat $lon $alt '{$tle['line1']}' '{$tle['line2']}' $orb {$this->debug}");
 		exit();
 	}
 
