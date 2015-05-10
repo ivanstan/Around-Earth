@@ -28,14 +28,13 @@ App = {
         apogeeMarker: null,
         perigeeMarker: null,
         apogeeMarkerInfoWindow: null,
-        perigeeMarkerInfoWindow: null,
+        perigeeMarkerInfoWindow: null
     },
     satellite: {
         name: 'ISS (ZARYA)',
         propagator: null,
-        tle: {
-            line1: '',
-            line2: ''
+        data: {
+            tle: null
         },
         marker: null
     },
@@ -94,14 +93,12 @@ App = {
     initializeMap: function (data) {
         var latitude = parseFloat(data.position.latitude);
         var longitude = parseFloat(data.position.longitude);
-        var stationPosition = new google.maps.LatLng(latitude, longitude);
-        var mapCenter = new google.maps.LatLng(latitude, longitude);
         App.geocoder = new google.maps.Geocoder();
         App.modules.altitudeChart.init(data);
 
         var options = {
             styles: styles,
-            center: mapCenter,
+            center: (new google.maps.LatLng(latitude, longitude)),
             zoom: 2,
             mapTypeId: google.maps.MapTypeId.ROADMAP,
             disableDefaultUI: true,
@@ -128,23 +125,20 @@ App = {
         });
         App.dayNightTerminator.setDate(Date.UTC());
 
-        var image = {
-            url: 'images/station-white.png',
-            size: new google.maps.Size(169, 62),
-            origin: new google.maps.Point(0, 0),
-            anchor: new google.maps.Point(32, 11),
-            scaledSize: new google.maps.Size(64, 22)
-        };
-
         App.satellite.marker = new google.maps.Marker({
-            position: stationPosition,
-            icon: image,
+            position: (new google.maps.LatLng(latitude, longitude)),
+            icon: {
+                url: 'images/station-white.png',
+                size: new google.maps.Size(169, 62),
+                origin: new google.maps.Point(0, 0),
+                anchor: new google.maps.Point(32, 11),
+                scaledSize: new google.maps.Size(64, 22)
+            },
             map: App.map
         });
 
-        var userPosition = new google.maps.LatLng(App.user.position.latitude, App.user.position.longitude);
         App.user.marker = new google.maps.Marker({
-            position: userPosition,
+            position: (new google.maps.LatLng(App.user.position.latitude, App.user.position.longitude)),
             icon: {
                 url: 'images/location.png'
                 //size: new google.maps.Size(81, 81),
@@ -171,7 +165,35 @@ App = {
         }
     },
 
-    updateStationPosition: function (position) {
+    /**
+     * Get satellite data from backend.
+     *
+     * @param name      Satellite Name
+     * @param position  Observer Position
+     * @param callback  Callback Function
+     */
+    getSatelliteData: function(name, position, callback) {
+        $.ajax({
+            data: {
+                satellite: name,
+                latitude: position.latitude,
+                longitude: position.longitude,
+                altitude: position.altitude
+            },
+            method: 'POST',
+            url: App.settings.apiEndpoint + 'api/satellite',
+            dataType: 'json',
+            success: function (data) {
+                data.position.latitude = parseFloat(data.position.latitude);
+                data.position.longitude = parseFloat(data.position.longitude);
+                App.satellite.data = data;
+
+                callback();
+            }
+        });
+    },
+
+    updateSatellitePosition: function (position) {
         if (App.mapInitialized) {
             App.dayNightTerminator.setDate(Date.UTC());
 
@@ -186,8 +208,7 @@ App = {
             $('#label-longitude').html(parseFloat(geo.longitude).toFixed(5));
             $('#label-altitude').html(parseFloat(geo.altitude).toFixed(2) + ' km');
 
-            var satellitePosition = new google.maps.LatLng(geo.latitude, geo.longitude);
-            App.satellite.marker.setPosition(satellitePosition);
+            App.satellite.marker.setPosition((new google.maps.LatLng(geo.latitude, geo.longitude)));
             App.updateTicker(geo.latitude, geo.longitude);
 
             var elevation = userView.elevation * (180/Math.PI);
@@ -209,22 +230,15 @@ App = {
                 url: App.settings.apiEndpoint + 'api/satellite',
                 dataType: 'json',
                 success: function (data) {
-                    var latitude = parseFloat(data.position.latitude);
-                    var longitude = parseFloat(data.position.longitude);
-                    App.satellite.tle = data.tle;
+
 
                     if (App.mapInitialized) {
-                        var newLatLng = new google.maps.LatLng(latitude, longitude);
-                        App.satellite.marker.setPosition(newLatLng);
+                        App.satellite.marker.setPosition((new google.maps.LatLng(latitude, longitude)));
                     } else {
-                        App.satellite.propagator = Orb.Satellite({
-                            'first_line':  App.satellite.tle.line1,
-                            'second_line': App.satellite.tle.line2
-                        });
-
+                        App.satellite.propagator = Orb.Satellite(App.satellite.data.tle);
                         App.initializeMap(data);
                         var interval = 500; // where X is your every X seconds
-                        setInterval(App.updateStationPosition, interval);
+                        setInterval(App.updateSatellitePosition, interval);
                         App.mapInitialized = true;
                     }
 
@@ -241,8 +255,7 @@ App = {
         var timestamp = Math.round(+new Date() / 1000);
         if (App.settings.tickerLastUpdated == false || timestamp > App.settings.tickerLastUpdated + 60) {
             App.settings.tickerLastUpdated = timestamp;
-            var latLng = new google.maps.LatLng(latitude, longitude);
-            App.geocoder.geocode({'latLng': latLng}, function (results, status) {
+            App.geocoder.geocode({'latLng': (new google.maps.LatLng(latitude, longitude))}, function (results, status) {
                 if (status == google.maps.GeocoderStatus.OK) {
                     if (results[0]) {
                         $('#label-passing-over').html(results[0].formatted_address);
@@ -286,26 +299,25 @@ App = {
                 position.altitude = position.coords.altitude ? position.coords.altitude : 0;
 
                 App.user.position = position;
-                App.updateStationPosition(position);
+                App.updateSatellitePosition(position);
 
                 if (App.user.marker) {
-                    var userPosition = new google.maps.LatLng(position.latitude, position.longitude);
-                    App.user.marker.setPosition(userPosition);
+                    App.user.marker.setPosition((new google.maps.LatLng(position.latitude, position.longitude)));
                 }
 
             }, function () {
-                App.updateStationPosition(App.user.position);
+                App.updateSatellitePosition(App.user.position);
             }, {
                 timeout: 10,
                 maximumAge: 75000,
                 timeout: 5000
             });
         } else {
-            App.updateStationPosition(App.user.position);
+            App.updateSatellitePosition(App.user.position);
         }
 
         if (App.mapInitialized == false) {
-            App.updateStationPosition(App.user.position);
+            App.updateSatellitePosition(App.user.position);
         }
 
         if (App.settings.toolbarRightOpen) {
@@ -347,7 +359,6 @@ App = {
 
         $('#select-satellite').change(function () {
             App.satellite.name = $(this).val();
-
             App.ajaxLoaderShow();
             $.ajax({
                 data: {
@@ -360,6 +371,9 @@ App = {
                 url: App.settings.apiEndpoint + 'api/satellite',
                 dataType: 'json',
                 success: function (data) {
+                    App.satellite.tle = data.tle;
+                    App.satellite.propagator = Orb.Satellite(App.satellite.data.tle);
+
                     App.modules.orbit.draw(data);
                     App.modules.altitudeChart.init(data);
                     App.ajaxLoaderHide()

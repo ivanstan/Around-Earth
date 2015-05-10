@@ -9,12 +9,10 @@ App.modules.groundStations = {
             dataType: 'json',
             success: function (data) {
                 for (var i in data) {
-                    var position = new google.maps.LatLng(parseFloat(data[i].latitude), parseFloat(data[i].longitude));
                     var marker = new google.maps.Marker({
-                        position: position,
+                        position: (new google.maps.LatLng(parseFloat(data[i].latitude), parseFloat(data[i].longitude))),
                         map: App.map
                     });
-
                     App.mapFeatures.groundStations.push(marker);
                 }
             }

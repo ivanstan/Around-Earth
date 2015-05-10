@@ -25,9 +25,7 @@ App.modules.orbit = {
         for (i in data.orbit) {
             var latitude = parseFloat(data.orbit[i].latitude);
             var longitude = parseFloat(data.orbit[i].longitude);
-
-            var point = new google.maps.LatLng(latitude, longitude);
-            orbit.push(point);
+            orbit.push((new google.maps.LatLng(latitude, longitude)));
 
             if (data.orbit[i].altitude > apogee.altitude) {
                 apogee = data.orbit[i]
@@ -38,10 +36,9 @@ App.modules.orbit = {
             }
         }
 
-        var apogeePosition = new google.maps.LatLng(parseFloat(apogee.latitude), parseFloat(apogee.longitude));
         if (App.orbit.apogeeMarker == null) {
             App.orbit.apogeeMarker = new google.maps.Marker({
-                position: apogeePosition,
+                position: (new google.maps.LatLng(parseFloat(apogee.latitude), parseFloat(apogee.longitude))),
                 icon: {
                     url: 'images/apogee.png',
                     size: new google.maps.Size(30, 30),
@@ -78,10 +75,9 @@ App.modules.orbit = {
             App.orbit.apogeeMarker.setPosition(apogeePosition);
         }
 
-        var perigeePosition = new google.maps.LatLng(parseFloat(perigee.latitude), parseFloat(perigee.longitude));
         if (App.orbit.perigeeMarker == null) {
             App.orbit.perigeeMarker = new google.maps.Marker({
-                position: perigeePosition,
+                position: (new google.maps.LatLng(parseFloat(perigee.latitude), parseFloat(perigee.longitude))),
                 icon: {
                     url: 'images/perigee.png',
                     size: new google.maps.Size(30, 30),

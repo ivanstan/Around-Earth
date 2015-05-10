@@ -34,9 +34,8 @@ App.modules.astronomical = {
 
     setupAstronomicalMarkers: function (data) {
         // SUN
-        var sunPosition = new google.maps.LatLng(data.sun.latitude, data.sun.longitude);
         App.modules.astronomical.sunMarker = new google.maps.Marker({
-            position: sunPosition,
+            position: (new google.maps.LatLng(data.sun.latitude, data.sun.longitude)),
             icon: {
                 url: 'images/sun.png'
             },
@@ -51,9 +50,8 @@ App.modules.astronomical = {
         App.orbit.sunMarkerInfoWindow.open(App.map, App.modules.astronomical.sunMarker);
 
         // MOON
-        var moonPosition = new google.maps.LatLng(data.moon.latitude, data.moon.longitude);
         App.modules.astronomical.moonMarker = new google.maps.Marker({
-            position: moonPosition,
+            position: (new google.maps.LatLng(data.moon.latitude, data.moon.longitude)),
             icon: {
                 url: 'images/moon.png'
             },
@@ -69,11 +67,8 @@ App.modules.astronomical = {
     },
 
     updateAstronomicalMarkers: function (data) {
-        var sunPosition = new google.maps.LatLng(data.sun.latitude, data.sun.longitude);
-        App.modules.astronomical.sunMarker.setPosition(sunPosition);
-
-        var moonPosition = new google.maps.LatLng(data.moon.latitude, data.moon.longitude);
-        App.modules.astronomical.moonMarker.setPosition(moonPosition);
+        App.modules.astronomical.sunMarker.setPosition((new google.maps.LatLng(data.sun.latitude, data.sun.longitude)));
+        App.modules.astronomical.moonMarker.setPosition((new google.maps.LatLng(data.moon.latitude, data.moon.longitude)));
     }
 
 }
