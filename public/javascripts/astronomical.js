@@ -37,6 +37,9 @@ App.modules.astronomical = {
         var sunPosition = new google.maps.LatLng(data.sun.latitude, data.sun.longitude);
         App.modules.astronomical.sunMarker = new google.maps.Marker({
             position: sunPosition,
+            icon: {
+                url: 'images/sun.png'
+            },
             map: App.map
         });
 
@@ -51,6 +54,9 @@ App.modules.astronomical = {
         var moonPosition = new google.maps.LatLng(data.moon.latitude, data.moon.longitude);
         App.modules.astronomical.moonMarker = new google.maps.Marker({
             position: moonPosition,
+            icon: {
+                url: 'images/moon.png'
+            },
             map: App.map
         });
 

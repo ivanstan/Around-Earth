@@ -8945,6 +8945,26 @@ body {
   padding: 25px 70px;
 }
 
+/* line 273, ../../application/styles/main-view.scss */
+#contextual-popup {
+  font-size: 12px;
+  padding: 10px;
+  position: absolute;
+  top: 61px;
+  left: 10px;
+  min-width: 180px;
+  max-width: 180px;
+  max-height: 400px;
+  background: #0F6388;
+  color: #fff;
+  opacity: 0.5;
+}
+
+/* line 288, ../../application/styles/main-view.scss */
+#user-context-table span {
+  padding: 20px;
+}
+
 /* line 1, ../../application/styles/telemetry.scss */
 .toolbar--bottom {
   width: 100%;

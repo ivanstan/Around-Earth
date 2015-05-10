@@ -131,17 +131,15 @@ App = {
             map: App.map
         });
 
-        var locationImg = {
-            url: 'images/location.png',
-            size: new google.maps.Size(81, 81),
-            origin: new google.maps.Point(0, 0),
-            anchor: new google.maps.Point(40, 55)
-        };
-
         var userPosition = new google.maps.LatLng(App.user.position.latitude, App.user.position.longitude);
         App.userMarker = new google.maps.Marker({
             position: userPosition,
-            icon: locationImg,
+            icon: {
+                url: 'images/location.png'
+                //size: new google.maps.Size(81, 81),
+                //origin: new google.maps.Point(0, 0),
+                //anchor: new google.maps.Point(40, 55)
+            },
             draggable: true,
             map: App.map
         });
@@ -149,6 +147,10 @@ App = {
         google.maps.event.addListener(App.userMarker, 'dragend', function (event) {
             App.user.position.latitude = event.latLng.lat();
             App.user.position.longitude = event.latLng.lng();
+        });
+
+        google.maps.event.addListener(App.userMarker, 'click', function (event) {
+            App.modules.contextualPopup.init('user');
         });
 
         $('#label-satellite').html(data.satellite);

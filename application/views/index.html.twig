@@ -14,6 +14,7 @@
     <script type="text/javascript" src="javascripts/altitudeChart.js"></script>
     <script type="text/javascript" src="javascripts/astronomical.js"></script>
     <script type="text/javascript" src="javascripts/rightPanel.js"></script>
+    <script type="text/javascript" src="javascripts/contextualPopup.js"></script>
     <script type="text/javascript" src="vendor/highcharts/highcharts.js"></script>
     <script type="text/javascript" src="vendor/lightstreamer.js"></script>
     <script type="text/javascript" src="javascripts/isstelemetry.js"></script>
@@ -22,6 +23,7 @@
     <script type="text/javascript" src="vendor/geodesy/latlon-spherical.js"></script>
     <script type="text/javascript" src="vendor/infobox.js"></script>
     <script type="text/javascript" src="vendor/select2.full.min.js"></script>
+    <script type="text/javascript" src="vendor/handlebars-v3.0.3.js"></script>
     <script type="text/javascript">
 {% for key, value in javascriptSettings %}
     App.settings.{{ key }} = '{{ value }}'
@@ -45,6 +47,8 @@
 
 {% include 'dashboard.html.html.twig' %}
 
+<div id="contextual-popup" style="display: none"></div>
 <div id="ajax-loader" style="display: none">Loading</div>
+{{ frontEndTemplates }}
 </body>
 </html>

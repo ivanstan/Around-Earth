@@ -23,10 +23,18 @@ class IndexController extends Controller {
 		$tleSource = new TleSource($this->app);
 		$satList = $tleSource->getSatelliteList();
 
+		$frontEndTpl = scandir($this->app->appRoot . '/application/views/front-end');
+		$tpls = '';
+		foreach($frontEndTpl as $tpl) {
+			if($tpl == '.' || $tpl == '..') continue;
+			$tpls .= file_get_contents($this->app->appRoot . '/application/views/front-end/' . $tpl);
+		}
+
 		$variables = array(
 			'javascriptSettings' => $this->app->config['javascript'],
 			'satelliteList' => array_slice($satList, 0, 50),
-			'satelliteCount' => count($satList)
+			'satelliteCount' => count($satList),
+			'frontEndTemplates' => $tpls
 		);
 
 		return $variables;
