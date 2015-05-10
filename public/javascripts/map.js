@@ -24,12 +24,7 @@ App = {
         tickerLastUpdated: false,
         dashboardOpen: localStorage.getItem('dashboardOpen')
     },
-    orbit: {
-        apogeeMarker: null,
-        perigeeMarker: null,
-        apogeeMarkerInfoWindow: null,
-        perigeeMarkerInfoWindow: null
-    },
+    orbit: {},
     satellite: {
         name: 'ISS (ZARYA)',
         propagator: null,
@@ -39,12 +34,11 @@ App = {
         marker: null
     },
     map: null,
-    geocoder: null,
+    geoCoder: null,
     mapInitialized: false,
-    dayNightTerminator: null,
-    altitudeChart: null,
     mapFeatures: {
-        groundStations: []
+        groundStations: [],
+        dayNightTerminator: null
     },
     infoWindowStyle: {
         background: '#0F6388',
@@ -93,7 +87,7 @@ App = {
     initializeMap: function (data) {
         var latitude = parseFloat(data.position.latitude);
         var longitude = parseFloat(data.position.longitude);
-        App.geocoder = new google.maps.Geocoder();
+        App.geoCoder = new google.maps.Geocoder();
         App.modules.altitudeChart.init(data);
 
         var options = {
@@ -118,12 +112,12 @@ App = {
 
         App.modules.astronomical.init();
 
-        App.dayNightTerminator = new DayNightOverlay({
+        App.mapFeatures.dayNightTerminator = new DayNightOverlay({
             map: App.map,
             fillColor: 'rgba(0,0,0,0.3)',
             date: new Date(Date.UTC())
         });
-        App.dayNightTerminator.setDate(Date.UTC());
+        App.mapFeatures.dayNightTerminator.setDate(Date.UTC());
 
         App.satellite.marker = new google.maps.Marker({
             position: (new google.maps.LatLng(latitude, longitude)),
@@ -172,7 +166,7 @@ App = {
      * @param position  Observer Position
      * @param callback  Callback Function
      */
-    getSatelliteData: function(name, position, callback) {
+    getSatelliteData: function (name, position, callback) {
         $.ajax({
             data: {
                 satellite: name,
@@ -195,58 +189,47 @@ App = {
 
     updateSatellitePosition: function (position) {
         if (App.mapInitialized) {
-            App.dayNightTerminator.setDate(Date.UTC());
+            App.mapFeatures.dayNightTerminator.setDate(Date.UTC());
 
-            var date = new Date();
-            var time = new Orb.Time(date);
+            var time = new Orb.Time((new Date()));
             var geo = App.satellite.propagator.position.geographic(time);
             var observer = new Orb.Observer(App.user.position);
             var observation = new Orb.Observation({"observer": observer, "target": App.satellite.propagator});
             var userView = observation.horizontal(time);
 
-            $('#label-latitude').html(parseFloat(geo.latitude).toFixed(5));
-            $('#label-longitude').html(parseFloat(geo.longitude).toFixed(5));
-            $('#label-altitude').html(parseFloat(geo.altitude).toFixed(2) + ' km');
+            App.satellite.data.position.latitude = parseFloat(geo.latitude).toFixed(5);
+            App.satellite.data.position.longitude = parseFloat(geo.longitude).toFixed(5);
+            App.satellite.data.position.altitude = parseFloat(geo.altitude).toFixed(5);
 
             App.satellite.marker.setPosition((new google.maps.LatLng(geo.latitude, geo.longitude)));
             App.updateTicker(geo.latitude, geo.longitude);
 
-            var elevation = userView.elevation * (180/Math.PI);
+            var elevation = userView.elevation * (180 / Math.PI);
             App.modules.rightPanel.updateUserView(userView.azimuth, elevation);
 
-            //App.modules.rightPanel.updateRightPanel(data);
+            App.modules.rightPanel.updateRightPanel();
             //App.modules.orbit.draw(data);
             //App.modules.altitudeChart.update(data);
 
         } else {
-            $.ajax({
-                data: {
-                    satellite: App.satellite.name,
-                    latitude: position.latitude,
-                    longitude: position.longitude,
-                    altitude: position.altitude
-                },
-                method: 'POST',
-                url: App.settings.apiEndpoint + 'api/satellite',
-                dataType: 'json',
-                success: function (data) {
-
-
-                    if (App.mapInitialized) {
-                        App.satellite.marker.setPosition((new google.maps.LatLng(latitude, longitude)));
-                    } else {
-                        App.satellite.propagator = Orb.Satellite(App.satellite.data.tle);
-                        App.initializeMap(data);
-                        var interval = 500; // where X is your every X seconds
-                        setInterval(App.updateSatellitePosition, interval);
-                        App.mapInitialized = true;
-                    }
-
-                    App.modules.rightPanel.updateRightPanel(data);
-                    App.updateTicker(latitude, longitude);
-                    App.modules.orbit.draw(data);
-                    App.modules.altitudeChart.update(data);
+            App.getSatelliteData(App.satellite.name, position, function () {
+                if (App.mapInitialized) {
+                    App.satellite.marker.setPosition((new google.maps.LatLng(App.satellite.data.position.latitude, App.satellite.data.position.longitude)));
+                } else {
+                    App.satellite.propagator = Orb.Satellite({
+                        'first_line': App.satellite.data.tle.first_line,
+                        'second_line': App.satellite.data.tle.second_line
+                    });
+                    App.initializeMap(App.satellite.data);
+                    var interval = 500; // where X is your every X seconds
+                    setInterval(App.updateSatellitePosition, interval);
+                    App.mapInitialized = true;
                 }
+
+                App.modules.rightPanel.updateRightPanel();
+                App.updateTicker(App.satellite.data.position.latitude, App.satellite.data.position.longitude);
+                App.modules.orbit.draw(App.satellite.data);
+                App.modules.altitudeChart.update(App.satellite.data);
             });
         }
     },
@@ -255,7 +238,7 @@ App = {
         var timestamp = Math.round(+new Date() / 1000);
         if (App.settings.tickerLastUpdated == false || timestamp > App.settings.tickerLastUpdated + 60) {
             App.settings.tickerLastUpdated = timestamp;
-            App.geocoder.geocode({'latLng': (new google.maps.LatLng(latitude, longitude))}, function (results, status) {
+            App.geoCoder.geocode({'latLng': (new google.maps.LatLng(latitude, longitude))}, function (results, status) {
                 if (status == google.maps.GeocoderStatus.OK) {
                     if (results[0]) {
                         $('#label-passing-over').html(results[0].formatted_address);
@@ -273,13 +256,14 @@ App = {
     },
 
     ajaxLoaderShow: function () {
+        var $ajaxLoader = $('#ajax-loader');
         if (App.settings.toolbarRightOpen) {
             var left = $(window).width() / 2 - $('#toolbar-right').width();
-            $('#ajax-loader').css('left', left);
+            $ajaxLoader.css('left', left);
         } else {
-            $('#ajax-loader').css('transform', 'translate(-50%, 0)');
+            $ajaxLoader.css('transform', 'translate(-50%, 0)');
         }
-        $('#ajax-loader').show();
+        $ajaxLoader.show();
     },
 
     ajaxLoaderHide: function () {
@@ -308,9 +292,8 @@ App = {
             }, function () {
                 App.updateSatellitePosition(App.user.position);
             }, {
-                timeout: 10,
-                maximumAge: 75000,
-                timeout: 5000
+                timeout: 2000,
+                maximumAge: 75000
             });
         } else {
             App.updateSatellitePosition(App.user.position);
@@ -335,21 +318,17 @@ App = {
             }
         });
 
-        $('#select-satellite').select2({
+        var $satelliteSelect = $('#select-satellite');
+        $satelliteSelect.select2({
             ajax: {
-
                 url: App.settings.apiEndpoint + "api/search-satellites",
                 dataType: 'json',
                 delay: 250,
                 data: function (params) {
-                    return {
-                        search: params.term
-                    };
+                    return {search: params.term};
                 },
                 processResults: function (data, page) {
-                    return {
-                        results: data
-                    };
+                    return {results: data};
                 },
                 cache: false
             }
@@ -357,30 +336,14 @@ App = {
         $('[data-toggle="tooltip"]').tooltip();
         $('[data-toggle="popover"]').popover();
 
-        $('#select-satellite').change(function () {
+        $satelliteSelect.change(function () {
             App.satellite.name = $(this).val();
             App.ajaxLoaderShow();
-            $.ajax({
-                data: {
-                    satellite: App.satellite.name,
-                    latitude: App.user.position.latitude,
-                    longitude: App.user.position.longitude,
-                    altitude: App.user.position.altitude
-                },
-                method: 'POST',
-                url: App.settings.apiEndpoint + 'api/satellite',
-                dataType: 'json',
-                success: function (data) {
-                    App.satellite.tle = data.tle;
-                    App.satellite.propagator = Orb.Satellite(App.satellite.data.tle);
-
-                    App.modules.orbit.draw(data);
-                    App.modules.altitudeChart.init(data);
-                    App.ajaxLoaderHide()
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-
-                }
+            App.getSatelliteData(App.satellite.name, App.user.position, function () {
+                App.satellite.propagator = Orb.Satellite(App.satellite.data.tle);
+                App.modules.orbit.draw(App.satellite.data);
+                App.modules.altitudeChart.init(App.satellite.data);
+                App.ajaxLoaderHide();
             });
         });
 
@@ -392,19 +355,16 @@ App = {
 
             App.settings.perigeeInfoWindowOpen = localStorage.getItem('perigeeInfoWindowOpen');
             App.settings.apogeeInfoWindowOpen = localStorage.getItem('apogeeInfoWindowOpen');
-
         } else {
             App.settings.perigeeInfoWindowOpen = true;
             App.settings.apogeeInfoWindowOpen = true;
         }
-
-
     });
-})(jQuery)
+})(jQuery);
 
 function isNight() {
     var hr = (new Date()).getHours();
-    return (hr > 5 && hr < 20) ? false : true;
+    return !(hr > 5 && hr < 20);
 }
 
 function secondstotime(secs) {

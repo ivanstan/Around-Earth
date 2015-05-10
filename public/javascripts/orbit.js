@@ -5,7 +5,12 @@
  * Created by Ivan on 4/29/2015.
  */
 App.modules.orbit = {
+
     satelliteOrbit: null,
+    apogeeMarker: null,
+    perigeeMarker: null,
+    apogeeMarkerInfoWindow: null,
+    perigeeMarkerInfoWindow: null,
 
     initialize: function() {
 
@@ -36,8 +41,8 @@ App.modules.orbit = {
             }
         }
 
-        if (App.orbit.apogeeMarker == null) {
-            App.orbit.apogeeMarker = new google.maps.Marker({
+        if (App.modules.orbit.apogeeMarker == null) {
+            App.modules.orbit.apogeeMarker = new google.maps.Marker({
                 position: (new google.maps.LatLng(parseFloat(apogee.latitude), parseFloat(apogee.longitude))),
                 icon: {
                     url: 'images/apogee.png',
@@ -48,35 +53,35 @@ App.modules.orbit = {
                 map: App.map
             });
 
-            App.orbit.apogeeMarkerInfoWindow = new InfoBox({
+            App.modules.orbit.apogeeMarkerInfoWindow = new InfoBox({
                 content: 'Apogee<br>Altitude: ' + parseFloat(apogee.altitude).toFixed(2) + ' km',
                 pixelOffset: new google.maps.Size(-65, 15),
                 boxStyle: App.infoWindowStyle
             });
 
             if(App.settings.apogeeInfoWindowOpen) {
-                App.orbit.apogeeMarkerInfoWindow.open(App.map, App.orbit.apogeeMarker);
+                App.modules.orbit.apogeeMarkerInfoWindow.open(App.map, App.modules.orbit.apogeeMarker);
             }
 
-            google.maps.event.addListener(App.orbit.apogeeMarker, 'click', function () {
-                if (App.isInfoWindowOpen(App.orbit.apogeeMarkerInfoWindow)) {
-                    App.orbit.apogeeMarkerInfoWindow.close();
+            google.maps.event.addListener(App.modules.orbit.apogeeMarker, 'click', function () {
+                if (App.isInfoWindowOpen(App.modules.orbit.apogeeMarkerInfoWindow)) {
+                    App.modules.orbit.apogeeMarkerInfoWindow.close();
                     localStorage.setItem('apogeeInfoWindowOpen', false);
                     App.settings.apogeeInfoWindowOpen = false;
                 } else {
                     localStorage.setItem('apogeeInfoWindowOpen', true);
                     App.settings.apogeeInfoWindowOpen = true;
-                    App.orbit.apogeeMarkerInfoWindow.open(App.map, App.orbit.apogeeMarker);
+                    App.modules.orbit.apogeeMarkerInfoWindow.open(App.map, App.modules.orbit.apogeeMarker);
                 }
             });
 
         } else {
-            App.orbit.apogeeMarker.content = 'Apogee<br>Altitude: ' + parseFloat(apogee.altitude).toFixed(2) + ' km';
-            App.orbit.apogeeMarker.setPosition(apogeePosition);
+            App.modules.orbit.apogeeMarker.content = 'Apogee<br>Altitude: ' + parseFloat(apogee.altitude).toFixed(2) + ' km';
+            App.modules.orbit.apogeeMarker.setPosition((new google.maps.LatLng(parseFloat(apogee.latitude), parseFloat(apogee.longitude))));
         }
 
-        if (App.orbit.perigeeMarker == null) {
-            App.orbit.perigeeMarker = new google.maps.Marker({
+        if (App.modules.orbit.perigeeMarker == null) {
+            App.modules.orbit.perigeeMarker = new google.maps.Marker({
                 position: (new google.maps.LatLng(parseFloat(perigee.latitude), parseFloat(perigee.longitude))),
                 icon: {
                     url: 'images/perigee.png',
@@ -87,32 +92,32 @@ App.modules.orbit = {
                 map: App.map
             });
 
-            App.orbit.perigeeMarkerInfoWindow = new InfoBox({
+            App.modules.orbit.perigeeMarkerInfoWindow = new InfoBox({
                 content: 'Perigee<br>Altitude: ' + parseFloat(perigee.altitude).toFixed(2) + ' km',
                 pixelOffset: new google.maps.Size(-65, 15),
                 boxStyle: App.infoWindowStyle
             });
 
             if(App.settings.perigeeInfoWindowOpen) {
-                App.orbit.perigeeMarkerInfoWindow.open(App.map, App.orbit.perigeeMarker);
+                App.modules.orbit.perigeeMarkerInfoWindow.open(App.map, App.modules.orbit.perigeeMarker);
             }
 
-            google.maps.event.addListener(App.orbit.perigeeMarker, 'click', function () {
-                if (App.isInfoWindowOpen(App.orbit.perigeeMarkerInfoWindow)) {
-                    App.orbit.perigeeMarkerInfoWindow.close();
+            google.maps.event.addListener(App.modules.orbit.perigeeMarker, 'click', function () {
+                if (App.isInfoWindowOpen(App.modules.orbit.perigeeMarkerInfoWindow)) {
+                    App.modules.orbit.perigeeMarkerInfoWindow.close();
                     localStorage.setItem('perigeeInfoWindowOpen', false);
                     App.settings.perigeeInfoWindowOpen = false;
 
                 } else {
-                    App.orbit.perigeeMarkerInfoWindow.open(App.map, App.orbit.perigeeMarker);
+                    App.modules.orbit.perigeeMarkerInfoWindow.open(App.map, App.modules.orbit.perigeeMarker);
                     localStorage.setItem('perigeeInfoWindowOpen', true);
                     App.settings.perigeeInfoWindowOpen = true;
                 }
             });
 
         } else {
-            App.orbit.perigeeMarker.content = 'Perigee<br>Altitude: ' + parseFloat(perigee.altitude).toFixed(2) + ' km';
-            App.orbit.perigeeMarker.setPosition(perigeePosition);
+            App.modules.orbit.perigeeMarker.content = 'Perigee<br>Altitude: ' + parseFloat(perigee.altitude).toFixed(2) + ' km';
+            App.modules.orbit.perigeeMarker.setPosition((new google.maps.LatLng(parseFloat(perigee.latitude), parseFloat(perigee.longitude))));
         }
 
         if (App.modules.orbit.satelliteOrbit) {

@@ -41,7 +41,9 @@
     "symfony/css-selector": "*",
     "guzzle/guzzle": "*",
     "symfony/event-dispatcher": "*",
-    "symfony/yaml": "*"
+    "symfony/yaml": "*",
+    "symfony/finder": "*",
+    "browscap/browscap-php": "*"
   },
   "suggest": {
   },

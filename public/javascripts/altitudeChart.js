@@ -3,6 +3,8 @@
  */
 App.modules.altitudeChart = {
 
+    chart: null,
+
     init: function (data) {
         var altitudes = [];
         var categories = [];
@@ -16,7 +18,7 @@ App.modules.altitudeChart = {
             categories.push(date.toUTCString());
         }
 
-        App.altitudeChart = $('#altitude-chart').highcharts({
+        App.modules.altitudeChart.chart = $('#altitude-chart').highcharts({
             title: {
                 text: '',
                 style: {
@@ -66,13 +68,13 @@ App.modules.altitudeChart = {
 
             categories.push(date.toUTCString());
         }
-        App.altitudeChart.series = altitudes;
-        App.altitudeChart.xAxis = {
+        App.modules.altitudeChart.chart.series = altitudes;
+        App.modules.altitudeChart.chart.xAxis = {
             categories: categories,
             labels: {
                 enabled: false
             }
         }
-    },
+    }
 
 }

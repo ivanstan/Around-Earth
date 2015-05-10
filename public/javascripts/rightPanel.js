@@ -3,7 +3,9 @@
  */
 App.modules.rightPanel = {
 
-    updateRightPanel: function (data) {
+    updateRightPanel: function () {
+        var data = App.satellite.data;
+
         $('#label-latitude').html(parseFloat(data.position.latitude).toFixed(5));
         $('#label-longitude').html(parseFloat(data.position.longitude).toFixed(5));
         $('#label-altitude').html(parseFloat(data.position.altitude).toFixed(2) + ' km');

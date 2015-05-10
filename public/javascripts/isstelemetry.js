@@ -15,7 +15,7 @@ Telemetry = {
         'S4000001', // Solar array 1A voltage
         'S4000004', // Solar array 3A voltage
         'S6000001', // Solar array 3B voltage
-        'S6000004', // Solar array 1B voltage
+        'S6000004'  // Solar array 1B voltage
     ],
     voltageChart: null,
     CabinPressureGauge: null,
@@ -305,7 +305,7 @@ Telemetry = {
                             var data = [
                                 ['Clean Water', parseFloat(Telemetry.cleanWaterValue)],
                                 ['Waste Water', parseFloat(Telemetry.wasteWaterValue)],
-                            ]
+                            ];
                             chart.series[0].setData(data, true);
                         }, 1000);
                     }
@@ -319,7 +319,7 @@ Telemetry = {
                 name: 'Water',
                 data: [
                     ['Clean Water', 0],
-                    ['Waste Water', 0],
+                    ['Waste Water', 0]
                 ]
             }]
         }));
@@ -334,8 +334,8 @@ Telemetry = {
                             var data = [
                                 ['Oxygen', parseFloat(Telemetry.oxygenValue)],
                                 ['Nitrogen', parseFloat(Telemetry.nitrogenValue)],
-                                ['CO2', parseFloat(Telemetry.co2Value)],
-                            ]
+                                ['CO2', parseFloat(Telemetry.co2Value)]
+                            ];
                             chart.series[0].setData(data, true);
                         }, 1000);
                     }
@@ -350,7 +350,7 @@ Telemetry = {
                 data: [
                     ['Oxygen', 0],
                     ['Nitrogen', 0],
-                    ['CO2', 0],
+                    ['CO2', 0]
                 ]
             }]
         }));

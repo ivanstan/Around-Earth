@@ -1,7 +1,7 @@
 <?php namespace controllers;
 
 use system\Controller;
-use system\Application;
+use phpbrowscap\Browscap;
 use models\TleSource;
 /**
  * Controller documentation.
@@ -20,6 +20,21 @@ class IndexController extends Controller {
 	 * @path index/index
 	 */
 	public function indexAction() {
+
+//		$browserCap = new Browscap($this->app->appRoot . 'cache');
+//		$browser = $browserCap->getBrowser();
+//
+//		echo '<pre>'; print_r($browser); echo '</pre>'; die();
+//
+//		if ($browser->isMobileDevice) {
+//
+//
+//		}
+
+		return $this->webAction();
+	}
+
+	public function webAction() {
 		$tleSource = new TleSource($this->app);
 		$satList = $tleSource->getSatelliteList();
 
@@ -38,5 +53,9 @@ class IndexController extends Controller {
 		);
 
 		return $variables;
+	}
+
+	public function mobileAction() {
+		return array();
 	}
 }
