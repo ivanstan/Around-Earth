@@ -1,9 +1,10 @@
 App = {
     modules: {},
     user: {
+        marker: null,
         position: {
-            latitude: 0,
-            longitude: 0,
+            latitude: 28.396837,
+            longitude: -80.605659,
             altitude: 0
         },
         timezoneOffset: 0,
@@ -18,7 +19,10 @@ App = {
     settings: {
         showGroundStations: true,
         apogeeInfoWindowOpen: null,
-        perigeeInfoWindowOpen: null
+        perigeeInfoWindowOpen: null,
+        toolbarRightOpen: true,
+        tickerLastUpdated: false,
+        dashboardOpen: localStorage.getItem('dashboardOpen')
     },
     orbit: {
         apogeeMarker: null,
@@ -26,21 +30,19 @@ App = {
         apogeeMarkerInfoWindow: null,
         perigeeMarkerInfoWindow: null,
     },
-    map: null,
-    stationMarker: null,
-    userMarker: null,
-    geocoder: null,
-    tickerLastUpdated: false,
-    toolbarRightOpen: true,
-    dashboardOpen: localStorage.getItem('dashboardOpen'),
-    mapInitialized: false,
-    trackSatellite: 'ISS (ZARYA)',
-    dayNightTerminator: null,
-    defaultPosition: {
-        latitude: 28.396837,
-        longitude: -80.605659,
-        altitude: 0
+    satellite: {
+        name: 'ISS (ZARYA)',
+        propagator: null,
+        tle: {
+            line1: '',
+            line2: ''
+        },
+        marker: null
     },
+    map: null,
+    geocoder: null,
+    mapInitialized: false,
+    dayNightTerminator: null,
     altitudeChart: null,
     mapFeatures: {
         groundStations: []
@@ -58,10 +60,10 @@ App = {
 
         if ($sidebar.is('.active')) {
             $sidebar.removeClass('active').animate({'right': -width}, 300);
-            App.toolbarRightOpen = false;
+            App.settings.toolbarRightOpen = false;
         } else {
             $sidebar.addClass('active').animate({'right': 0}, 200);
-            App.toolbarRightOpen = true;
+            App.settings.toolbarRightOpen = true;
         }
 
     },
@@ -72,11 +74,11 @@ App = {
 
         if ($dashboard.is('.active')) {
             $dashboard.removeClass('active').animate({'bottom': -height}, 300);
-            App.dashboardOpen = false;
+            App.settings.dashboardOpen = false;
             localStorage.setItem('dashboardOpen', false);
         } else {
             $dashboard.addClass('active').animate({'bottom': 0}, 200);
-            App.dashboardOpen = true;
+            App.settings.dashboardOpen = true;
             localStorage.setItem('dashboardOpen', true);
         }
 
@@ -124,6 +126,7 @@ App = {
             fillColor: 'rgba(0,0,0,0.3)',
             date: new Date(Date.UTC())
         });
+        App.dayNightTerminator.setDate(Date.UTC());
 
         var image = {
             url: 'images/station-white.png',
@@ -133,14 +136,14 @@ App = {
             scaledSize: new google.maps.Size(64, 22)
         };
 
-        App.stationMarker = new google.maps.Marker({
+        App.satellite.marker = new google.maps.Marker({
             position: stationPosition,
             icon: image,
             map: App.map
         });
 
         var userPosition = new google.maps.LatLng(App.user.position.latitude, App.user.position.longitude);
-        App.userMarker = new google.maps.Marker({
+        App.user.marker = new google.maps.Marker({
             position: userPosition,
             icon: {
                 url: 'images/location.png'
@@ -152,12 +155,12 @@ App = {
             map: App.map
         });
 
-        google.maps.event.addListener(App.userMarker, 'dragend', function (event) {
+        google.maps.event.addListener(App.user.marker, 'dragend', function (event) {
             App.user.position.latitude = event.latLng.lat();
             App.user.position.longitude = event.latLng.lng();
         });
 
-        google.maps.event.addListener(App.userMarker, 'click', function (event) {
+        google.maps.event.addListener(App.user.marker, 'click', function (event) {
             App.modules.contextualPopup.init('user');
         });
 
@@ -170,48 +173,75 @@ App = {
 
     updateStationPosition: function (position) {
         if (App.mapInitialized) {
-            position = App.user.position;
-        }
+            App.dayNightTerminator.setDate(Date.UTC());
 
-        $.ajax({
-            data: {
-                satellite: App.trackSatellite,
-                latitude: position.latitude,
-                longitude: position.longitude,
-                altitude: position.altitude
-            },
-            method: 'POST',
-            url: App.settings.apiEndpoint + 'api/satellite',
-            dataType: 'json',
-            success: function (data) {
-                var latitude = parseFloat(data.position.latitude);
-                var longitude = parseFloat(data.position.longitude);
+            var date = new Date();
+            var time = new Orb.Time(date);
+            var geo = App.satellite.propagator.position.geographic(time);
+            var observer = new Orb.Observer(App.user.position);
+            var observation = new Orb.Observation({"observer": observer, "target": App.satellite.propagator});
+            var userView = observation.horizontal(time);
 
-                if (App.mapInitialized) {
-                    var newLatLng = new google.maps.LatLng(latitude, longitude);
-                    App.stationMarker.setPosition(newLatLng);
-                    App.dayNightTerminator.setDate(Date.UTC());
-                } else {
-                    App.initializeMap(data);
-                    var interval = 1000 * 5; // where X is your every X seconds
-                    setInterval(App.updateStationPosition, interval);
+            $('#label-latitude').html(parseFloat(geo.latitude).toFixed(5));
+            $('#label-longitude').html(parseFloat(geo.longitude).toFixed(5));
+            $('#label-altitude').html(parseFloat(geo.altitude).toFixed(2) + ' km');
 
-                    App.mapInitialized = true;
+            var satellitePosition = new google.maps.LatLng(geo.latitude, geo.longitude);
+            App.satellite.marker.setPosition(satellitePosition);
+            App.updateTicker(geo.latitude, geo.longitude);
+
+            var elevation = userView.elevation * (180/Math.PI);
+            App.modules.rightPanel.updateUserView(userView.azimuth, elevation);
+
+            //App.modules.rightPanel.updateRightPanel(data);
+            //App.modules.orbit.draw(data);
+            //App.modules.altitudeChart.update(data);
+
+        } else {
+            $.ajax({
+                data: {
+                    satellite: App.satellite.name,
+                    latitude: position.latitude,
+                    longitude: position.longitude,
+                    altitude: position.altitude
+                },
+                method: 'POST',
+                url: App.settings.apiEndpoint + 'api/satellite',
+                dataType: 'json',
+                success: function (data) {
+                    var latitude = parseFloat(data.position.latitude);
+                    var longitude = parseFloat(data.position.longitude);
+                    App.satellite.tle = data.tle;
+
+                    if (App.mapInitialized) {
+                        var newLatLng = new google.maps.LatLng(latitude, longitude);
+                        App.satellite.marker.setPosition(newLatLng);
+                    } else {
+                        App.satellite.propagator = Orb.Satellite({
+                            'first_line':  App.satellite.tle.line1,
+                            'second_line': App.satellite.tle.line2
+                        });
+
+                        App.initializeMap(data);
+                        var interval = 500; // where X is your every X seconds
+                        setInterval(App.updateStationPosition, interval);
+                        App.mapInitialized = true;
+                    }
+
+                    App.modules.rightPanel.updateRightPanel(data);
+                    App.updateTicker(latitude, longitude);
+                    App.modules.orbit.draw(data);
+                    App.modules.altitudeChart.update(data);
                 }
-
-                App.modules.rightPanel.updateRightPanel(data);
-                App.updateTicker(data);
-                App.modules.orbit.draw(data);
-                App.modules.altitudeChart.update(data);
-            }
-        });
+            });
+        }
     },
 
-    updateTicker: function (data) {
+    updateTicker: function (latitude, longitude) {
         var timestamp = Math.round(+new Date() / 1000);
-        if (App.tickerLastUpdated == false || timestamp > App.tickerLastUpdated + 60) {
-            App.tickerLastUpdated = timestamp;
-            var latLng = new google.maps.LatLng(data.position.latitude, data.position.longitude);
+        if (App.settings.tickerLastUpdated == false || timestamp > App.settings.tickerLastUpdated + 60) {
+            App.settings.tickerLastUpdated = timestamp;
+            var latLng = new google.maps.LatLng(latitude, longitude);
             App.geocoder.geocode({'latLng': latLng}, function (results, status) {
                 if (status == google.maps.GeocoderStatus.OK) {
                     if (results[0]) {
@@ -230,7 +260,7 @@ App = {
     },
 
     ajaxLoaderShow: function () {
-        if (App.toolbarRightOpen) {
+        if (App.settings.toolbarRightOpen) {
             var left = $(window).width() / 2 - $('#toolbar-right').width();
             $('#ajax-loader').css('left', left);
         } else {
@@ -258,30 +288,27 @@ App = {
                 App.user.position = position;
                 App.updateStationPosition(position);
 
-                if (App.userMarker) {
+                if (App.user.marker) {
                     var userPosition = new google.maps.LatLng(position.latitude, position.longitude);
-                    App.userMarker.setPosition(userPosition);
+                    App.user.marker.setPosition(userPosition);
                 }
 
             }, function () {
-                App.user.position = App.defaultPosition;
-                App.updateStationPosition(App.defaultPosition);
+                App.updateStationPosition(App.user.position);
             }, {
                 timeout: 10,
                 maximumAge: 75000,
                 timeout: 5000
             });
         } else {
-            App.user.position = App.defaultPosition;
-            App.updateStationPosition(App.defaultPosition);
+            App.updateStationPosition(App.user.position);
         }
 
         if (App.mapInitialized == false) {
-            App.user.position = App.defaultPosition;
-            App.updateStationPosition(App.defaultPosition);
+            App.updateStationPosition(App.user.position);
         }
 
-        if (App.toolbarRightOpen) {
+        if (App.settings.toolbarRightOpen) {
             $('#toolbar-right').addClass('active');
         } else {
             $('#toolbar-right').removeClass('active');
@@ -291,7 +318,7 @@ App = {
         $('#toolbar-bottom-toggle').click(App.toggleDashboard);
 
         $(window).resize(function () {
-            if (!App.toolbarRightOpen) {
+            if (!App.settings.toolbarRightOpen) {
                 App.repositionToolbarRight();
             }
         });
@@ -319,12 +346,12 @@ App = {
         $('[data-toggle="popover"]').popover();
 
         $('#select-satellite').change(function () {
-            App.trackSatellite = $(this).val();
+            App.satellite.name = $(this).val();
 
             App.ajaxLoaderShow();
             $.ajax({
                 data: {
-                    satellite: App.trackSatellite,
+                    satellite: App.satellite.name,
                     latitude: App.user.position.latitude,
                     longitude: App.user.position.longitude,
                     altitude: App.user.position.altitude
@@ -346,7 +373,7 @@ App = {
         if (typeof(Storage) !== "undefined") {
             if (localStorage.getItem('dashboardOpen') == "false") {
                 $('#toolbar-bottom').removeClass('active');
-                App.dashboardOpen = false;
+                App.settings.dashboardOpen = false;
             }
 
             App.settings.perigeeInfoWindowOpen = localStorage.getItem('perigeeInfoWindowOpen');

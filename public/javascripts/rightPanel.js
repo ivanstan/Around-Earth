@@ -22,30 +22,14 @@ App.modules.rightPanel = {
         $('#label-velocity').html(parseFloat(data.tle.range_velocity).toFixed(2) + ' km/h');
         $('#passing-over-time').html(secondstotime(data.next_pass.until));
 
-        var userPosition = App.userMarker.getPosition();
-        var userLat = userPosition.lat();
-        var userLng = userPosition.lat();
-        var satLat = data.position.latitude;
-        var satLng = data.position.longitude;
+        App.modules.rightPanel.updateUserView(data.user_view.azimuth, data.user_view.elevation);
+    },
 
-        var userLocation = new LatLon(userLat, userLng);
-        var stationLocation = new LatLon(satLat, satLng);
-        var bearing = userLocation.bearingTo(stationLocation);
+    updateUserView: function(azimuth, elevation) {
+        var compass_rotation = azimuth;
+        var elevation = elevation * -1;
 
-        //poly = new google.maps.Polyline({});
-        //path = [App.userMarker.getPosition(), App.stationMarker.getPosition()];
-        //poly.setPath(path);
-        //var heading = google.maps.geometry.spherical.computeHeading(path[0], path[1]);
-
-        //$('#heading-interface input').val(heading.toFixed(2)+"°");
-        //// $('#origin-interface input').val(path[0].toString());
-        //$('#origin-interface input').val("("+(path[0].lat()).toFixed(2) + "°, " + (path[0].lng()).toFixed(2)+"°)");
-        //$('#destination-interface input').val("("+(path[1].lat()).toFixed(2) + "°, " + (path[1].lng()).toFixed(2)+"°)");
-
-        var compass_rotation = data.user_view.azimuth;
-        var elevation = data.user_view.elevation * -1;
-
-        $('#user-view-elevation #label-elvation').html(parseInt(data.user_view.elevation) + '°');
+        $('#user-view-elevation #label-elvation').html(parseInt(elevation) + '°');
         $('#user-view-compass #label-azimuth').html(parseInt(compass_rotation) + '°');
         $('#user-view-compass #station').css('transform', 'rotate(' + compass_rotation + 'deg)');
         $('#user-view-elevation #elevation').attr('transform', 'rotate(' + elevation + ' 0 55)');
