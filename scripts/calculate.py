@@ -64,6 +64,8 @@ data['timestamp'] = timestamp
 data['satellite'] = satellite
 
 data['tle'] = {};
+data['tle']['line1'] = line1
+data['tle']['line2'] = line2
 data['tle']['arg_perigee'] = orb.tle.arg_perigee
 data['tle']['bstar'] = orb.tle.bstar
 data['tle']['classification'] = orb.tle.classification

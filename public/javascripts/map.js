@@ -104,10 +104,18 @@ App = {
             mapTypeId: google.maps.MapTypeId.ROADMAP,
             disableDefaultUI: true,
             minZoom: 2,
-            backgroundColor: '#3646a7' // map's BG color
+            backgroundColor: isNight() ? '#0f1f51' : '#3646a7'
         };
 
         App.map = new google.maps.Map(document.getElementById("map"), options);
+
+        if (isNight()) {
+            var mapsEngineLayer = new google.maps.visualization.MapsEngineLayer({
+                mapId: '10446176163891957399-13737975182519107424-4',
+                layerKey: 'layer_00001',
+                map: App.map
+            });
+        }
 
         App.modules.astronomical.init();
 
@@ -352,6 +360,11 @@ App = {
 
     });
 })(jQuery)
+
+function isNight() {
+    var hr = (new Date()).getHours();
+    return (hr > 5 && hr < 20) ? false : true;
+}
 
 function secondstotime(secs) {
     var t = new Date(1970, 0, 1);

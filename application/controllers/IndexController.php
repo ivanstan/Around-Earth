@@ -34,7 +34,7 @@ class IndexController extends Controller {
 			'javascriptSettings' => $this->app->config['javascript'],
 			'satelliteList' => array_slice($satList, 0, 50),
 			'satelliteCount' => count($satList),
-			'frontEndTemplates' => $tpls
+			'frontEndTemplates' => $tpls,
 		);
 
 		return $variables;

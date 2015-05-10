@@ -32,6 +32,16 @@ App.modules.rightPanel = {
         var stationLocation = new LatLon(satLat, satLng);
         var bearing = userLocation.bearingTo(stationLocation);
 
+        //poly = new google.maps.Polyline({});
+        //path = [App.userMarker.getPosition(), App.stationMarker.getPosition()];
+        //poly.setPath(path);
+        //var heading = google.maps.geometry.spherical.computeHeading(path[0], path[1]);
+
+        //$('#heading-interface input').val(heading.toFixed(2)+"°");
+        //// $('#origin-interface input').val(path[0].toString());
+        //$('#origin-interface input').val("("+(path[0].lat()).toFixed(2) + "°, " + (path[0].lng()).toFixed(2)+"°)");
+        //$('#destination-interface input').val("("+(path[1].lat()).toFixed(2) + "°, " + (path[1].lng()).toFixed(2)+"°)");
+
         var compass_rotation = data.user_view.azimuth;
         var elevation = data.user_view.elevation * -1;
 

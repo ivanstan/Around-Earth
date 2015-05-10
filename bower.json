@@ -1,7 +1,51 @@
 {
-	"name": "Around Earth",
-  	"directory": "public/vendor/",
-	"dependencies": {
-
-	}
+  "name": "Around Earth",
+  "version": "1.1",
+  "authors": [
+    "Ivan Stanojevic <ivan@byteout.com>"
+  ],
+  "description": "Orbital Tracking Application",
+  "main": "public/stylesheets/styles.css",
+  "moduleType": [
+    "globals"
+  ],
+  "keywords": [
+    "nasa"
+  ],
+  "license": "MIT",
+  "homepage": "http://dev.byteout.com/around-earth",
+  "private": true,
+  "dependencies": {
+    "jquery": "latest"
+  },
+  "ignore": [
+    "source",
+    ".*",
+    "src/*",
+    "src/*",
+    ".bowerrc",
+    ".gitignore",
+    ".jshintignore",
+    ".jshintrc",
+    "bower.json",
+    "gruntfile.js",
+    "package.json",
+    "README.md",
+    "CHANGELOG.md",
+    "component.json",
+    "package.json",
+    "_includes",
+    "_layouts"
+  ],
+  "install": {
+    "base":  "public/vendor",
+    "path" : {
+      "js": "{name}/js",
+      "css": "{name}/css",
+      "eot": "{name}/fonts",
+      "svg": "{name}/fonts",
+      "ttf": "{name}/fonts",
+      "woff": "{name}/fonts"
+    }
+  }
 }
