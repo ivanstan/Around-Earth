@@ -20,10 +20,13 @@ class IndexController extends Controller {
 	 * @path index/index
 	 */
 	public function indexAction() {
-
-//		$browserCap = new Browscap($this->app->appRoot . 'cache');
-//		$browser = $browserCap->getBrowser();
+//		$cacheDir = $this->app->appRoot . 'cache';
 //
+//		$browserCap = new Browscap($cacheDir);
+//		$browser = $browserCap->getBrowser();
+//		$browserCap->doAutoUpdate = false;
+//		$browserCap->updateMethod= Browscap::UPDATE_LOCAL;
+//		$browserCap->localFile = $this->app->appRoot . 'scripts/full_php_browscap.ini';
 //		echo '<pre>'; print_r($browser); echo '</pre>'; die();
 //
 //		if ($browser->isMobileDevice) {

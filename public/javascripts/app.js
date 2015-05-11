@@ -171,7 +171,7 @@ App = {
         $satelliteSelect.change(function () {
             App.satellite.name = $(this).val();
             App.ajaxLoaderShow();
-            App.getSatelliteData(App.satellite.name, App.user.position, function () {
+            App.modules.map.getSatelliteData(App.satellite.name, App.user.position, function () {
                 App.satellite.propagator = Orb.Satellite(App.satellite.data.tle);
                 App.modules.orbit.draw(App.satellite.data);
                 App.modules.altitudeChart.init(App.satellite.data);

@@ -21,6 +21,9 @@ class CronController extends Controller {
 		}
 	}
 
+	/**
+	 * cron/get-tle-data&cron_key=xxx
+	 */
 	public function getTleDataAction() {
 		set_time_limit(0);
 
