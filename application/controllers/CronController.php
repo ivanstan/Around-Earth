@@ -35,8 +35,6 @@ class CronController extends Controller {
 			curl_close($curl);
 		}
 
-		echo '<pre>'; print_r($output); echo '</pre>'; die();
-
 		file_put_contents($this->app->appRoot . 'scripts/stations.txt', $output);
 		exit();
 	}

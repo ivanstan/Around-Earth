@@ -8679,18 +8679,20 @@ body {
 }
 
 /* line 24, ../../application/styles/main-view.scss */
+#map-tab,
 #map {
   width: 100%;
 }
 
-/* line 28, ../../application/styles/main-view.scss */
+/* line 29, ../../application/styles/main-view.scss */
 .container-fluid,
 .row,
+#map-tab,
 #map {
   height: 100%;
 }
 
-/* line 34, ../../application/styles/main-view.scss */
+/* line 36, ../../application/styles/main-view.scss */
 .sidebar-toggle {
   display: block;
   border-top: 21px solid transparent;
@@ -8698,7 +8700,7 @@ body {
   border-right: 30px solid #B4B9D6;
 }
 
-/* line 41, ../../application/styles/main-view.scss */
+/* line 43, ../../application/styles/main-view.scss */
 .sidebar-toggle--right {
   position: absolute;
   left: -30px;
@@ -8706,22 +8708,22 @@ body {
   z-index: 1;
 }
 
-/* line 48, ../../application/styles/main-view.scss */
+/* line 50, ../../application/styles/main-view.scss */
 .navbar-message {
   margin-right: 15px;
 }
 
-/* line 52, ../../application/styles/main-view.scss */
+/* line 54, ../../application/styles/main-view.scss */
 .icon-heart {
   color: tomato;
 }
 
-/* line 56, ../../application/styles/main-view.scss */
+/* line 58, ../../application/styles/main-view.scss */
 .sidebar {
   background-color: #f9f9f9;
 }
 
-/* line 60, ../../application/styles/main-view.scss */
+/* line 62, ../../application/styles/main-view.scss */
 .sidebar--right {
   position: absolute;
   top: 0;
@@ -8732,28 +8734,28 @@ body {
   box-shadow: -1px 0px 1px rgba(0, 0, 0, 0.2);
 }
 
-/* line 69, ../../application/styles/main-view.scss */
+/* line 71, ../../application/styles/main-view.scss */
 .toolbar--bottom.active {
   top: -416px;
 }
 
-/* line 73, ../../application/styles/main-view.scss */
+/* line 75, ../../application/styles/main-view.scss */
 .sidebar--right.active {
   right: 0;
 }
 
-/* line 77, ../../application/styles/main-view.scss */
+/* line 79, ../../application/styles/main-view.scss */
 .footer__inner {
   height: 50px;
 }
 
-/* line 81, ../../application/styles/main-view.scss */
+/* line 83, ../../application/styles/main-view.scss */
 .sidebar__inner {
   height: 100%;
   overflow: auto;
 }
 
-/* line 86, ../../application/styles/main-view.scss */
+/* line 88, ../../application/styles/main-view.scss */
 #user-view-compass {
   position: relative;
   color: #AFB5DC;
@@ -8763,7 +8765,7 @@ body {
   left: 20px;
   top: 6px;
 }
-/* line 95, ../../application/styles/main-view.scss */
+/* line 97, ../../application/styles/main-view.scss */
 #user-view-compass #station {
   transform-origin: 7px 47px;
   transform: rotate(7deg);
@@ -8776,7 +8778,7 @@ body {
   border-right: 7px solid transparent;
   border-bottom: 7px solid #4757bd;
 }
-/* line 108, ../../application/styles/main-view.scss */
+/* line 110, ../../application/styles/main-view.scss */
 #user-view-compass #compass-circle {
   background-color: #3646a7;
   border: 10px solid #C1C5DE;
@@ -8785,7 +8787,7 @@ body {
   position: relative;
   border-radius: 50px;
 }
-/* line 117, ../../application/styles/main-view.scss */
+/* line 119, ../../application/styles/main-view.scss */
 #user-view-compass #label-azimuth {
   position: absolute;
   top: 26px;
@@ -8794,27 +8796,27 @@ body {
   font-size: 1.5em;
   text-align: center;
 }
-/* line 126, ../../application/styles/main-view.scss */
+/* line 128, ../../application/styles/main-view.scss */
 #user-view-compass .north {
   font-family: Times New Romain;
   position: absolute;
   left: 37px;
 }
-/* line 132, ../../application/styles/main-view.scss */
+/* line 134, ../../application/styles/main-view.scss */
 #user-view-compass .south {
   font-family: Times New Romain;
   position: absolute;
   left: 37px;
   bottom: -8px;
 }
-/* line 139, ../../application/styles/main-view.scss */
+/* line 141, ../../application/styles/main-view.scss */
 #user-view-compass .east {
   font-family: Times New Romain;
   position: absolute;
   right: 3px;
   top: 32px;
 }
-/* line 146, ../../application/styles/main-view.scss */
+/* line 148, ../../application/styles/main-view.scss */
 #user-view-compass .west {
   font-family: Times New Romain;
   position: absolute;
@@ -8822,7 +8824,7 @@ body {
   left: 3px;
 }
 
-/* line 155, ../../application/styles/main-view.scss */
+/* line 157, ../../application/styles/main-view.scss */
 #user-view-elevation {
   position: relative;
   display: inline-block;
@@ -8830,7 +8832,7 @@ body {
   height: 110px;
   margin-left: 60px;
 }
-/* line 162, ../../application/styles/main-view.scss */
+/* line 164, ../../application/styles/main-view.scss */
 #user-view-elevation #label-elvation {
   color: #AFB5DC;
   position: absolute;
@@ -8840,7 +8842,7 @@ body {
   font-size: 1.5em;
   text-align: center;
 }
-/* line 172, ../../application/styles/main-view.scss */
+/* line 174, ../../application/styles/main-view.scss */
 #user-view-elevation #circle {
   height: 55px;
   width: 55px;
@@ -8851,13 +8853,13 @@ body {
   z-index: 99999999;
   position: absolute;
 }
-/* line 183, ../../application/styles/main-view.scss */
+/* line 185, ../../application/styles/main-view.scss */
 #user-view-elevation svg {
   margin-left: 27px;
   z-index: 10;
   position: absolute;
 }
-/* line 189, ../../application/styles/main-view.scss */
+/* line 191, ../../application/styles/main-view.scss */
 #user-view-elevation #arcs div {
   border: 20px solid #C1C5DE;
   display: inline-block;
@@ -8872,45 +8874,45 @@ body {
 }
 
 @media (max-width: 767px) {
-  /* line 205, ../../application/styles/main-view.scss */
+  /* line 207, ../../application/styles/main-view.scss */
   #user-view-compass,
   #user-view-elevation {
     display: block;
     margin: 0 auto;
   }
 
-  /* line 211, ../../application/styles/main-view.scss */
+  /* line 213, ../../application/styles/main-view.scss */
   #user-view-elevation {
     left: -5px;
     top: 0;
   }
 }
-/* line 218, ../../application/styles/main-view.scss */
+/* line 220, ../../application/styles/main-view.scss */
 .multiselect-container input {
   display: none;
 }
 
-/* line 223, ../../application/styles/main-view.scss */
+/* line 225, ../../application/styles/main-view.scss */
 .multiselect-container > li > a > label {
   padding: 3px 20px 3px 0px;
 }
 
-/* line 227, ../../application/styles/main-view.scss */
+/* line 229, ../../application/styles/main-view.scss */
 .select-satellite-wrapper {
   padding: 11px 12px;
 }
-/* line 230, ../../application/styles/main-view.scss */
+/* line 232, ../../application/styles/main-view.scss */
 .select-satellite-wrapper #select-satellite {
   width: 150px;
 }
 
-/* line 235, ../../application/styles/main-view.scss */
+/* line 237, ../../application/styles/main-view.scss */
 .satellite-num {
   color: #fff;
   padding-left: 15px;
 }
 
-/* line 240, ../../application/styles/main-view.scss */
+/* line 242, ../../application/styles/main-view.scss */
 #float-bar {
   position: absolute;
   top: 50px;
@@ -8918,17 +8920,17 @@ body {
   z-index: 9;
 }
 
-/* line 247, ../../application/styles/main-view.scss */
+/* line 249, ../../application/styles/main-view.scss */
 .infoBox {
   padding: 5px;
 }
 
-/* line 251, ../../application/styles/main-view.scss */
+/* line 253, ../../application/styles/main-view.scss */
 .infoBox > img {
   visibility: hidden;
 }
 
-/* line 256, ../../application/styles/main-view.scss */
+/* line 258, ../../application/styles/main-view.scss */
 #ajax-loader {
   position: absolute;
   top: 100px;
@@ -8945,7 +8947,7 @@ body {
   padding: 25px 70px;
 }
 
-/* line 273, ../../application/styles/main-view.scss */
+/* line 275, ../../application/styles/main-view.scss */
 #contextual-popup {
   font-size: 12px;
   padding: 10px;
@@ -8960,7 +8962,7 @@ body {
   opacity: 0.5;
 }
 
-/* line 288, ../../application/styles/main-view.scss */
+/* line 290, ../../application/styles/main-view.scss */
 #user-context-table span {
   padding: 20px;
 }

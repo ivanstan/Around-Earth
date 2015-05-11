@@ -23,8 +23,6 @@ App.modules.rightPanel = {
         $('#label-orbit-number').html(data.tle.orbit);
         $('#label-velocity').html(parseFloat(data.tle.range_velocity).toFixed(2) + ' km/h');
         $('#passing-over-time').html(secondstotime(data.next_pass.until));
-
-        App.modules.rightPanel.updateUserView(data.user_view.azimuth, data.user_view.elevation);
     },
 
     updateUserView: function(azimuth, elevation) {

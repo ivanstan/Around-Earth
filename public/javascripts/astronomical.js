@@ -12,7 +12,9 @@ App.modules.astronomical = {
 
     init: function () {
         // SETUP MARKERS
-        App.modules.astronomical.getAstronomicalPosition(App.modules.astronomical.setupAstronomicalMarkers);
+        if(App.modules.astronomical.sunMarker == null || App.modules.astronomical.moonMarker == null) {
+            App.modules.astronomical.getAstronomicalPosition(App.modules.astronomical.setupAstronomicalMarkers);
+        }
 
         // UPDATE MARKERS
         var interval = 1000 * App.modules.astronomical.updateInterval;
