@@ -135,18 +135,18 @@ class Application {
 	}
 
 	private function connectToDatabase() {
-		// INSTANTIATE PDO
-
 		if(isset($this->config['database'])) {
 			$databaseHost = $this->config['database']['host'];
 			$databaseName = $this->config['database']['database'];
 			$databaseUsername = $this->config['database']['username'];
 			$databasePassword = $this->config['database']['password'];
-
 			$dsn = "mysql:dbname={$databaseName};host={$databaseHost}";
 
 			try {
 				$this->pdo = new \PDO($dsn, $databaseUsername, $databasePassword);
+				if($this->config['debug'] == 1) {
+					$this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+				}
 			} catch (\PDOException $e) {
 				echo 'Connection failed: ' . $e->getMessage();
 			}

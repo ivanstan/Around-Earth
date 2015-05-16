@@ -23,6 +23,14 @@ App.modules.rightPanel = {
         $('#label-orbit-number').html(data.tle.orbit);
         $('#label-velocity').html(parseFloat(data.tle.range_velocity).toFixed(2) + ' km/h');
         $('#passing-over-time').html(secondstotime(data.next_pass.until));
+
+        if(App.bindEvents.passingOverCountdown == null) {
+            App.bindEvents.passingOverCountdown = setInterval(function () {
+                App.satellite.data.next_pass.until -= 1;
+                $('#passing-over-time').html(secondstotime(App.satellite.data.next_pass.until));
+            }, 1000);
+        }
+
     },
 
     updateUserView: function(azimuth, elevation) {

@@ -17,7 +17,8 @@ App = {
         }
     },
     bindEvents: {
-        updateSatellitePosition: null
+        updateSatellitePosition: null,
+        passingOverCountdown: null
     },
     settings: {
         showGroundStations: true,
@@ -206,4 +207,33 @@ function secondstotime(secs) {
     if (secs > 86399)
         s = Math.floor((t - Date.parse("1/1/70")) / 3600000) + s.substr(2);
     return s;
+}
+
+function drawCircle(point, radius, dir) {
+    var d2r = Math.PI / 180;   // degrees to radians
+    var r2d = 180 / Math.PI;   // radians to degrees
+    var earthsradius = 6371; // 3963 is the radius of the earth in kilometers
+
+    var points = 32;
+
+    // find the raidus in lat/lon
+    var rlat = (radius / earthsradius) * r2d;
+    var rlng = rlat / Math.cos(point.lat() * d2r);
+
+    var extp = new Array();
+    if (dir==1) {
+        var start=0;
+        var end=points+1; // one extra here makes sure we connect the path
+    } else {
+        var start=points+1;
+        var end=0;
+    }
+    for (var i=start; (dir==1 ? i < end : i > end); i=i+dir)
+    {
+        var theta = Math.PI * (i / (points/2));
+        ey = point.lng() + (rlng * Math.cos(theta)); // center a + radius x * cos(theta)
+        ex = point.lat() + (rlat * Math.sin(theta)); // center b + radius y * sin(theta)
+        extp.push(new google.maps.LatLng(ex, ey));
+    }
+    return extp;
 }

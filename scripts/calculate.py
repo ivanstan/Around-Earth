@@ -114,7 +114,7 @@ start = timestamp - halforbit
 from_date = now - timedelta(seconds=halforbit)
 to_date = now + timedelta(seconds=halforbit)
 
-delta=timedelta(minutes=1)
+delta=timedelta(seconds=30)
 lineArray = []
 while from_date <= to_date:
 

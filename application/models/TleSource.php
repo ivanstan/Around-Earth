@@ -6,7 +6,6 @@ use system\Application as Application;
 class TleSource
 {
 	private $tleFile;
-	private $scriptRoot;
 	const cacheLifeTime = 300;
 	const memcacheHost = 'localhost';
 	const memcachePort = 11211;

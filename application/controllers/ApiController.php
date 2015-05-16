@@ -51,8 +51,9 @@ class ApiController extends Controller {
 	}
 
 	public function groundStationsAction() {
-		$stmt = $this->app->pdo->query("SELECT * FROM launch_sites");
-		$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+		$stmt = $this->app->pdo->prepare("SELECT id, `name`, `type`, latitude, longitude, `range` FROM ground");
+		$stmt->execute();
+		$result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
 		print json_encode($result);
 		exit();
 	}
