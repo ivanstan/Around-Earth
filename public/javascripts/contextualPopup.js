@@ -14,9 +14,6 @@ App.modules.contextualPopup = {
     },
 
     show: function (text) {
-
-        console.log(text);
-
         var popup = $('#contextual-popup');
         popup.html(text);
         popup.slideDown(300);

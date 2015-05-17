@@ -101,12 +101,12 @@ data['sun']['altitude'] = sun.alt
 data['sun']['azimuth'] = sun.az
 
 # MOON DATA
-sunrise = observer.previous_rising(ephem.Moon())
-sunnoon    = observer.next_transit   (ephem.Moon())
-sunset  = observer.next_setting   (ephem.Moon())
-data['moon']['rise'] = calendar.timegm(sunset.datetime().utctimetuple())
-data['moon']['noon']    = calendar.timegm(sunnoon.datetime().utctimetuple())
-data['moon']['set']  = calendar.timegm(sunset.datetime().utctimetuple())
+moonrise = observer.previous_rising(ephem.Moon())
+moonnoon    = observer.next_transit   (ephem.Moon())
+moonset  = observer.next_setting   (ephem.Moon())
+data['moon']['rise'] = calendar.timegm(moonrise.datetime().utctimetuple())
+data['moon']['noon']    = calendar.timegm(moonnoon.datetime().utctimetuple())
+data['moon']['set']  = calendar.timegm(moonset.datetime().utctimetuple())
 data['moon']['radius'] = ephem.moon_radius
 
 previous_new_moon = ephem.previous_new_moon(time)

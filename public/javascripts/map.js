@@ -40,7 +40,7 @@ App.modules.map = {
 
         App.map = new google.maps.Map(document.getElementById("map"), options);
 
-        if (isNight()) {
+        if (App.settings.nightOverlay && isNight()) {
             var mapsEngineLayer = new google.maps.visualization.MapsEngineLayer({
                 mapId: '10446176163891957399-13737975182519107424-4',
                 layerKey: 'layer_00001',

@@ -14,19 +14,22 @@ App = {
         time: function () {
             var now = new Date(App.user.timestamp());
             return now.getFullYear() + '/' + now.getMonth() + '/' + now.getDate() + ' ' + now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds();
-        }
+        },
+        timezone: GetTimezoneShort(new Date())
     },
     bindEvents: {
         updateSatellitePosition: null,
         passingOverCountdown: null
     },
     settings: {
-        showGroundStations: true,
-        apogeeInfoWindowOpen: null,
-        perigeeInfoWindowOpen: null,
+        showGroundStations: localStorage.getItem('ground-stations') ? localStorage.getItem('ground-stations') : true,
+        nightOverlay: true,
+        apogeeInfoWindowOpen: localStorage.getItem('apogeeInfoWindowOpen') ? localStorage.getItem('apogeeInfoWindowOpen') : true,
+        perigeeInfoWindowOpen: localStorage.getItem('perigeeInfoWindowOpen') ? localStorage.getItem('perigeeInfoWindowOpen') : true,
         toolbarRightOpen: true,
         tickerLastUpdated: false,
-        dashboardOpen: localStorage.getItem('dashboardOpen')
+        dashboardOpen: localStorage.getItem('dashboardOpen') ? localStorage.getItem('dashboardOpen') : false,
+        activePage: localStorage.getItem('active-tab') ? localStorage.getItem('active-tab') : '#page-map'
     },
     orbit: {},
     satellite: {
@@ -112,18 +115,43 @@ App = {
 (function ($) {
     $(document).ready(function () {
         Telemetry.init();
+        App.modules.map.init(App.user.position);
+        App.modules.sky.init();
 
-        var height = $(document).height();
-        var width = $(document).width();
+        // SET ACTIVE TAB
+        $('.tabs-nav li').removeClass('active');
+        $('[href="' + App.settings.activePage + '"]').parent('li').addClass('active');
+
+        // SET VISIBLE PAGE
+        $('.tabs-page').hide();
+        $(App.settings.activePage).show();
+
+        // INIT PAGE
+        switch(App.settings.activePage) {
+            case('#page-sky'):
+
+                break;
+
+            default:
+
+        }
+
+        $('.tabs-nav a').click(function(e){
+            e.preventDefault();
+            $('.tabs-nav li').removeClass('active');
+            $(this).parent('li').addClass('active');
+            $('.tabs-page').hide();
+            var show = $(this).attr('href');
+            $(show).show();
+            localStorage.setItem('active-tab', show);
+        });
 
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function (position) {
                 position.latitude = position.coords.latitude;
                 position.longitude = position.coords.longitude;
                 position.altitude = position.coords.altitude ? position.coords.altitude : 0;
-
                 App.user.position = position;
-
                 if (App.user.marker) {
                     App.user.marker.setPosition((new google.maps.LatLng(position.latitude, position.longitude)));
                 }
@@ -136,7 +164,7 @@ App = {
             });
         }
 
-        App.modules.map.init(App.user.position);
+
 
         if (App.settings.toolbarRightOpen) {
             $('#toolbar-right').addClass('active');
@@ -168,8 +196,6 @@ App = {
                 cache: false
             }
         });
-        $('[data-toggle="tooltip"]').tooltip();
-        $('[data-toggle="popover"]').popover();
 
         $satelliteSelect.change(function () {
             App.satellite.name = $(this).val();
@@ -182,60 +208,19 @@ App = {
             });
         });
 
-        if (typeof(Storage) !== "undefined") {
-            if (localStorage.getItem('dashboardOpen') == "false") {
-                $('#toolbar-bottom').removeClass('active');
-                App.settings.dashboardOpen = false;
-            }
-
-            App.settings.perigeeInfoWindowOpen = localStorage.getItem('perigeeInfoWindowOpen');
-            App.settings.apogeeInfoWindowOpen = localStorage.getItem('apogeeInfoWindowOpen');
+        if(App.settings.dashboardOpen) {
+            $('#toolbar-bottom').removeClass('active');
         } else {
-            App.settings.perigeeInfoWindowOpen = true;
-            App.settings.apogeeInfoWindowOpen = true;
+            $('#toolbar-bottom').removeClass('active');
         }
+
+        /* INITIALIZE BOOTSTRAP CONTROLS*/
+        $('[data-toggle="tooltip"]').tooltip();
+        $('[data-toggle="popover"]').popover();
     });
 })(jQuery);
 
-function isNight() {
-    var hr = (new Date()).getHours();
-    return !(hr > 5 && hr < 20);
-}
 
-function secondstotime(secs) {
-    var t = new Date(1970, 0, 1);
-    t.setSeconds(secs);
-    var s = t.toTimeString().substr(0, 8);
-    if (secs > 86399)
-        s = Math.floor((t - Date.parse("1/1/70")) / 3600000) + s.substr(2);
-    return s;
-}
 
-function drawCircle(point, radius, dir) {
-    var d2r = Math.PI / 180;   // degrees to radians
-    var r2d = 180 / Math.PI;   // radians to degrees
-    var earthsradius = 6371; // 3963 is the radius of the earth in kilometers
 
-    var points = 32;
 
-    // find the raidus in lat/lon
-    var rlat = (radius / earthsradius) * r2d;
-    var rlng = rlat / Math.cos(point.lat() * d2r);
-
-    var extp = new Array();
-    if (dir==1) {
-        var start=0;
-        var end=points+1; // one extra here makes sure we connect the path
-    } else {
-        var start=points+1;
-        var end=0;
-    }
-    for (var i=start; (dir==1 ? i < end : i > end); i=i+dir)
-    {
-        var theta = Math.PI * (i / (points/2));
-        ey = point.lng() + (rlng * Math.cos(theta)); // center a + radius x * cos(theta)
-        ex = point.lat() + (rlat * Math.sin(theta)); // center b + radius y * sin(theta)
-        extp.push(new google.maps.LatLng(ex, ey));
-    }
-    return extp;
-}
