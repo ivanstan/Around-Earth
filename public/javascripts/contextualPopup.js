@@ -13,10 +13,13 @@ App.modules.contextualPopup = {
         }
     },
 
-    show: function () {
+    show: function (text) {
+
+        console.log(text);
+
         var popup = $('#contextual-popup');
-        popup.slideDown(1000);
-        App.modules.contextualPopup.selected = 'user';
+        popup.html(text);
+        popup.slideDown(300);
     },
 
     popupHide: function () {

@@ -111,6 +111,8 @@ App = {
 
 (function ($) {
     $(document).ready(function () {
+        Telemetry.init();
+
         var height = $(document).height();
         var width = $(document).width();
 

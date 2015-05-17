@@ -356,7 +356,3 @@ Telemetry = {
         }));
     }
 }
-
-$(document).ready(function () {
-    Telemetry.init();
-});

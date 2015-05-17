@@ -120,7 +120,7 @@ while from_date <= to_date:
 
     onePointPosition = orb.get_lonlatalt(from_date)
     onePoint = {}
-    onePoint['timestamp'] = start
+    onePoint['timestamp'] = from_date
     onePoint['longitude'] = onePointPosition[0]
     onePoint['latitude'] = onePointPosition[1]
     onePoint['altitude'] = onePointPosition[2]

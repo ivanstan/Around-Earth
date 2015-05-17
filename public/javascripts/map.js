@@ -93,7 +93,7 @@ App.modules.map = {
         $('#label-satellite').html(data.satellite);
 
         if (App.settings.showGroundStations) {
-            //App.modules.groundStations.init();
+            App.modules.groundStations.init();
         }
     },
 
