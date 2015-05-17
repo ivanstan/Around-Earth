@@ -120,7 +120,7 @@ while from_date <= to_date:
 
     onePointPosition = orb.get_lonlatalt(from_date)
     onePoint = {}
-    onePoint['timestamp'] = from_date
+    onePoint['timestamp'] = calendar.timegm(from_date.utctimetuple())
     onePoint['longitude'] = onePointPosition[0]
     onePoint['latitude'] = onePointPosition[1]
     onePoint['altitude'] = onePointPosition[2]
