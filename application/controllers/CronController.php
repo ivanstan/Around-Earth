@@ -71,14 +71,14 @@ class CronController extends Controller {
 			}
 
 			curl_close($curl);
-		}
 
-		foreach(array_chunk($insertArray, 50) as $item) {
-			$tle->insert($item);
-		}
+			foreach(array_chunk($insertArray, 50) as $item) {
+				$tle->insert($item);
+			}
 
-		foreach(array_chunk($updateArray, 50) as $item) {
-			$tle->update($item);
+			foreach(array_chunk($updateArray, 50) as $item) {
+				$tle->update($item);
+			}
 		}
 
 		exit();

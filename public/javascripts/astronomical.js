@@ -39,16 +39,35 @@ App.modules.astronomical = {
         //context += 'Azimuth: ' + parseFloat(data.moon.azimuth).toFixed(2) + '<br>';
         //context += 'Elevation: ' + parseFloat(data.moon.altitude).toFixed(2) + '<br><br>';
         context += 'Moon rise: ' + moment.unix(data.moon.rise).format('HH:m:s') + ' ' + App.user.timezone + '<br>';
-        context += 'Moon set: ' + moment.unix(data.moon.set).format('HH:m:s') + ' ' + App.user.timezone;
+        context += 'Lunar noon: ' + moment.unix(data.moon.noon).format('HH:m:s') + ' ' + App.user.timezone + '<br>';
+        context += 'Moon set: ' + moment.unix(data.moon.set).format('HH:m:s') + ' ' + App.user.timezone + '<br>';
+
+        context += 'Next new: ' + moment.unix(data.moon.next_new_moon).format('DD-MM-YYYY HH:m:s') + '<br>';
+        context += 'Next full: ' + moment.unix(data.moon.previous_full_moon).format('DD-MM-YYYY HH:m:s') + '<br>';
         return context;
     },
 
     getSunContext: function(data) {
         var context = 'Sun <br><br>';
+
         //context += 'Azimuth: ' + parseFloat(data.sun.azimuth).toFixed(2) + '<br>';
         //context += 'Elevation: ' + parseFloat(data.sun.altitude).toFixed(2) + '<br><br>';
         context += 'Sun rise: ' + moment.unix(data.sun.rise).format('HH:m:s') + ' ' + App.user.timezone + '<br>';
-        context += 'Sun set: ' + moment.unix(data.sun.set).format('HH:m:s') + ' ' + App.user.timezone;
+        context += 'Solar Noon: ' + moment.unix(data.sun.noon).format('HH:m:s') + ' ' + App.user.timezone + '<br>';
+        context += 'Sun set: ' + moment.unix(data.sun.set).format('HH:m:s') + ' ' + App.user.timezone + '<br><br>';
+
+        context += 'Twilight<br>';
+        context += 'Civil start: ' + moment.unix(data.sun.civilian_twilight_start).format('HH:m:s') + ' ' + App.user.timezone + '<br>';
+        context += 'Civil end: ' + moment.unix(data.sun.civilian_twilight_end).format('HH:m:s') + ' ' + App.user.timezone + '<br>';
+
+        context += 'Nautical start: ' + moment.unix(data.sun.nautical_twilight_start).format('HH:m:s') + ' ' + App.user.timezone + '<br>';
+        context += 'Nautical end: ' + moment.unix(data.sun.nautical_twilight_end).format('HH:m:s') + ' ' + App.user.timezone + '<br>';
+
+        context += 'Astronomical start: ' + moment.unix(data.sun.astronomical_twilight_start).format('HH:m:s') + ' ' + App.user.timezone + '<br>';
+        context += 'Astronomical end: ' + moment.unix(data.sun.astronomical_twilight_end).format('HH:m:s') + ' ' + App.user.timezone + '<br><br>';
+
+        context += 'Radius: ' + (parseFloat(data.sun.radius / 1000)) + ' km<br>';
+
         return context;
     },
 
@@ -63,9 +82,9 @@ App.modules.astronomical = {
             map: App.map
         });
 
-        //google.maps.event.addListener(App.modules.astronomical.sunMarker, 'click', function (event) {
-        //    App.modules.contextualPopup.show(this.context);
-        //});
+        google.maps.event.addListener(App.modules.astronomical.sunMarker, 'click', function (event) {
+            App.modules.contextualPopup.show(this.context);
+        });
 
         App.orbit.sunMarkerInfoWindow = new InfoBox({
             content: 'Sun',
@@ -84,9 +103,9 @@ App.modules.astronomical = {
             map: App.map
         });
 
-        //google.maps.event.addListener(App.modules.astronomical.moonMarker, 'click', function (event) {
-        //    App.modules.contextualPopup.show(this.context);
-        //});
+        google.maps.event.addListener(App.modules.astronomical.moonMarker, 'click', function (event) {
+            App.modules.contextualPopup.show(this.context);
+        });
 
         App.orbit.moonMarkerInfoWindow = new InfoBox({
             content: 'Moon',

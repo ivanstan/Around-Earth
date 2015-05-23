@@ -8953,8 +8953,7 @@ body {
   position: absolute;
   top: 61px;
   left: 10px;
-  min-width: 180px;
-  max-width: 180px;
+  max-width: 300px;
   max-height: 400px;
   background: #0F6388;
   color: #fff;
@@ -8962,7 +8961,7 @@ body {
   overflow-y: scroll;
 }
 
-/* line 290, ../../application/styles/main-view.scss */
+/* line 289, ../../application/styles/main-view.scss */
 #user-context-table span {
   padding: 20px;
 }

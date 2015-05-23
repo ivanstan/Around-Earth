@@ -8,6 +8,7 @@
  */
 use system\Controller;
 use models\TleSource;
+use models\Tle;
 
 class ApiController extends Controller {
 
@@ -41,12 +42,15 @@ class ApiController extends Controller {
 		$alt = escapeshellarg($_REQUEST['altitude']);
 		$orb = isset($_REQUEST['orbits']) ? escapeshellarg($_REQUEST['orbits']) : 1;
 
+		$tle = new Tle($this->app);
+		$tle = $tle->load(str_replace('"', '', $sat));
+
 		$tleSource = new TleSource($this->app);
 		$tle = $tleSource->getTle($sat);
 
 		if(!$tle) die('Tle not found');
 
-		print shell_exec("python {$this->scriptRoot}calculate.py $sat $lat $lon $alt '{$tle['line1']}' '{$tle['line2']}' $orb {$this->debug}");
+		print shell_exec("python {$this->scriptRoot}calculate.py $sat $lat $lon $alt '{$tle['first_line']}' '{$tle['second_line']}' $orb {$this->debug}");
 		exit();
 	}
 
@@ -65,13 +69,12 @@ class ApiController extends Controller {
 
 	public function searchSatellitesAction() {
 		if(!isset($_REQUEST['search'])) exit();
-		$tleSource = new TleSource($this->app);
-		$found = $tleSource->find($_REQUEST['search']);
-		$found = array_unique($found);
+		$tle = new Tle($this->app);
+		$found = $tle->find($_REQUEST['search']);
 
 		$response = array();
-		foreach($found as $item) {
-			$response[] = array('id'=>$item, 'text' => $item);
+		foreach($found as $id => $value) {
+			$response[] = array('id'=>$id, 'text' => $value['name']);
 		}
 
 		if(empty($response)) {

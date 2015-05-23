@@ -31,7 +31,7 @@ class Tle extends Model {
 			}
 			$valuesQuery .= '(' . implode(', ', $valuesQueryArray) . '),';
 		}
-		$query = 'INSERT INTO tle (id, name, epoch, first_line, first_line_checksum, second_line, second_line_checksum) VALUES '. rtrim($valuesQuery, ',');
+		$query = 'INSERT IGNORE INTO tle (id, name, epoch, first_line, first_line_checksum, second_line, second_line_checksum) VALUES '. rtrim($valuesQuery, ',');
 		$stmt = $this->pdo->prepare($query);
 		$stmt->execute($params);
 	}
@@ -50,6 +50,20 @@ class Tle extends Model {
 			$stmt = $this->pdo->prepare($query);
 			$stmt->execute($item);
 		}
+	}
+
+	public function find($search) {
+		$query = 'SELECT id, name FROM tle WHERE name LIKE ?';
+		$stmt = $this->pdo->prepare($query);
+		$stmt->execute(array('%' . $search . '%'));
+		return $stmt->fetchAll(\PDO::FETCH_UNIQUE|\PDO::FETCH_ASSOC);
+	}
+
+	public function load($id) {
+		$query = 'SELECT * FROM tle WHERE id = :id';
+		$stmt = $this->pdo->prepare($query);
+		$stmt->execute(array('id' => $id));
+		return $stmt->fetch();
 	}
 
 	public function getList() {

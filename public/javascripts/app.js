@@ -33,7 +33,7 @@ App = {
     },
     orbit: {},
     satellite: {
-        name: 'ISS (ZARYA)',
+        name: 25544,
         propagator: null,
         data: {
             tle: null
