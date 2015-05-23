@@ -42,11 +42,11 @@ class ApiController extends Controller {
 		$alt = escapeshellarg($_REQUEST['altitude']);
 		$orb = isset($_REQUEST['orbits']) ? escapeshellarg($_REQUEST['orbits']) : 1;
 
-		$tle = new Tle($this->app);
-		$tle = $tle->load(str_replace('"', '', $sat));
+		$id = str_replace('"', '', $sat);
+		$id = (int)str_replace('\'', '', $id);
 
-		$tleSource = new TleSource($this->app);
-		$tle = $tleSource->getTle($sat);
+		$tle = new Tle($this->app);
+		$tle = $tle->load($id);
 
 		if(!$tle) die('Tle not found');
 
