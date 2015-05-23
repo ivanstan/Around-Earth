@@ -21,23 +21,46 @@ App.modules.orbit = {
 
         var apogee = {
             altitude: 0
-        }
+        };
 
         var perigee = {
             altitude: 9007199254740992
+        };
+
+        var orbitData = [];
+        var orbits = 2;
+        var timeDelta = 30;
+        var timestamp = Math.floor(Date.now() / 1000);
+        //calculate orbit line
+        var calcPeriodHalf = Math.round(data.tle.orbit_time / 2 * orbits);
+        var startTime = timestamp - calcPeriodHalf;
+        var endTime = timestamp + calcPeriodHalf;
+        while(startTime < endTime) {
+            var time = new Orb.Time((new Date(startTime * 1000)));
+            var geo = App.satellite.propagator.position.geographic(time);
+
+            var point = {
+                'latitude': geo.latitude,
+                'longitude': geo.longitude,
+                'altitude': geo.altitude
+            };
+
+            orbitData.push(point);
+
+            startTime += timeDelta;
         }
 
-        for (i in data.orbit) {
-            var latitude = parseFloat(data.orbit[i].latitude);
-            var longitude = parseFloat(data.orbit[i].longitude);
+        for (var i in orbitData) {
+            var latitude = parseFloat(orbitData[i].latitude);
+            var longitude = parseFloat(orbitData[i].longitude);
             orbit.push((new google.maps.LatLng(latitude, longitude)));
 
-            if (data.orbit[i].altitude > apogee.altitude) {
-                apogee = data.orbit[i]
+            if (orbitData[i].altitude > apogee.altitude) {
+                apogee = orbitData[i]
             }
 
-            if (data.orbit[i].altitude < perigee.altitude) {
-                perigee = data.orbit[i]
+            if (orbitData[i].altitude < perigee.altitude) {
+                perigee = orbitData[i]
             }
         }
 

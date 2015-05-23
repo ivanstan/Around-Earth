@@ -1,0 +1,23 @@
+#sky-page {
+  position: relative;
+  width: 100%;
+}
+
+#sky-horizon {
+  border-top: 1px solid lime;
+}
+
+#sky-overlay {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 93%;
+}
+
+#augmented-reality {
+  position: absolute;
+}
+
+#sky-display {
+  position: absolute;
+}

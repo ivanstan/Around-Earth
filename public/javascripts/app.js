@@ -116,7 +116,7 @@ App = {
     $(document).ready(function () {
         Telemetry.init();
         App.modules.map.init(App.user.position);
-        App.modules.sky.init();
+        //App.modules.sky.init();
 
         // SET ACTIVE TAB
         $('.tabs-nav li').removeClass('active');

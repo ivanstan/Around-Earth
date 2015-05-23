@@ -1,4 +1,14 @@
 // Import Bootstrap Compass integration
+@mixin vertical-align {
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+
+
 @import "bootstrap-compass";
 @import "bootstrap-sprockets";
 @import "bootstrap-multiselect";
@@ -9,4 +19,5 @@
 @import "bootstrap";
 
 @import "main-view";
+@import "sky-view";
 @import "telemetry";

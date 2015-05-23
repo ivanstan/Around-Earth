@@ -23,6 +23,9 @@ App.modules.sky = {
         $('#alpha').html(dir);
         $('#gamma').html(roll);
 
+        var r_pitch = pitch * (-1);
+        $('#sky-overlay').css('transform', 'translateY(' + pitch + 'px)');
+
         console.log(e);
 
 

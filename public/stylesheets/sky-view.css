@@ -1,0 +1,28 @@
+/* line 1, ../../application/styles/sky-view.scss */
+#sky-page {
+  position: relative;
+  width: 100%;
+}
+
+/* line 6, ../../application/styles/sky-view.scss */
+#sky-horizon {
+  border-top: 1px solid lime;
+}
+
+/* line 10, ../../application/styles/sky-view.scss */
+#sky-overlay {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 93%;
+}
+
+/* line 17, ../../application/styles/sky-view.scss */
+#augmented-reality {
+  position: absolute;
+}
+
+/* line 21, ../../application/styles/sky-view.scss */
+#sky-display {
+  position: absolute;
+}

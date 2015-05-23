@@ -6,15 +6,19 @@
  * Date: 4/29/2015
  * Time: 8:11 PM
  */
+use models\TleSource;
 use system\Controller;
 use system\Application;
 use Guzzle\Http\Client;
+use models\Tle;
 use Symfony\Component\DomCrawler\Crawler;
 
 class CronController extends Controller {
 
 	public function __construct($app) {
 		parent::__construct($app);
+		require_once $app->appRoot . 'vendor/TLE/Parser.php';
+		require_once $app->appRoot . 'vendor/TLE/Constant.php';
 
 		if(!isset($_GET['cron_key']) || $_GET['cron_key'] != $this->app->config['cron_key']) {
 			die('Invalid cron key.');
@@ -24,21 +28,59 @@ class CronController extends Controller {
 	/**
 	 * cron/get-tle-data&cron_key=xxx
 	 */
-	public function getTleDataAction() {
+	public function updateTleDataAction() {
 		set_time_limit(0);
 
-		$output = '';
+		$tle = new Tle($this->app);
+		$existing = $tle->getList();
+
 		foreach($this->app->config['tle_sources'] as $tle_file) {
 			$curl = curl_init();
 			curl_setopt_array($curl, array(
 				CURLOPT_RETURNTRANSFER => 1,
 				CURLOPT_URL => $tle_file
 			));
-			$output .= curl_exec($curl);
+			$content = curl_exec($curl);
+			$content = explode("\n", $content);
+			$content = array_filter($content);
+			$content = array_chunk($content, 3);
+
+			$insertArray = array();
+			$updateArray = array();
+			foreach($content  as $item) {
+				$tleItem = implode("\n", $item);
+				$parser = new \Tle\Parser($tleItem);
+
+				 $tleArray = array(
+					'id' => $parser->satelliteNumber,
+					'name' => trim($parser->name),
+					'epoch' => $parser->epochUnixTimestamp,
+					'first_line' => $parser->firstLine,
+					'first_line_checksum' => $parser->firstLineChecksum,
+					'second_line' => $parser->secondLine,
+					'second_line_checksum' => $parser->secondLineChecksum
+				);
+
+				if(isset($existing[$parser->satelliteNumber])) {
+					if($existing[$parser->satelliteNumber]['epoch'] < $parser->epochUnixTimestamp) {
+						$updateArray[] = $tleArray;
+					}
+				} else {
+					$insertArray[] = $tleArray;
+				}
+			}
+
 			curl_close($curl);
 		}
 
-		file_put_contents($this->app->appRoot . 'scripts/stations.txt', $output);
+		foreach(array_chunk($insertArray, 50) as $item) {
+			$tle->insert($item);
+		}
+
+		foreach(array_chunk($updateArray, 50) as $item) {
+			$tle->update($item);
+		}
+
 		exit();
 	}
 
@@ -47,35 +89,6 @@ class CronController extends Controller {
 	}
 	
 	public function groundStationsAction() {
-		$client = new Client();
-		$request = $client->get($this->app->config['ground_stations_url']);
-		$response = $request->send();
-
-		$crawler = new Crawler($response->getBody(true));
-		$filter = $crawler->filter('table tr');
-
-		$result = array();
-		foreach ($filter as $i => $content) {
-			if($i < 4) continue;
-
-			$crawler = new Crawler($content);
-			$temp = array();
-			foreach($crawler->filter('td') as $v => $col) {
-				if($v > 3) continue;
-				if(trim($col->nodeValue)) {
-					if($v == 0) $key = 'country';
-					if($v == 1) $key = 'location';
-					if($v == 2) $key = 'latitude';
-					if($v == 3) $key = 'longitude';
-
-					$temp[$key] = trim($col->nodeValue);
-				}
-			}
-			if(count($temp) == 4) {
-				$result[] = $temp;
-			}
-
-    	}
 
 		exit();
 	}

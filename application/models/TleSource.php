@@ -12,7 +12,7 @@ class TleSource
 
 	private $memcache;
 
-	function __construct(Application $app) {
+	public function __construct(Application $app) {
 		$this->tleFile = $app->appRoot . 'scripts/stations.txt';
 
 		$this->memcache = class_exists('Memcache') ? new \Memcache() : null;

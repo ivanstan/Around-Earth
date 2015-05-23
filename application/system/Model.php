@@ -10,6 +10,6 @@ class Model {
 
 	public function __construct(Application $app) {
 		$this->app = $app;
-		$this->pdo = $app->getPDO();
+		$this->pdo = $app->pdo;
 	}
 }

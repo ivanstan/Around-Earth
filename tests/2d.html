@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <style>
+      body {
+        margin: 0px;
+        padding: 0px;
+      }
+    </style>
+  </head>
+  <body>
+    <svg height="140" width="500">
+      <ellipse cx="200" cy="80" rx="100" ry="50"style="fill:white;stroke:purple;stroke-width:2" />
+      <circle cx="100" cy="50" r="10" stroke="black" stroke-width="2" fill="none" />
+    </svg>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script>
+    var earthRadius = 6371; //kilometers
+    var scaleFactor = 150 / earthRadius;
+
+    $('#myCanvas').attr('width', $(window).width() + 'px');
+    $('#myCanvas').attr('height', $(window).height() + 'px');
+
+    var data = {}
+    $.ajax({
+          data: {
+              satellite: 'ISS (ZARYA)',
+              latitude: 0,
+              longitude: 0,
+              altitude: 0
+          },
+          method: 'POST',
+          url: 'http://dev.byteout.com/around-earth-dev/public/api/satellite',
+          async: false,
+          dataType: 'json',
+          success: function (d) {
+            data = d;
+          }
+      });
+
+      var semi_major_axis = data.tle.semi_major_axis * scaleFactor;
+      var semi_minor_axis = data.tle.semi_minor_axis * scaleFactor;
+
+      $('svg').attr('height', $(window).height());
+      $('svg').attr('width', $(window).width());
+
+      $('svg ellipse').attr('rx', semi_major_axis);
+      $('svg ellipse').attr('ry', semi_minor_axis);
+      $('svg ellipse').attr('cx', $(window).width() / 2);
+      $('svg ellipse').attr('cy', $(window).height() / 2);
+
+      $('svg circle').attr('cx', $(window).width() / 2 + semi_major_axis);
+      $('svg circle').attr('cy', $(window).height() / 2);
+
+      $('svg circle').css('transform-origin', $(window).width() / 2+ 'px ' + $(window).height() / 2 + 'px');
+      $('svg circle').css('transform', 'rotate(45deg)');
+
+    </script>
+  </body>
+</html>
