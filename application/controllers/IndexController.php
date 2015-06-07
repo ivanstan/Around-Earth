@@ -2,7 +2,7 @@
 
 use system\Controller;
 use phpbrowscap\Browscap;
-use models\TleSource;
+use models\Tle;
 /**
  * Controller documentation.
  */
@@ -38,14 +38,14 @@ class IndexController extends Controller {
 	}
 
 	public function webAction() {
-		$tleSource = new TleSource($this->app);
-		$satList = $tleSource->getSatelliteList();
+		$tle = new Tle($this->app);
+		$satList = $tle->getList();
 
 		$frontEndTpl = scandir($this->app->appRoot . '/application/views/front-end');
 		$tpls = '';
 		foreach($frontEndTpl as $tpl) {
 			if($tpl == '.' || $tpl == '..') continue;
-			$tpls .= file_get_contents($this->app->appRoot . '/application/views/front-end/' . $tpl);
+			$tpls .= file_get_contents($this->app->appRoot . 'application/views/front-end/' . $tpl);
 		}
 
 		$variables = array(
@@ -53,6 +53,7 @@ class IndexController extends Controller {
 			'satelliteList' => array_slice($satList, 0, 50),
 			'satelliteCount' => count($satList),
 			'frontEndTemplates' => $tpls,
+			'debug' => $this->app->config['debug']
 		);
 
 		return $variables;

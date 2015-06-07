@@ -16,6 +16,7 @@ App.modules.map = {
             App.bindEvents.updateSatellitePosition = setInterval(App.modules.map.updateSatellitePosition, interval);
 
             App.modules.rightPanel.updateRightPanel();
+            App.modules.rightPanel.initPassingOver();
             App.modules.map.updatePassingOver(App.satellite.data.position.latitude, App.satellite.data.position.longitude);
             App.modules.orbit.draw(App.satellite.data);
             App.modules.altitudeChart.update(App.satellite.data);
@@ -72,10 +73,10 @@ App.modules.map = {
         App.user.marker = new google.maps.Marker({
             position: (new google.maps.LatLng(App.user.position.latitude, App.user.position.longitude)),
             icon: {
-                url: 'images/location.png'
+                url: 'images/location.png',
                 //size: new google.maps.Size(81, 81),
                 //origin: new google.maps.Point(0, 0),
-                //anchor: new google.maps.Point(40, 55)
+                anchor: new google.maps.Point(15, 15)
             },
             draggable: true,
             map: App.map
@@ -88,6 +89,10 @@ App.modules.map = {
 
         google.maps.event.addListener(App.user.marker, 'click', function (event) {
             App.modules.contextualPopup.init('user');
+        });
+
+        google.maps.event.addListener(App.satellite.marker, 'click', function (event) {
+            App.modules.contextualPopup.init('satellite');
         });
 
         $('#label-satellite').html(data.satellite);
@@ -112,7 +117,6 @@ App.modules.map = {
         App.satellite.data.position.longitude = parseFloat(geo.longitude).toFixed(5);
         App.satellite.data.position.altitude = parseFloat(geo.altitude).toFixed(5);
 
-
         if(App.mapInitialized == true) {
             App.mapFeatures.dayNightTerminator.setDate(Date.UTC());
             App.satellite.marker.setPosition((new google.maps.LatLng(geo.latitude, geo.longitude)));
@@ -125,6 +129,7 @@ App.modules.map = {
         App.modules.rightPanel.updateUserView(userView.azimuth, elevation);
 
         App.modules.rightPanel.updateRightPanel();
+        App.modules.rightPanel.calculatePassingOver();
 
         //App.modules.altitudeChart.update(data);
     },

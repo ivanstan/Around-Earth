@@ -10,6 +10,10 @@ App.modules.contextualPopup = {
                 App.modules.contextualPopup.userContextInit();
                 App.modules.contextualPopup.show();
                 break;
+            case 'satellite':
+                App.modules.contextualPopup.satelliteContextInit();
+                App.modules.contextualPopup.show();
+                break;
         }
     },
 
@@ -36,6 +40,22 @@ App.modules.contextualPopup = {
     },
 
     userContextUpdate: function () {
+
+    },
+
+    satelliteContextInit: function() {
+        var template = Handlebars.compile($("#satellite-context").html());
+        var html    = template({
+            location: '',
+            latitude: parseFloat(App.user.position.latitude).toFixed(2),
+            longitude: parseFloat(App.user.position.longitude).toFixed(2),
+            altitude: parseFloat(App.user.position.altitude).toFixed(2)
+        });
+
+        $('#contextual-popup').html(html);
+    },
+
+    satelliteContextUpdate: function () {
 
     }
 

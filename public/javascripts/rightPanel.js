@@ -17,7 +17,7 @@ App.modules.rightPanel = {
         $('#label-mean-motion').html(data.tle.mean_motion);
         $('#label-ma').html(data.tle.mean_anomaly);
         $('#label-drag').html(data.tle.bstar);
-        $('#label-satellite').html(data.satellite);
+        $('#label-satellite').html($('#select-satellite').val());
         var periodMins = parseInt(data.tle.orbit_time / 60);
         $('#label-period').html('~' + periodMins + ' min');
         $('#label-orbit-number').html(data.tle.orbit);
@@ -41,6 +41,243 @@ App.modules.rightPanel = {
         $('#user-view-compass #label-azimuth').html(parseInt(compass_rotation) + '°');
         $('#user-view-compass #station').css('transform', 'rotate(' + compass_rotation + 'deg)');
         $('#user-view-elevation #elevation').attr('transform', 'rotate(' + elevation + ' 0 55)');
+    },
+
+    initPassingOver: function() {
+        var nextPass = App.satellite.data.next_pass;
+
+        var time = nextPass.rise_time;
+        var deltaT = 5;
+
+
+        var azimuths = [];
+        var elevations = [];
+        while(time < nextPass.set_time) {
+            var orbitalTime = new Orb.Time((new Date(time * 1000)));
+            var geo = App.satellite.propagator.position.geographic(orbitalTime);
+            var observer = new Orb.Observer(App.user.position);
+            var observation = new Orb.Observation({"observer": observer, "target": App.satellite.propagator});
+            var userView = observation.horizontal(orbitalTime);
+
+            var latitude = parseFloat(geo.latitude).toFixed(2);
+            var longitude = parseFloat(geo.longitude).toFixed(2);
+            var altitude = parseFloat(geo.altitude).toFixed(2);
+            var elevation = parseFloat(userView.elevation * (180 / Math.PI)).toFixed(2) * 1;
+            var azimuth = parseFloat(userView.azimuth).toFixed(2) * 1;
+
+            var userLatLng = (new google.maps.LatLng(App.user.position.latitude, App.user.position.longitude));
+            var satelliteLatLng = (new google.maps.LatLng(latitude, longitude));
+            var distance = google.maps.geometry.spherical.computeDistanceBetween(userLatLng, satelliteLatLng); //meters
+
+            time += deltaT;
+
+            azimuths.push(azimuth);
+            elevations.push(elevation);
+        }
+
+        //App.modules.rightPanel.passingChart = $('#passing-over-chart').highcharts({
+        //    title: {
+        //        text: '',
+        //        style: {
+        //            display: 'none'
+        //        }
+        //    },
+        //    credits: {
+        //        enabled: false
+        //    },
+        //    xAxis: {
+        //        categories: elevation,
+        //        labels: {
+        //            enabled: false
+        //        }
+        //    },
+        //    yAxis: {
+        //        title: {
+        //            text: 'Altitude (km)'
+        //        },
+        //        plotLines: [{
+        //            value: 0,
+        //            width: 1,
+        //            color: '#808080'
+        //        }]
+        //    },
+        //    tooltip: {
+        //        valueSuffix: ' km',
+        //        crosshairs: [true,true],
+        //        //backgroundColor: 'rgba(15, 99, 136, 0.5)'
+        //    },
+        //    series: [{
+        //        name: 'asd',
+        //        color: '#AFB5DC',
+        //        data: azimuths
+        //    }]
+        //});
+
+
+
+
+
+
+
+
+
+
+
+        var w = 250,
+            h = 250;
+
+        var colorscale = d3.scale.category10();
+
+//Legend titles
+        var LegendOptions = ['Smartphone'];
+
+//Data
+        var d = [
+            //[
+            //    {axis:"Email",value:0.59},
+            //    {axis:"Social Networks",value:0.56},
+            //    {axis:"Internet Banking",value:0.42},
+            //    {axis:"News Sportsites",value:0.34},
+            //    {axis:"Search Engine",value:0.48},
+            //    {axis:"View Shopping sites",value:0.14},
+            //    {axis:"Paying Online",value:0.11},
+            //    {axis:"Buy Online",value:0.05},
+            //    {axis:"Stream Music",value:0.07},
+            //    {axis:"Online Gaming",value:0.12},
+            //    {axis:"Navigation",value:0.27},
+            //    {axis:"App connected to TV program",value:0.03},
+            //    {axis:"Offline Gaming",value:0.12},
+            //    {axis:"Photo Video",value:0.4},
+            //    {axis:"Reading",value:0.03},
+            //    {axis:"Listen Music",value:0.22},
+            //    {axis:"Watch TV",value:0.03},
+            //    {axis:"TV Movies Streaming",value:0.03},
+            //    {axis:"Listen Radio",value:0.07},
+            //    {axis:"Sending Money",value:0.18},
+            //    {axis:"Other",value:0.07},
+            //    {axis:"Use less Once week",value:0.08}
+            //],
+            //[
+            //    {axis:"Email",value:0.48},
+            //    {axis:"Social Networks",value:0.41},
+            //    {axis:"Internet Banking",value:0.27},
+            //    {axis:"News Sportsites",value:0.28},
+            //    {axis:"Search Engine",value:0.46},
+            //    {axis:"View Shopping sites",value:0.29},
+            //    {axis:"Paying Online",value:0.11},
+            //    {axis:"Buy Online",value:0.14},
+            //    {axis:"Stream Music",value:0.05},
+            //    {axis:"Online Gaming",value:0.19},
+            //    {axis:"Navigation",value:0.14},
+            //    {axis:"App connected to TV program",value:0.06},
+            //    {axis:"Offline Gaming",value:0.24},
+            //    {axis:"Photo Video",value:0.17},
+            //    {axis:"Reading",value:0.15},
+            //    {axis:"Listen Music",value:0.12},
+            //    {axis:"Watch TV",value:0.1},
+            //    {axis:"TV Movies Streaming",value:0.14},
+            //    {axis:"Listen Radio",value:0.06},
+            //    {axis:"Sending Money",value:0.16},
+            //    {axis:"Other",value:0.07},
+            //    {axis:"Use less Once week",value:0.17},
+            //    {axis:"Use less Once week",value:0.17},
+            //    {axis:"Use less Once week",value:0.17}
+            //]
+        ];
+
+        var test = [];
+        for(var i = 0; i <= 360; i += 30) {
+            test.push({axis: i + ' ', value: 0.17});
+        }
+
+        d.push(test);
+        console.log(d);
+
+
+
+//Options for the Radar chart, other than default
+        var mycfg = {
+            w: w,
+            h: h,
+            maxValue: 0.6,
+            levels: 6,
+            ExtraWidthX: 300
+        }
+
+//Call function to draw the Radar chart
+//Will expect that data is in %'s
+//        RadarChart.draw("#polar-chart", d, mycfg);
+
+////////////////////////////////////////////
+/////////// Initiate legend ////////////////
+////////////////////////////////////////////
+
+        //var svg = d3.select('#polar-chart')
+        //    .selectAll('svg')
+        //    .append('svg')
+        //    .attr("width", w+300)
+        //    .attr("height", h)
+
+//Create the title for the legend
+//        var text = svg.append("text")
+//            .attr("class", "title")
+//            .attr('transform', 'translate(90,0)')
+//            .attr("x", w - 70)
+//            .attr("y", 10)
+//            .attr("font-size", "12px")
+//            .attr("fill", "#404040")
+//            .text("What % of owners use a specific service in a week");
+
+//Initiate Legend
+//        var legend = svg.append("g")
+//                .attr("class", "legend")
+//                .attr("height", 100)
+//                .attr("width", 200)
+//                .attr('transform', 'translate(90,20)')
+//            ;
+        //Create colour squares
+        //legend.selectAll('rect')
+        //    .data(LegendOptions)
+        //    .enter()
+        //    .append("rect")
+        //    .attr("x", w - 65)
+        //    .attr("y", function(d, i){ return i * 20;})
+        //    .attr("width", 10)
+        //    .attr("height", 10)
+        //    .style("fill", function(d, i){ return colorscale(i);})
+        //;
+        //Create text next to squares
+        //legend.selectAll('text')
+        //    .data(LegendOptions)
+        //    .enter()
+        //    .append("text")
+        //    .attr("x", w - 52)
+        //    .attr("y", function(d, i){ return i * 20 + 9;})
+        //    .attr("font-size", "11px")
+        //    .attr("fill", "#737373")
+        //    .text(function(d) { return d; })
+        //;
+
+
+
+
+
+
+
+
+
+
+        //max_elevation
+        //rise_azimuth
+        //rise_time
+        //set_azimuth
+        //set_time
+        //transit_time
+        //until
+    },
+    
+    calculatePassingOver: function () {
+
     }
 }
 

@@ -13,7 +13,7 @@ ServerSignature Off
 #    RewriteCond %{HTTPS} !=on
 #    RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 #  </IfModule>
-
+  RewriteCond %{REQUEST_URI} !cache.manifest.*$ [NC]
   RewriteCond %{REQUEST_URI} !\/fonts\/.*$ [NC]
   RewriteCond %{REQUEST_URI} !\/images\/.*$ [NC]
   RewriteCond %{REQUEST_URI} !\/stylesheets\/.*$ [NC]

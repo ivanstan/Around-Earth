@@ -47,9 +47,17 @@ App.modules.groundStations = {
                     };
 
                     var popupText = data[i].name + '<br><br>';
-                    popupText += 'Latitude: ' + latitude.toFixed(2);
-                    popupText += '<br>';
-                    popupText += 'Longitude: ' + longitude.toFixed(2);
+
+                    popupText += '<table>';
+                    popupText += '<tr>';
+                    popupText += '<td>Latitude:</td>';
+                    popupText += '<td>' + latitude.toFixed(2) + '</td>';
+                    popupText += '</tr>';
+                    popupText += '<tr>';
+                    popupText += '<td>Longitude:</td>';
+                    popupText += '<td>' + longitude.toFixed(2) + '</td>';
+                    popupText += '</tr>';
+                    popupText += '</table>';
 
                     if(data[i].description) {
                         popupText += '<br><br>';

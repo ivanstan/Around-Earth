@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html{% if debug == 0%} manifest="cache.manifest"{% endif %}>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -10,6 +10,8 @@
     <script type="text/javascript" src="javascripts/functions.js"></script>
     <script type="text/javascript" src="vendor/bootstrap.min.js"></script>
     <script type="text/javascript" src="vendor/daynightoverlay.js"></script>
+    <script type="text/javascript" src="vendor/d3.v3.min.js"></script>
+    <script type="text/javascript" src="vendor/radar.chart.js"></script>
     <script type="text/javascript" src="javascripts/mapStyles.js"></script>
     <script type="text/javascript" src="javascripts/app.js"></script>
     <script type="text/javascript" src="javascripts/map.js"></script>
@@ -53,34 +55,7 @@
     {% include 'dashboard.html.html.twig' %}
 </div>
 
-<div id="page-sky" class="container-fluid tabs-page">
-
-    <table id="sky-display">
-        <tr>
-            <td>Alpha</td>
-            <td id="alpha"></td>
-        </tr>
-        <tr>
-            <td>Pitch</td>
-            <td id="beta"></td>
-        </tr>
-        <tr>
-            <td>Roll</td>
-            <td id="gamma"></td>
-        </tr>
-    </table>
-
-
-    <video autoplay id="augmented-reality"></video>
-
-
-    <div id="sky-overlay">
-
-        <hr id="sky-horizon">
-
-    </div>
-
-</div>
+{% include 'page-sky.html.twig' %}
 
 <div id="contextual-popup" style="display: none"></div>
 <div id="ajax-loader" style="display: none">Loading</div>

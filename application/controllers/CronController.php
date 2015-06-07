@@ -26,13 +26,16 @@ class CronController extends Controller {
 	}
 
 	/**
-	 * cron/get-tle-data&cron_key=xxx
+	 * cron/update-tle-data&cron_key=xxx
 	 */
 	public function updateTleDataAction() {
 		set_time_limit(0);
 
 		$tle = new Tle($this->app);
 		$existing = $tle->getList();
+
+		$countUpdated = 0;
+		$countNew = 0;
 
 		foreach($this->app->config['tle_sources'] as $tle_file) {
 			$curl = curl_init();
@@ -64,9 +67,11 @@ class CronController extends Controller {
 				if(isset($existing[$parser->satelliteNumber])) {
 					if($existing[$parser->satelliteNumber]['epoch'] < $parser->epochUnixTimestamp) {
 						$updateArray[] = $tleArray;
+						$countUpdated++;
 					}
 				} else {
 					$insertArray[] = $tleArray;
+					$countNew++;
 				}
 			}
 
@@ -80,6 +85,11 @@ class CronController extends Controller {
 				$tle->update($item);
 			}
 		}
+
+		echo json_encode(array(
+			'updated' => $countUpdated,
+			'created' => $countNew
+		));
 
 		exit();
 	}

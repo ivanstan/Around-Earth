@@ -164,8 +164,6 @@ App = {
             });
         }
 
-
-
         if (App.settings.toolbarRightOpen) {
             $('#toolbar-right').addClass('active');
         } else {

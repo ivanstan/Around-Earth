@@ -18,7 +18,7 @@
 
                     <select id="select-satellite" class="bootstrap-select">
                     {% for key,value in satelliteList %}
-                        <option value="{{ value }}">{{ value }}</option>
+                        <option value="{{ key }}">{{ value['name'] }}</option>
                     {% endfor %}
                     </select>
 

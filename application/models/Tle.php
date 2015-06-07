@@ -53,9 +53,14 @@ class Tle extends Model {
 	}
 
 	public function find($search) {
-		$query = 'SELECT id, name FROM tle WHERE name LIKE ?';
+		$query = 'SELECT id, name FROM tle WHERE name LIKE ? OR id LIKE ?';
 		$stmt = $this->pdo->prepare($query);
-		$stmt->execute(array('%' . $search . '%'));
+		$stmt->execute(
+			array(
+				'%' . $search . '%',
+				'%' . $search . '%'
+			)
+		);
 		return $stmt->fetchAll(\PDO::FETCH_UNIQUE|\PDO::FETCH_ASSOC);
 	}
 
@@ -67,7 +72,7 @@ class Tle extends Model {
 	}
 
 	public function getList() {
-		$query = 'SELECT id, name, epoch FROM tle';
+		$query = 'SELECT id, name, epoch FROM tle ORDER BY weight DESC, name';
 		$stmt = $this->pdo->prepare($query);
 		$stmt->execute();
 		return $stmt->fetchAll(\PDO::FETCH_UNIQUE|\PDO::FETCH_ASSOC);

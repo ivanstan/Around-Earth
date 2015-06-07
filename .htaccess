@@ -1,3 +1,5 @@
+AddType text/cache-manifest cache.manifest
+
 RewriteEngine On
 RewriteRule ^$ public [L,R=301]
 
