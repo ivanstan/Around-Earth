@@ -185,13 +185,62 @@ App.modules.rightPanel = {
             //]
         ];
 
-        var test = [];
-        for(var i = 0; i <= 360; i += 30) {
-            test.push({axis: i + ' ', value: 0.17});
+
+        //max_elevation
+        //rise_azimuth
+        //rise_time
+        //set_azimuth
+        //set_time
+        //transit_time
+        //until
+
+        var deltaTime = nextPass.set_time - nextPass.rise_time;
+        var timeIncrease = parseInt(deltaTime / 11);
+
+        var nextPassData = [];
+        var axis = 0;
+
+        var time = nextPass.set_time;
+        for(var i = 0; i <= 11; i++) {
+            time += timeIncrease;
+
+            var orbitalTime = new Orb.Time((new Date(time * 1000)));
+            var geo = App.satellite.propagator.position.geographic(orbitalTime);
+            var observation = new Orb.Observation({"observer": (new Orb.Observer(App.user.position)), "target": App.satellite.propagator});
+            var userView = observation.horizontal(orbitalTime);
+            var userPosition = (new google.maps.LatLng(App.user.position.latitude, App.user.position.longitude));
+
+            nextPassData.push({
+                'latitude': parseFloat(geo.latitude).toFixed(4) * 1,
+                'longitude': parseFloat(geo.longitude).toFixed(4) * 1,
+                'altitude': parseFloat(geo.altitude).toFixed(4) * 1,
+                'elevation': parseFloat(userView.elevation * (180 / Math.PI)).toFixed(4) * 1,
+                'azimuth': parseFloat(userView.azimuth).toFixed(4) * 1,
+                'distance': google.maps.geometry.spherical.computeDistanceBetween(userPosition, (new google.maps.LatLng(parseFloat(geo.latitude).toFixed(4), parseFloat(geo.longitude).toFixed(4)))) / 1000 // kilometers
+            });
         }
 
-        d.push(test);
-        console.log(d);
+
+        var time = nextPass.set_time;
+        var data = [];
+        for(var i = 0; i <= 11; i++) {
+            axis += 30;
+
+            var distance = 0;
+            for(var j in nextPassData) {
+                if(axis > nextPassData[j].azimuth - 5 && axis < nextPassData[j].azimuth + 5) {
+                    distance = nextPassData[j].distance;
+                }
+            }
+
+            data.push({axis: axis + ' ', value: 14});
+
+        }
+
+        console.log(data);
+
+        d.push(data);
+
 
 
 
@@ -201,12 +250,13 @@ App.modules.rightPanel = {
             h: h,
             maxValue: 0.6,
             levels: 6,
-            ExtraWidthX: 300
-        }
+            ExtraWidthX: 250,
+            ExtraWidthY: 250
+        };
 
-//Call function to draw the Radar chart
+//Call function to draw the R;adar chart
 //Will expect that data is in %'s
-//        RadarChart.draw("#polar-chart", d, mycfg);
+        RadarChart.draw("#polar-chart", d, mycfg);
 
 ////////////////////////////////////////////
 /////////// Initiate legend ////////////////
@@ -267,13 +317,7 @@ App.modules.rightPanel = {
 
 
 
-        //max_elevation
-        //rise_azimuth
-        //rise_time
-        //set_azimuth
-        //set_time
-        //transit_time
-        //until
+
     },
     
     calculatePassingOver: function () {

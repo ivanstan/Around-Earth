@@ -65,7 +65,11 @@ class Tle extends Model {
 	}
 
 	public function load($id) {
-		$query = 'SELECT * FROM tle WHERE id = :id';
+		$query = '
+			SELECT * FROM tle
+			LEFT JOIN sat_freq ON sat_freq.id = tle.id
+			WHERE id = :id
+		';
 		$stmt = $this->pdo->prepare($query);
 		$stmt->execute(array('id' => $id));
 		return $stmt->fetch();
