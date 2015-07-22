@@ -212,9 +212,6 @@ App = {
             $('#toolbar-bottom').removeClass('active');
         }
 
-        /* INITIALIZE BOOTSTRAP CONTROLS*/
-        $('[data-toggle="tooltip"]').tooltip();
-        $('[data-toggle="popover"]').popover();
     });
 })(jQuery);
 

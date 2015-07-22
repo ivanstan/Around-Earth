@@ -256,7 +256,7 @@ App.modules.rightPanel = {
 
 //Call function to draw the R;adar chart
 //Will expect that data is in %'s
-        RadarChart.draw("#polar-chart", d, mycfg);
+//        RadarChart.draw("#polar-chart", d, mycfg);
 
 ////////////////////////////////////////////
 /////////// Initiate legend ////////////////

@@ -9,8 +9,11 @@
         <!--
         var heading = 0;
         $(document).ready(function () {
-            planetarium = $.virtualsky({id: 'starmap', projection: 'stereo'}); // Assumes you want to draw this to a <div> with the id 'starmapper'
-
+            planetarium = $.virtualsky({
+                id: 'starmap',
+                projection: 'stereo',
+                az: 0,
+            });
 
             window.addEventListener('deviceorientation', function (evt) {
                 heading = compassHeading(evt.alpha, evt.beta, evt.gamma);
@@ -25,7 +28,7 @@
 
                 time = now;
 
-                planetarium.az_off = heading;
+                planetarium.az_off = heading + 180;
                 planetarium.draw();
             }
 
@@ -79,7 +82,7 @@
 </head>
 <body>
 
-<div id="starmap" style="width:944x;height:400px;"></div>
+<div id="starmap" style="width:100%;height:100%;"></div>
 
 </body>
 </html>
