@@ -4,6 +4,7 @@ namespace system;
 
 use system\Router;
 use system\User;
+use system\AssetManager;
 use Symfony\Component\Yaml\Parser;
 
 /**
@@ -34,11 +35,13 @@ class Application {
 
 	public $appRoot;
 
+	public $assetManager;
+
 	private $cacheHandler;
 
-	const ROUTE_FOUND = 1;
-	const ROUTE_NOT_FOUND = 2;
-	const ROUTE_SITE_OFFLINE = 3;
+	const ROUTE_FOUND         = 1;
+	const ROUTE_NOT_FOUND     = 2;
+	const ROUTE_SITE_OFFLINE  = 3;
 	const ROUTE_ACCESS_DENIED = 4;
 
 	/**
@@ -51,7 +54,7 @@ class Application {
 	public function boot() {
 		$this->appRoot = rtrim(getcwd(), '/\\') . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR;
 
-		$yaml = new Parser();
+		$yaml         = new Parser();
 		$this->config = $yaml->parse(file_get_contents($this->appRoot . 'settings.yaml'));
 
 		if($this->config['debug'] == 1) {
@@ -59,8 +62,8 @@ class Application {
 			ini_set('display_errors', 1);
 		}
 
-		$scheme = isset($_SERVER['REQUEST_SCHEME']) ? $_SERVER['REQUEST_SCHEME'] : 'http';
-		$baseUrl = $scheme . '://' . $_SERVER['SERVER_NAME'];
+		$scheme        = isset($_SERVER['REQUEST_SCHEME']) ? $_SERVER['REQUEST_SCHEME'] : 'http';
+		$baseUrl       = $scheme . '://' . $_SERVER['SERVER_NAME'];
 		$this->baseUrl = $baseUrl;
 
 		// PARSE ROUTE
@@ -72,14 +75,19 @@ class Application {
 		// SET LOCALE
 		$this->setLocale();
 
+		$this->assetManager = new AssetManager();
+
 		if($this->route['status'] == self::ROUTE_FOUND) {
 			// INSTANTIATE APPROPRIATE CONTROLLER
 			$controllerClassName = $this->route['controller_class'];
-			$controllerObject = new $controllerClassName($this);
+			$controllerObject    = new $controllerClassName($this);
 
 			// CALL APPROPRIATE CONTROLLER ACTION
 			$actionMethodName = $this->route['action_method'];
-			$variables = $controllerObject->$actionMethodName();
+			$variables        = $controllerObject->$actionMethodName();
+
+			$variables['assetCss']        = $this->assetManager->getCss();
+			$variables['assetJavascript'] = $this->assetManager->getJavascript();
 
 			$this->setupTwig();
 			$template = $this->twig->loadTemplate($this->route['action'] . '.html.twig');
@@ -93,7 +101,7 @@ class Application {
 
 		$loader = new \Twig_Loader_Filesystem($this->appRoot . 'application/views');
 
- 		$this->twig = new \Twig_Environment($loader);
+		$this->twig = new \Twig_Environment($loader);
 
 		$this->twig = new \Twig_Environment($loader, array(
 			'autoescape' => false
@@ -118,14 +126,15 @@ class Application {
 
 	/**
 	 * Set the locale of the application.
+	 *
 	 * @param string $locale
-	 * 	format aa_BB (aa represents the language and BB represents the country).
-	 * 	If omitted get user's prefered language or system default language.
+	 *    format aa_BB (aa represents the language and BB represents the country).
+	 *    If omitted get user's prefered language or system default language.
 	 */
 	public function setLocale($locale = null) {
 		if(is_null($locale)) {
 			$languages = $this->getLanguages();
-			$locale = key($languages);
+			$locale    = key($languages);
 		}
 
 		putenv("LC_ALL=$locale");
@@ -136,18 +145,18 @@ class Application {
 
 	private function connectToDatabase() {
 		if(isset($this->config['database'])) {
-			$databaseHost = $this->config['database']['host'];
-			$databaseName = $this->config['database']['database'];
+			$databaseHost     = $this->config['database']['host'];
+			$databaseName     = $this->config['database']['database'];
 			$databaseUsername = $this->config['database']['username'];
 			$databasePassword = $this->config['database']['password'];
-			$dsn = "mysql:dbname={$databaseName};host={$databaseHost}";
+			$dsn              = "mysql:dbname={$databaseName};host={$databaseHost}";
 
 			try {
 				$this->pdo = new \PDO($dsn, $databaseUsername, $databasePassword);
 				if($this->config['debug'] == 1) {
 					$this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
 				}
-			} catch (\PDOException $e) {
+			} catch(\PDOException $e) {
 				echo 'Connection failed: ' . $e->getMessage();
 			}
 		}
@@ -155,6 +164,7 @@ class Application {
 
 	/**
 	 * Returns cache handler class defined in configuration value default_cache_class.
+	 *
 	 * @return cacheHandler class extended from abstract CacheHandler
 	 */
 	public function getCacheHandler() {
@@ -162,7 +172,7 @@ class Application {
 			$config = $this->getConfig();
 
 			$classExists = file_exists('system/cache/' . $config['default_cache_class'] . '.php');
-			if ($classExists) {
+			if($classExists) {
 				$cacheHandlerClass = 'system\cache\\' . $config['default_cache_class'];
 				if(class_exists($cacheHandlerClass)) {
 					$this->cacheHandler = new $cacheHandlerClass($this);

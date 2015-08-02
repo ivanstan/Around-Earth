@@ -62,20 +62,20 @@ window.confirm = function(message) {
 jQuery(document).ready(function(){
     Framework.init();
 
-    var connection = new WebSocket('ws://localhost:8765');
-    connection.onopen = function () {
-        connection.send('Ivan'); // Send the message 'Ping' to the server
-    };
+    //var connection = new WebSocket('ws://localhost:8765');
+    //connection.onopen = function () {
+    //    connection.send('Ivan'); // Send the message 'Ping' to the server
+    //};
 
     // Log errors
-    connection.onerror = function (error) {
-        console.log('WebSocket Error ' + error);
-    };
-
-    // Log messages from the server
-    connection.onmessage = function (e) {
-        console.log(e.data);
-    };
+    //connection.onerror = function (error) {
+    //    console.log('WebSocket Error ' + error);
+    //};
+    //
+    //// Log messages from the server
+    //connection.onmessage = function (e) {
+    //    console.log(e.data);
+    //};
 
     //alert('test');
 });

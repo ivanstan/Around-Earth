@@ -64,21 +64,19 @@ void loop(){
   float preassurePascals = event.pressure * 100;
   
   Serial.print("{");
-  Serial.print("AcX: '"); Serial.print(AcX); Serial.print("',");
-  Serial.print("AcY: '"); Serial.print(AcY); Serial.print("',");
-  Serial.print("AcZ: '"); Serial.print(AcZ); Serial.print("',");
-  Serial.print("Pitch: '"); Serial.print(pitch); Serial.print("',");
-  Serial.print("Roll: '"); Serial.print(roll); Serial.print("',");
-  Serial.print("GyroTemp: '"); Serial.print(Tmp/340.00+36.53); Serial.print("',"); //equation for temperature in degrees C from datasheet
-  Serial.print("GyX: '"); Serial.print(GyX); Serial.print("',");
-  Serial.print("GyY: '"); Serial.print(GyY); Serial.print("',");
-  Serial.print("GyZ: '"); Serial.print(GyZ); Serial.print("',");
-  Serial.print("AirPres: '"); Serial.print(event.pressure); Serial.print("',"); //hPa
-  Serial.print("AirTemp: '"); Serial.print(temperature); Serial.print("',"); //celsius
-  Serial.print("Altitude: '"); Serial.print(altitude); Serial.print("'"); //meters
-  Serial.println("}");
-  
-  delay(200);
+  Serial.print("\"AcX\": "); Serial.print(AcX); Serial.print(",");
+  Serial.print("\"AcY\": "); Serial.print(AcY); Serial.print(",");
+  Serial.print("\"AcZ\": "); Serial.print(AcZ); Serial.print(",");
+  Serial.print("\"Pitch\": "); Serial.print(pitch); Serial.print(",");
+  Serial.print("\"Roll\": "); Serial.print(roll); Serial.print(",");
+  Serial.print("\"GyroTemp\": "); Serial.print(Tmp/340.00+36.53); Serial.print(","); //equation for temperature in degrees C from datasheet
+  Serial.print("\"GyX\": "); Serial.print(GyX); Serial.print(",");
+  Serial.print("\"GyY\": "); Serial.print(GyY); Serial.print(",");
+  Serial.print("\"GyZ\": "); Serial.print(GyZ); Serial.print(",");
+  Serial.print("\"AirPres\": "); Serial.print(event.pressure); Serial.print(","); //hPa
+  Serial.print("\"AirTemp\": "); Serial.print(temperature); Serial.print(","); //celsius
+  Serial.print("\"Altitude\": "); Serial.print(altitude); //meters
+  Serial.print("}\n");
 }
 
 void displaySensorDetails(void) {
