@@ -1,0 +1,1 @@
+phpDocumentor.phar -t documentation/ -d .

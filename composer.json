@@ -43,7 +43,9 @@
     "symfony/event-dispatcher": "*",
     "symfony/yaml": "*",
     "symfony/finder": "*",
-    "browscap/browscap-php": "*"
+    "browscap/browscap-php": "*",
+    "plumphp/plum": "*",
+    "oodle/krumo": "*"
   },
   "suggest": {
   },

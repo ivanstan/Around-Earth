@@ -44,6 +44,10 @@ class Application {
 	const ROUTE_SITE_OFFLINE  = 3;
 	const ROUTE_ACCESS_DENIED = 4;
 
+	public function getEnvironment() {
+		return isset($_ENV['APP_ENVIRONMENT']) ? strtolower($_ENV['APP_ENVIRONMENT']) : 'integration';
+	}
+
 	/**
 	 * First method called after application class is instantiated.
 	 *
@@ -55,7 +59,12 @@ class Application {
 		$this->appRoot = rtrim(getcwd(), '/\\') . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR;
 
 		$yaml         = new Parser();
-		$this->config = $yaml->parse(file_get_contents($this->appRoot . 'settings.yaml'));
+		$this->config = $yaml->parse(file_get_contents($this->appRoot . 'config/general.yaml'));
+
+		$envConfig = $this->appRoot . 'config/' . $this->getEnvironment() . '.yaml';
+		if(file_exists($envConfig)) {
+			$this->config = array_merge($this->config, $yaml->parse(file_get_contents($envConfig)));
+		}
 
 		if($this->config['debug'] == 1) {
 			error_reporting(E_ALL);

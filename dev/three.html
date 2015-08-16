@@ -1,0 +1,238 @@
+<html>
+<head>
+    <title>My first Three.js app</title>
+    <style>
+        body {
+            margin: 0;
+        }
+
+        canvas {
+            width: 100%;
+            height: 100%
+        }
+    </style>
+</head>
+<body>
+<script src="three.min.js"></script>
+<script src="OrbitControls.js"></script>
+<script>
+
+
+    var angularSpeed = 0.2;
+    var lastTime = 0;
+//
+    function animate() {
+
+
+
+        // update
+        var time = (new Date()).getTime();
+        var timeDiff = time - lastTime;
+        var angleChange = angularSpeed * timeDiff * 2 * Math.PI / 1000;
+        // plane.rotation.z += angleChange;
+        // plane2.rotation.x += angleChange;
+        lastTime = time;
+
+        // render
+        App.renderer.render(App.scene, App.camera);
+
+        // request new frame
+        requestAnimationFrame(function () {
+            animate();
+        });
+    }
+
+
+
+
+    // plane
+//          var plane = new THREE.Mesh(new THREE.PlaneGeometry(300, 300), new THREE.MeshBasicMaterial({ vertexColors : THREE.VertexColors }));
+//          plane.overdraw = true;
+//          scene.add(plane);
+//
+//    var plane2 = new THREE.Mesh(new THREE.PlaneGeometry(300, 300), new THREE.MeshBasicMaterial({ vertexColors : THREE.VertexColors }));
+//    plane2.overdraw = true;
+//    plane2.rotation.y = 45; //inclination
+//    scene.add(plane2);
+
+//          var material = new THREE.LineBasicMaterial({color:0xFF0000, opacity:1});
+//          var ellipse = new THREE.EllipseCurve(0, 0, 180, 180, 0, 2.0 * Math.PI, false);
+//          var ellipsePath = new THREE.CurvePath();
+//          ellipsePath.add(ellipse);
+//          var ellipseGeometry = ellipsePath.createPointsGeometry(100);
+//          ellipseGeometry.computeTangents();
+//          var line = new THREE.Line(ellipseGeometry, material);
+//          line.rotation.y = -0.2; //orbit inclination
+//          scene.add( line );
+
+
+
+
+
+
+
+
+
+
+    //  draw axis
+
+
+
+
+    // start animation
+
+
+
+App = {
+    scene: null,
+    renderer: null,
+    camera: null,
+
+    setup: function() {
+        App.scene = new THREE.Scene();
+        App.renderer = new THREE.WebGLRenderer({alpha: true});
+        App.renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(App.renderer.domElement);
+
+        App.camera = new THREE.PerspectiveCamera(90, window.innerWidth / window.innerHeight, 1, 1000);
+        App.camera.position.x = 0;
+        App.camera.position.y = 0;
+        App.camera.position.z = -600;
+
+
+        // create a point light
+        var pointLight = new THREE.PointLight(0xFFFFFF);
+        pointLight.position.x = 0;
+        pointLight.position.y = 300;
+        pointLight.position.z = 300;
+
+        // add to the scene
+        App.scene.add(pointLight);
+
+        var light = new THREE.AmbientLight( 0x404040 ); // soft white light
+        App.scene.add( light );
+
+        controls = new THREE.OrbitControls(App.camera);
+        controls.damping = 0.2;
+        controls.addEventListener( 'change', App.renderer );
+
+    },
+
+    createEarth: function() {
+        // set up the sphere vars
+        var radius = 150,
+                segments = 48,
+                rings = 48;
+
+        // create the sphere's material
+        var material  = new THREE.MeshPhongMaterial();
+        material.map    = THREE.ImageUtils.loadTexture('earth/earthmap1k.jpg');
+        material.bumpMap    = THREE.ImageUtils.loadTexture('earth/earthbump1k.jpg');
+        material.bumpScale = 0.05;
+        material.specularMap    = THREE.ImageUtils.loadTexture('earth/earthspec1k.jpg');
+        material.specular  = new THREE.Color('grey');
+
+
+
+        // create a new mesh with
+        // sphere geometry - we will cover
+        // the sphereMaterial next!
+
+//    var geometry   = new THREE.SphereGeometry(0.5, 32, 32);
+        var geometry  = new THREE.SphereGeometry(
+                radius,
+                segments,
+                rings);
+
+        var sphere = new THREE.Mesh(
+
+                geometry,
+
+                material);
+
+        // add the sphere to the scene
+        App.scene.add(sphere);
+
+
+
+        var canvasCloud = THREE.ImageUtils.loadTexture('earth/earthmap1k.jpg');
+        var geometry   = new THREE.SphereGeometry(0.51, 32, 32)
+        var material  = new THREE.MeshPhongMaterial({
+            map     : new THREE.Texture(canvasCloud),
+            side        : THREE.DoubleSide,
+            opacity     : 0.8,
+            transparent : true,
+            depthWrite  : false
+        });
+        var cloudMesh = new THREE.Mesh(geometry, material)
+        sphere.add(cloudMesh);
+    },
+
+    createAxis: function() {
+        var lineMaterial = new THREE.LineBasicMaterial({
+            color : 0xFF0000
+        });
+
+        var geometry = new THREE.Geometry();
+        geometry.vertices.push(new THREE.Vector3(0, 300, 0));
+        geometry.vertices.push(new THREE.Vector3(0, -300, 0));
+        var line = new THREE.Line(geometry, lineMaterial);
+        App.scene.add(line);
+    },
+
+    createEquatorialPlane: function() {
+        var geometry = new THREE.PlaneGeometry(400, 400);
+        var material = new THREE.MeshBasicMaterial({
+            color: 0xffff00,
+            side: THREE.DoubleSide,
+            transparent: true,
+            opacity: 0.5
+        });
+        var plane = new THREE.Mesh( geometry, material );
+        plane.overdraw = true;
+        plane.rotation.x = 90 *  Math.PI/180;
+        App.scene.add(plane);
+    },
+
+    createOrbitalPlane: function(inclination) {
+        var geometry = new THREE.PlaneGeometry(400, 400);
+        var material = new THREE.MeshBasicMaterial({
+            color: 0xff0000,
+            side: THREE.DoubleSide,
+            transparent: true,
+            opacity: 0.5
+        });
+        var plane = new THREE.Mesh( geometry, material );
+        plane.overdraw = true;
+        plane.rotation.x = (-90 + inclination) * Math.PI/180;
+        App.scene.add(plane);
+    },
+
+    createLatLngLine: function(lat, lng) {
+        var lineMaterial = new THREE.LineBasicMaterial({
+            color : 0xFF0000
+        });
+
+        var geometry = new THREE.Geometry();
+        geometry.vertices.push(new THREE.Vector3(0, 0, 0));
+        geometry.vertices.push(new THREE.Vector3(300, 0, 0));
+        var line = new THREE.Line(geometry, lineMaterial);
+        line.rotation.y = lat *  Math.PI/180;
+        App.scene.add(line);
+    }
+
+};
+
+
+App.setup();
+App.createEarth();
+App.createAxis();
+//App.createEquatorialPlane();
+//App.createOrbitalPlane(72);
+App.createLatLngLine(51.50722 -0.12750);
+
+animate();
+
+</script>
+</body>
+</html>
