@@ -1,0 +1,1047 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en" class="">
+  <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# object: http://ogp.me/ns/object# article: http://ogp.me/ns/article# profile: http://ogp.me/ns/profile#">
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Language" content="en">
+    <meta name="viewport" content="width=1020">
+    
+    
+    <title>slowe/VirtualSky · GitHub</title>
+    <link rel="search" type="application/opensearchdescription+xml" href="/opensearch.xml" title="GitHub">
+    <link rel="fluid-icon" href="https://github.com/fluidicon.png" title="GitHub">
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-114.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-144.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144.png">
+    <meta property="fb:app_id" content="1401488693436528">
+
+      <meta content="@github" name="twitter:site" /><meta content="summary" name="twitter:card" /><meta content="slowe/VirtualSky" name="twitter:title" /><meta content="VirtualSky - A browser-based planetarium that can be customised and embedded in web pages." name="twitter:description" /><meta content="https://avatars3.githubusercontent.com/u/299787?v=3&amp;s=400" name="twitter:image:src" />
+      <meta content="GitHub" property="og:site_name" /><meta content="object" property="og:type" /><meta content="https://avatars3.githubusercontent.com/u/299787?v=3&amp;s=400" property="og:image" /><meta content="slowe/VirtualSky" property="og:title" /><meta content="https://github.com/slowe/VirtualSky" property="og:url" /><meta content="VirtualSky - A browser-based planetarium that can be customised and embedded in web pages." property="og:description" />
+      <meta name="browser-stats-url" content="https://api.github.com/_private/browser/stats">
+    <meta name="browser-errors-url" content="https://api.github.com/_private/browser/errors">
+    <link rel="assets" href="https://assets-cdn.github.com/">
+    
+    <meta name="pjax-timeout" content="1000">
+    
+
+    <meta name="msapplication-TileImage" content="/windows-tile.png">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="selected-link" value="repo_source" data-pjax-transient>
+
+        <meta name="google-analytics" content="UA-3769691-2">
+
+    <meta content="collector.githubapp.com" name="octolytics-host" /><meta content="collector-cdn.github.com" name="octolytics-script-host" /><meta content="github" name="octolytics-app-id" /><meta content="4F65D67C:1CBA:6FACDEA:55D06813" name="octolytics-dimension-request_id" />
+    
+    <meta content="Rails, view, files#disambiguate" data-pjax-transient="true" name="analytics-event" />
+    <meta class="js-ga-set" name="dimension1" content="Logged Out">
+      <meta class="js-ga-set" name="dimension4" content="Current repo nav">
+    <meta name="is-dotcom" content="true">
+        <meta name="hostname" content="github.com">
+    <meta name="user-login" content="">
+
+      <link rel="icon" sizes="any" mask href="https://assets-cdn.github.com/pinned-octocat.svg">
+      <meta name="theme-color" content="#4078c0">
+      <link rel="icon" type="image/x-icon" href="https://assets-cdn.github.com/favicon.ico">
+
+    <!-- </textarea> --><!-- '"` --><meta content="authenticity_token" name="csrf-param" />
+<meta content="LzIZtqMXPnFBocPqB12YQhgfXCmD7pqwBKM0xK2xFtKBjMjlI9ErjF7UrjobLpszfjtzfazuTiewDyQOwM03fg==" name="csrf-token" />
+    
+
+    <link crossorigin="anonymous" href="https://assets-cdn.github.com/assets/github/index-78350b39bf13714f4b06a2153e5374de01bc939bfa60ec9bdb34dbb2032dda4b.css" media="all" rel="stylesheet" />
+    <link crossorigin="anonymous" href="https://assets-cdn.github.com/assets/github2/index-fe5622bab39e70fefc28ebe1ea2e8fa620c0c026df4a6b089aac3bf495d3463e.css" media="all" rel="stylesheet" />
+    
+    
+
+
+    <meta http-equiv="x-pjax-version" content="a26d7fe411f453e1f88034a366ff5217">
+
+      
+  <meta name="description" content="VirtualSky - A browser-based planetarium that can be customised and embedded in web pages.">
+  <meta name="go-import" content="github.com/slowe/VirtualSky git https://github.com/slowe/VirtualSky.git">
+
+  <meta content="299787" name="octolytics-dimension-user_id" /><meta content="slowe" name="octolytics-dimension-user_login" /><meta content="4224729" name="octolytics-dimension-repository_id" /><meta content="slowe/VirtualSky" name="octolytics-dimension-repository_nwo" /><meta content="true" name="octolytics-dimension-repository_public" /><meta content="false" name="octolytics-dimension-repository_is_fork" /><meta content="4224729" name="octolytics-dimension-repository_network_root_id" /><meta content="slowe/VirtualSky" name="octolytics-dimension-repository_network_root_nwo" />
+  <link href="https://github.com/slowe/VirtualSky/commits/master.atom" rel="alternate" title="Recent Commits to VirtualSky:master" type="application/atom+xml">
+
+  </head>
+
+
+  <body class="logged_out  env-production  vis-public">
+    <a href="#start-of-content" tabindex="1" class="accessibility-aid js-skip-to-content">Skip to content</a>
+    <div class="wrapper">
+      
+      
+      
+
+
+
+        
+        <div class="header header-logged-out" role="banner">
+  <div class="container clearfix">
+
+    <a class="header-logo-wordmark" href="https://github.com/" data-ga-click="(Logged out) Header, go to homepage, icon:logo-wordmark">
+      <span class="mega-octicon octicon-logo-github"></span>
+    </a>
+
+    <div class="header-actions" role="navigation">
+        <a class="btn btn-primary" href="/join" data-ga-click="(Logged out) Header, clicked Sign up, text:sign-up">Sign up</a>
+      <a class="btn" href="/login?return_to=%2Fslowe%2FVirtualSky" data-ga-click="(Logged out) Header, clicked Sign in, text:sign-in">Sign in</a>
+    </div>
+
+    <div class="site-search repo-scope js-site-search" role="search">
+      <!-- </textarea> --><!-- '"` --><form accept-charset="UTF-8" action="/slowe/VirtualSky/search" class="js-site-search-form" data-global-search-url="/search" data-repo-search-url="/slowe/VirtualSky/search" method="get"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div>
+  <label class="js-chromeless-input-container form-control">
+    <div class="scope-badge">This repository</div>
+    <input type="text"
+      class="js-site-search-focus js-site-search-field is-clearable chromeless-input"
+      data-hotkey="s"
+      name="q"
+      placeholder="Search"
+      aria-label="Search this repository"
+      data-global-scope-placeholder="Search GitHub"
+      data-repo-scope-placeholder="Search"
+      tabindex="1"
+      autocapitalize="off">
+  </label>
+</form>
+    </div>
+
+      <ul class="header-nav left" role="navigation">
+          <li class="header-nav-item">
+            <a class="header-nav-link" href="/explore" data-ga-click="(Logged out) Header, go to explore, text:explore">Explore</a>
+          </li>
+          <li class="header-nav-item">
+            <a class="header-nav-link" href="/features" data-ga-click="(Logged out) Header, go to features, text:features">Features</a>
+          </li>
+          <li class="header-nav-item">
+            <a class="header-nav-link" href="https://enterprise.github.com/" data-ga-click="(Logged out) Header, go to enterprise, text:enterprise">Enterprise</a>
+          </li>
+          <li class="header-nav-item">
+            <a class="header-nav-link" href="/blog" data-ga-click="(Logged out) Header, go to blog, text:blog">Blog</a>
+          </li>
+      </ul>
+
+  </div>
+</div>
+
+
+
+      <div id="start-of-content" class="accessibility-aid"></div>
+          <div class="site" itemscope itemtype="http://schema.org/WebPage">
+    <div id="js-flash-container">
+      
+    </div>
+    <div class="pagehead repohead instapaper_ignore readability-menu ">
+      <div class="container">
+
+        <div class="clearfix">
+          
+<ul class="pagehead-actions">
+
+  <li>
+      <a href="/login?return_to=%2Fslowe%2FVirtualSky"
+    class="btn btn-sm btn-with-count tooltipped tooltipped-n"
+    aria-label="You must be signed in to watch a repository" rel="nofollow">
+    <span class="octicon octicon-eye"></span>
+    Watch
+  </a>
+  <a class="social-count" href="/slowe/VirtualSky/watchers">
+    8
+  </a>
+
+  </li>
+
+  <li>
+      <a href="/login?return_to=%2Fslowe%2FVirtualSky"
+    class="btn btn-sm btn-with-count tooltipped tooltipped-n"
+    aria-label="You must be signed in to star a repository" rel="nofollow">
+    <span class="octicon octicon-star"></span>
+    Star
+  </a>
+
+    <a class="social-count js-social-count" href="/slowe/VirtualSky/stargazers">
+      31
+    </a>
+
+  </li>
+
+    <li>
+      <a href="/login?return_to=%2Fslowe%2FVirtualSky"
+        class="btn btn-sm btn-with-count tooltipped tooltipped-n"
+        aria-label="You must be signed in to fork a repository" rel="nofollow">
+        <span class="octicon octicon-repo-forked"></span>
+        Fork
+      </a>
+      <a href="/slowe/VirtualSky/network" class="social-count">
+        9
+      </a>
+    </li>
+</ul>
+
+          <h1 itemscope itemtype="http://data-vocabulary.org/Breadcrumb" class="entry-title public ">
+            <span class="mega-octicon octicon-repo"></span>
+            <span class="author"><a href="/slowe" class="url fn" itemprop="url" rel="author"><span itemprop="title">slowe</span></a></span><!--
+         --><span class="path-divider">/</span><!--
+         --><strong><a href="/slowe/VirtualSky" data-pjax="#js-repo-pjax-container">VirtualSky</a></strong>
+
+            <span class="page-context-loader">
+              <img alt="" height="16" src="https://assets-cdn.github.com/images/spinners/octocat-spinner-32.gif" width="16" />
+            </span>
+
+          </h1>
+        </div>
+
+      </div>
+    </div>
+
+      <div class="container">
+        <div class="repository-with-sidebar repo-container new-discussion-timeline with-full-navigation">
+          <div class="repository-sidebar clearfix">
+              
+
+<nav class="sunken-menu repo-nav js-repo-nav js-sidenav-container-pjax js-octicon-loaders"
+     role="navigation"
+     data-pjax="#js-repo-pjax-container"
+     data-issue-count-url="/slowe/VirtualSky/issues/counts">
+  <ul class="sunken-menu-group">
+    <li class="tooltipped tooltipped-w" aria-label="Code">
+      <a href="/slowe/VirtualSky" aria-label="Code" aria-selected="true" class="js-selected-navigation-item selected sunken-menu-item" data-hotkey="g c" data-selected-links="repo_source repo_downloads repo_commits repo_releases repo_tags repo_branches /slowe/VirtualSky">
+        <span class="octicon octicon-code"></span> <span class="full-word">Code</span>
+        <img alt="" class="mini-loader" height="16" src="https://assets-cdn.github.com/images/spinners/octocat-spinner-32.gif" width="16" />
+</a>    </li>
+
+      <li class="tooltipped tooltipped-w" aria-label="Issues">
+        <a href="/slowe/VirtualSky/issues" aria-label="Issues" class="js-selected-navigation-item sunken-menu-item" data-hotkey="g i" data-selected-links="repo_issues repo_labels repo_milestones /slowe/VirtualSky/issues">
+          <span class="octicon octicon-issue-opened"></span> <span class="full-word">Issues</span>
+          <span class="js-issue-replace-counter"></span>
+          <img alt="" class="mini-loader" height="16" src="https://assets-cdn.github.com/images/spinners/octocat-spinner-32.gif" width="16" />
+</a>      </li>
+
+    <li class="tooltipped tooltipped-w" aria-label="Pull requests">
+      <a href="/slowe/VirtualSky/pulls" aria-label="Pull requests" class="js-selected-navigation-item sunken-menu-item" data-hotkey="g p" data-selected-links="repo_pulls /slowe/VirtualSky/pulls">
+          <span class="octicon octicon-git-pull-request"></span> <span class="full-word">Pull requests</span>
+          <span class="js-pull-replace-counter"></span>
+          <img alt="" class="mini-loader" height="16" src="https://assets-cdn.github.com/images/spinners/octocat-spinner-32.gif" width="16" />
+</a>    </li>
+
+  </ul>
+  <div class="sunken-menu-separator"></div>
+  <ul class="sunken-menu-group">
+
+    <li class="tooltipped tooltipped-w" aria-label="Pulse">
+      <a href="/slowe/VirtualSky/pulse" aria-label="Pulse" class="js-selected-navigation-item sunken-menu-item" data-selected-links="pulse /slowe/VirtualSky/pulse">
+        <span class="octicon octicon-pulse"></span> <span class="full-word">Pulse</span>
+        <img alt="" class="mini-loader" height="16" src="https://assets-cdn.github.com/images/spinners/octocat-spinner-32.gif" width="16" />
+</a>    </li>
+
+    <li class="tooltipped tooltipped-w" aria-label="Graphs">
+      <a href="/slowe/VirtualSky/graphs" aria-label="Graphs" class="js-selected-navigation-item sunken-menu-item" data-selected-links="repo_graphs repo_contributors /slowe/VirtualSky/graphs">
+        <span class="octicon octicon-graph"></span> <span class="full-word">Graphs</span>
+        <img alt="" class="mini-loader" height="16" src="https://assets-cdn.github.com/images/spinners/octocat-spinner-32.gif" width="16" />
+</a>    </li>
+  </ul>
+
+
+</nav>
+
+                <div class="only-with-full-nav">
+                    
+<div class="js-clone-url clone-url open"
+  data-protocol-type="http">
+  <h3><span class="text-emphasized">HTTPS</span> clone URL</h3>
+  <div class="input-group js-zeroclipboard-container">
+    <input type="text" class="input-mini input-monospace js-url-field js-zeroclipboard-target"
+           value="https://github.com/slowe/VirtualSky.git" readonly="readonly" aria-label="HTTPS clone URL">
+    <span class="input-group-button">
+      <button aria-label="Copy to clipboard" class="js-zeroclipboard btn btn-sm zeroclipboard-button tooltipped tooltipped-s" data-copied-hint="Copied!" type="button"><span class="octicon octicon-clippy"></span></button>
+    </span>
+  </div>
+</div>
+
+  
+<div class="js-clone-url clone-url "
+  data-protocol-type="subversion">
+  <h3><span class="text-emphasized">Subversion</span> checkout URL</h3>
+  <div class="input-group js-zeroclipboard-container">
+    <input type="text" class="input-mini input-monospace js-url-field js-zeroclipboard-target"
+           value="https://github.com/slowe/VirtualSky" readonly="readonly" aria-label="Subversion checkout URL">
+    <span class="input-group-button">
+      <button aria-label="Copy to clipboard" class="js-zeroclipboard btn btn-sm zeroclipboard-button tooltipped tooltipped-s" data-copied-hint="Copied!" type="button"><span class="octicon octicon-clippy"></span></button>
+    </span>
+  </div>
+</div>
+
+
+
+  <div class="clone-options">You can clone with
+    <!-- </textarea> --><!-- '"` --><form accept-charset="UTF-8" action="/users/set_protocol?protocol_selector=http&amp;protocol_type=clone" class="inline-form js-clone-selector-form " data-form-nonce="d3b95da6144a5a44501400ec3220183afa468e2a" data-remote="true" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="nZGLP+spCa7DIoCXMwuHZbWy9/j6kBLCeIujv0DHEtQ1p43yN9TYukZOENbXZTKa4mH9nkVhbTBx87rcWG8C5w==" /></div><button class="btn-link js-clone-selector" data-protocol="http" type="submit">HTTPS</button></form> or <!-- </textarea> --><!-- '"` --><form accept-charset="UTF-8" action="/users/set_protocol?protocol_selector=subversion&amp;protocol_type=clone" class="inline-form js-clone-selector-form " data-form-nonce="d3b95da6144a5a44501400ec3220183afa468e2a" data-remote="true" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="s2Ji4EvJh8CVvf77JPj+mox0+9OxR4Qjo8g0xdKaysSt6g7cJ6T9g5u/7PZXbArnaIJg1qN3M0fPV8Uc7QHNXg==" /></div><button class="btn-link js-clone-selector" data-protocol="subversion" type="submit">Subversion</button></form>.
+    <a href="https://help.github.com/articles/which-remote-url-should-i-use" class="help tooltipped tooltipped-n" aria-label="Get help on which URL is right for you.">
+      <span class="octicon octicon-question"></span>
+    </a>
+  </div>
+
+                  <a href="/slowe/VirtualSky/archive/master.zip"
+                     class="btn btn-sm sidebar-button"
+                     aria-label="Download the contents of slowe/VirtualSky as a zip file"
+                     title="Download the contents of slowe/VirtualSky as a zip file"
+                     rel="nofollow">
+                    <span class="octicon octicon-cloud-download"></span>
+                    Download ZIP
+                  </a>
+                </div>
+          </div>
+          <div id="js-repo-pjax-container" class="repository-content context-loader-container" data-pjax-container>
+
+            
+<span id="js-show-full-navigation"></span>
+
+  <div class="repository-meta js-details-container ">
+    <div class="repository-description">
+      A browser-based planetarium that can be customised and embedded in web pages.
+    </div>
+
+    <div class="repository-website">
+      <a href="http://slowe.github.io/VirtualSky/" rel="nofollow">http://slowe.github.io/VirtualSky/</a>
+    </div>
+
+</div>
+
+
+<div class="overall-summary overall-summary-bottomless">
+
+  <div class="stats-switcher-viewport js-stats-switcher-viewport">
+    <div class="stats-switcher-wrapper">
+    <ul class="numbers-summary">
+      <li class="commits">
+        <a data-pjax href="/slowe/VirtualSky/commits/master">
+            <span class="octicon octicon-history"></span>
+            <span class="num text-emphasized">
+              216
+            </span>
+            commits
+        </a>
+      </li>
+      <li>
+        <a data-pjax href="/slowe/VirtualSky/branches">
+          <span class="octicon octicon-git-branch"></span>
+          <span class="num text-emphasized">
+            2
+          </span>
+          branches
+        </a>
+      </li>
+
+      <li>
+        <a data-pjax href="/slowe/VirtualSky/releases">
+          <span class="octicon octicon-tag"></span>
+          <span class="num text-emphasized">
+            0
+          </span>
+          releases
+        </a>
+      </li>
+
+      <li>
+        
+  <a href="/slowe/VirtualSky/graphs/contributors">
+    <span class="octicon octicon-organization"></span>
+    <span class="num text-emphasized">
+      4
+    </span>
+    contributors
+  </a>
+      </li>
+    </ul>
+
+      <div class="repository-lang-stats">
+        <ol class="repository-lang-stats-numbers">
+          <li>
+              <a href="/slowe/VirtualSky/search?l=javascript">
+                <span class="color-block language-color" style="background-color:#f1e05a;"></span>
+                <span class="lang">JavaScript</span>
+                <span class="percent">98.0%</span>
+              </a>
+          </li>
+          <li>
+              <a href="/slowe/VirtualSky/search?l=css">
+                <span class="color-block language-color" style="background-color:#563d7c;"></span>
+                <span class="lang">CSS</span>
+                <span class="percent">2.0%</span>
+              </a>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+  <div class="repository-lang-stats-graph js-toggle-lang-stats" title="Click for language details">
+    <span class="language-color" aria-label="JavaScript 98.0%" style="width:98.0%; background-color:#f1e05a;" itemprop="keywords">JavaScript</span>
+    <span class="language-color" aria-label="CSS 2.0%" style="width:2.0%; background-color:#563d7c;" itemprop="keywords">CSS</span>
+  </div>
+
+<include-fragment src="/slowe/VirtualSky/show_partial?partial=tree%2Frecently_touched_branches_list"></include-fragment>
+
+  <div class="file-navigation in-mid-page">
+  <a href="/slowe/VirtualSky/find/master"
+        class="js-show-file-finder btn btn-sm empty-icon tooltipped tooltipped-s right"
+        data-pjax
+        data-hotkey="t"
+        aria-label="Quickly jump between files"
+        data-ga-click="Repository, find file, location:repo overview">
+    <span class="octicon octicon-list-unordered"></span>
+  </a>
+    <a href="/slowe/VirtualSky/compare" aria-label="Compare, review, create a pull request" class="btn btn-sm btn-primary tooltipped tooltipped-se left compare-button" aria-label="Compare &amp; review" data-pjax data-ga-click="Repository, go to compare view, location:repo overview; icon:git-compare">
+      <span class="octicon octicon-git-compare"></span>
+    </a>
+
+  
+<div class="select-menu js-menu-container js-select-menu left">
+  <span class="btn btn-sm select-menu-button js-menu-target css-truncate" data-hotkey="w"
+    data-ref="master"
+    title="master"
+    role="button" aria-label="Switch branches or tags" tabindex="0" aria-haspopup="true">
+    <i>Branch:</i>
+    <span class="js-select-button css-truncate-target">master</span>
+  </span>
+
+  <div class="select-menu-modal-holder js-menu-content js-navigation-container" data-pjax aria-hidden="true">
+
+    <div class="select-menu-modal">
+      <div class="select-menu-header">
+        <span class="select-menu-title">Switch branches/tags</span>
+        <span class="octicon octicon-x js-menu-close" role="button" aria-label="Close"></span>
+      </div>
+
+      <div class="select-menu-filters">
+        <div class="select-menu-text-filter">
+          <input type="text" aria-label="Filter branches/tags" id="context-commitish-filter-field" class="js-filterable-field js-navigation-enable" placeholder="Filter branches/tags">
+        </div>
+        <div class="select-menu-tabs">
+          <ul>
+            <li class="select-menu-tab">
+              <a href="#" data-tab-filter="branches" data-filter-placeholder="Filter branches/tags" class="js-select-menu-tab" role="tab">Branches</a>
+            </li>
+            <li class="select-menu-tab">
+              <a href="#" data-tab-filter="tags" data-filter-placeholder="Find a tag…" class="js-select-menu-tab" role="tab">Tags</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="select-menu-list select-menu-tab-bucket js-select-menu-tab-bucket" data-tab-filter="branches" role="menu">
+
+        <div data-filterable-for="context-commitish-filter-field" data-filterable-type="substring">
+
+
+            <a class="select-menu-item js-navigation-item js-navigation-open "
+               href="/slowe/VirtualSky/tree/gh-pages"
+               data-name="gh-pages"
+               data-skip-pjax="true"
+               rel="nofollow">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <span class="select-menu-item-text css-truncate-target" title="gh-pages">
+                gh-pages
+              </span>
+            </a>
+            <a class="select-menu-item js-navigation-item js-navigation-open selected"
+               href="/slowe/VirtualSky/tree/master"
+               data-name="master"
+               data-skip-pjax="true"
+               rel="nofollow">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <span class="select-menu-item-text css-truncate-target" title="master">
+                master
+              </span>
+            </a>
+        </div>
+
+          <div class="select-menu-no-results">Nothing to show</div>
+      </div>
+
+      <div class="select-menu-list select-menu-tab-bucket js-select-menu-tab-bucket" data-tab-filter="tags">
+        <div data-filterable-for="context-commitish-filter-field" data-filterable-type="substring">
+
+
+        </div>
+
+        <div class="select-menu-no-results">Nothing to show</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+  <div class="breadcrumb"><span class="repo-root js-repo-root"><span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a href="/slowe/VirtualSky" class="" data-branch="master" data-pjax="true" itemscope="url"><span itemprop="title">VirtualSky</span></a></span></span><span class="separator">/</span>
+    <a class="btn-link disabled tooltipped tooltipped-e" href="#" aria-label="You must be signed in to make or propose changes">
+      <span class="octicon octicon-plus"></span>
+    </a>
+</div>
+</div>
+
+
+
+
+
+  <div class="commit commit-tease js-details-container" >
+    <p class="commit-title ">
+        <a href="/slowe/VirtualSky/commit/d1be43accbe90de25f1f676a709f5cff58adcca6" class="message" data-pjax="true" title="Merge pull request #23 from mrjsm91/patch-1
+
+Update es.json.">Merge pull request</a> <a href="https://github.com/slowe/VirtualSky/pull/23" class="issue-link" title="Update es.json">#23</a> <a href="/slowe/VirtualSky/commit/d1be43accbe90de25f1f676a709f5cff58adcca6" class="message" data-pjax="true" title="Merge pull request #23 from mrjsm91/patch-1
+
+Update es.json.">from mrjsm91/patch-1</a>
+        <span class="hidden-text-expander inline"><a href="#" class="js-details-target">…</a></span>
+    </p>
+      <div class="commit-desc"><pre>Update es.json.</pre></div>
+    <div class="commit-meta">
+      <button aria-label="Copy SHA" class="js-zeroclipboard zeroclipboard-link tooltipped tooltipped-s" data-clipboard-text="d1be43accbe90de25f1f676a709f5cff58adcca6" data-copied-hint="Copied!" type="button"><span class="octicon octicon-clippy"></span></button>
+      <a href="/slowe/VirtualSky/commit/d1be43accbe90de25f1f676a709f5cff58adcca6" class="sha-block" data-pjax>latest commit <span class="sha">d1be43accb</span></a>
+
+      <div class="authorship">
+        <img alt="@slowe" class="avatar" height="20" src="https://avatars2.githubusercontent.com/u/299787?v=3&amp;s=40" width="20" />
+        <span class="author-name"><a href="/slowe" rel="author">slowe</a></span>
+        authored <time class="updated" datetime="2014-11-27T14:24:18Z" is="relative-time">Nov 27, 2014</time>
+
+      </div>
+    </div>
+  </div>
+
+
+<div class="file-wrap">
+  <a href="/slowe/VirtualSky/tree/d1be43accbe90de25f1f676a709f5cff58adcca6" class="hidden js-permalink-shortcut" data-hotkey="y">Permalink</a>
+
+  <table class="files" data-pjax>
+
+
+    <tbody>
+      <tr class="warning include-fragment-error">
+        <td class="icon"><span class="octicon octicon-alert"></span></td>
+        <td class="content" colspan="3">Failed to load latest commit information.</td>
+      </tr>
+
+        <tr>
+          <td class="icon">
+            <span class="octicon octicon-file-directory"></span>
+            <img alt="" class="spinner" height="16" src="https://assets-cdn.github.com/images/spinners/octocat-spinner-32.gif" width="16" />
+          </td>
+          <td class="content">
+            <span class="css-truncate css-truncate-target"><a href="/slowe/VirtualSky/tree/master/extra" class="js-directory-link" id="ea9f91b2cda019730f2891bd12a7a4d6-dbd7a9d07ca881ec439d1425cd32bb9bd41b732f" title="extra">extra</a></span>
+          </td>
+          <td class="message">
+            <span class="css-truncate css-truncate-target">
+              <a href="/slowe/VirtualSky/commit/83a044bfd694d5270a11f6e10d7dc04e1ffeb0e3" class="message" data-pjax="true" title="Add unit tests">Add unit tests</a>
+            </span>
+          </td>
+          <td class="age">
+            <span class="css-truncate css-truncate-target"><time datetime="2013-07-15T16:53:19Z" is="time-ago">Jul 15, 2013</time></span>
+          </td>
+        </tr>
+        <tr>
+          <td class="icon">
+            <span class="octicon octicon-file-directory"></span>
+            <img alt="" class="spinner" height="16" src="https://assets-cdn.github.com/images/spinners/octocat-spinner-32.gif" width="16" />
+          </td>
+          <td class="content">
+            <span class="css-truncate css-truncate-target"><a href="/slowe/VirtualSky/tree/master/lang" class="js-directory-link" id="7572559ca86e781ba8fe8073a0b725c6-ff78838314c981060caf6632cde3c50d09555d2e" title="lang">lang</a></span>
+          </td>
+          <td class="message">
+            <span class="css-truncate css-truncate-target">
+              <a href="/slowe/VirtualSky/commit/3fb09fe6579671ddc1037fc3fac798c8fe5c1197" class="message" data-pjax="true" title="Update es.json">Update es.json</a>
+            </span>
+          </td>
+          <td class="age">
+            <span class="css-truncate css-truncate-target"><time datetime="2014-11-27T14:18:57Z" is="time-ago">Nov 27, 2014</time></span>
+          </td>
+        </tr>
+        <tr>
+          <td class="icon">
+            <span class="octicon octicon-file-directory"></span>
+            <img alt="" class="spinner" height="16" src="https://assets-cdn.github.com/images/spinners/octocat-spinner-32.gif" width="16" />
+          </td>
+          <td class="content">
+            <span class="css-truncate css-truncate-target"><a href="/slowe/VirtualSky/tree/master/old" class="js-directory-link" id="149603e6c03516362a8da23f624db945-47141c90b81482ab67a9beae066ca399a2ea4469" title="old">old</a></span>
+          </td>
+          <td class="message">
+            <span class="css-truncate css-truncate-target">
+              <a href="/slowe/VirtualSky/commit/a666ef01428f296e95d261d2df4a4fe61ac8f110" class="message" data-pjax="true" title="Move old versions into sub-folder">Move old versions into sub-folder</a>
+            </span>
+          </td>
+          <td class="age">
+            <span class="css-truncate css-truncate-target"><time datetime="2014-09-05T15:26:26Z" is="time-ago">Sep 5, 2014</time></span>
+          </td>
+        </tr>
+        <tr>
+          <td class="icon">
+            <span class="octicon octicon-file-text"></span>
+            <img alt="" class="spinner" height="16" src="https://assets-cdn.github.com/images/spinners/octocat-spinner-32.gif" width="16" />
+          </td>
+          <td class="content">
+            <span class="css-truncate css-truncate-target"><a href="/slowe/VirtualSky/blob/master/README.md" class="js-directory-link" id="04c6e90faac2675aa89e2176d2eec7d8-6f8b67e7ed07e691bab0b80cb19384456548ce12" title="README.md">README.md</a></span>
+          </td>
+          <td class="message">
+            <span class="css-truncate css-truncate-target">
+              <a href="/slowe/VirtualSky/commit/c22a14c020974fea14a2f09c8f58c75a5fdb9eb0" class="message" data-pjax="true" title="Add more options">Add more options</a>
+            </span>
+          </td>
+          <td class="age">
+            <span class="css-truncate css-truncate-target"><time datetime="2013-11-07T18:17:01Z" is="time-ago">Nov 7, 2013</time></span>
+          </td>
+        </tr>
+        <tr>
+          <td class="icon">
+            <span class="octicon octicon-file-text"></span>
+            <img alt="" class="spinner" height="16" src="https://assets-cdn.github.com/images/spinners/octocat-spinner-32.gif" width="16" />
+          </td>
+          <td class="content">
+            <span class="css-truncate css-truncate-target"><a href="/slowe/VirtualSky/blob/master/boundaries.json" class="js-directory-link" id="094034aa83956bc6cd997ff358f8d46b-01dcac570a7bb2ffd19afdfc1f8618dc13391ca1" title="boundaries.json">boundaries.json</a></span>
+          </td>
+          <td class="message">
+            <span class="css-truncate css-truncate-target">
+              <a href="/slowe/VirtualSky/commit/770c2a222c9d40a42afaa269982c4e00565f6145" class="message" data-pjax="true" title="Added constellation boundaries">Added constellation boundaries</a>
+            </span>
+          </td>
+          <td class="age">
+            <span class="css-truncate css-truncate-target"><time datetime="2012-09-18T11:20:05Z" is="time-ago">Sep 18, 2012</time></span>
+          </td>
+        </tr>
+        <tr>
+          <td class="icon">
+            <span class="octicon octicon-file-text"></span>
+            <img alt="" class="spinner" height="16" src="https://assets-cdn.github.com/images/spinners/octocat-spinner-32.gif" width="16" />
+          </td>
+          <td class="content">
+            <span class="css-truncate css-truncate-target"><a href="/slowe/VirtualSky/blob/master/embed.html" class="js-directory-link" id="feb5e67b085cf4eb27b88136983e487b-7e599a8b5688ba7704b2c2ffe07be994da260ad9" title="embed.html">embed.html</a></span>
+          </td>
+          <td class="message">
+            <span class="css-truncate css-truncate-target">
+              <a href="/slowe/VirtualSky/commit/ef2022abc09ac94a1b05648ddbf5df090b26968a" class="message" data-pjax="true" title="Remove responsive CSS">Remove responsive CSS</a>
+            </span>
+          </td>
+          <td class="age">
+            <span class="css-truncate css-truncate-target"><time datetime="2013-12-30T02:36:03Z" is="time-ago">Dec 30, 2013</time></span>
+          </td>
+        </tr>
+        <tr>
+          <td class="icon">
+            <span class="octicon octicon-file-text"></span>
+            <img alt="" class="spinner" height="16" src="https://assets-cdn.github.com/images/spinners/octocat-spinner-32.gif" width="16" />
+          </td>
+          <td class="content">
+            <span class="css-truncate css-truncate-target"><a href="/slowe/VirtualSky/blob/master/excanvas.min.js" class="js-directory-link" id="4eaf528653d9b8e03a2fb3acef880d0a-12c74f7bea844f60953021cadc8468297712f0df" title="excanvas.min.js">excanvas.min.js</a></span>
+          </td>
+          <td class="message">
+            <span class="css-truncate css-truncate-target">
+              <a href="/slowe/VirtualSky/commit/0240f768235bce89508d11b727d0191f1900c1ac" class="message" data-pjax="true" title="Added helper Javascript libraries">Added helper Javascript libraries</a>
+            </span>
+          </td>
+          <td class="age">
+            <span class="css-truncate css-truncate-target"><time datetime="2012-05-04T13:23:31Z" is="time-ago">May 4, 2012</time></span>
+          </td>
+        </tr>
+        <tr>
+          <td class="icon">
+            <span class="octicon octicon-file-text"></span>
+            <img alt="" class="spinner" height="16" src="https://assets-cdn.github.com/images/spinners/octocat-spinner-32.gif" width="16" />
+          </td>
+          <td class="content">
+            <span class="css-truncate css-truncate-target"><a href="/slowe/VirtualSky/blob/master/galaxy.json" class="js-directory-link" id="bb3b4b5937017825f442a5cbad609cd0-0a8a5c471b8dac7892b42a904f14a74d5e2d7d5b" title="galaxy.json">galaxy.json</a></span>
+          </td>
+          <td class="message">
+            <span class="css-truncate css-truncate-target">
+              <a href="/slowe/VirtualSky/commit/13290e75bdb80a90f4e377d41ec77d7226ec9c9d" class="message" data-pjax="true" title="Add extra shapes to Milky Way">Add extra shapes to Milky Way</a>
+            </span>
+          </td>
+          <td class="age">
+            <span class="css-truncate css-truncate-target"><time datetime="2013-07-08T18:36:29Z" is="time-ago">Jul 8, 2013</time></span>
+          </td>
+        </tr>
+        <tr>
+          <td class="icon">
+            <span class="octicon octicon-file-text"></span>
+            <img alt="" class="spinner" height="16" src="https://assets-cdn.github.com/images/spinners/octocat-spinner-32.gif" width="16" />
+          </td>
+          <td class="content">
+            <span class="css-truncate css-truncate-target"><a href="/slowe/VirtualSky/blob/master/index.html" class="js-directory-link" id="eacf331f0ffc35d4b482f1d15a887d3b-d4696225e859b56dbc5c7d02983bba58ab336b28" title="index.html">index.html</a></span>
+          </td>
+          <td class="message">
+            <span class="css-truncate css-truncate-target">
+              <a href="/slowe/VirtualSky/commit/4e88b4e8c25210660d3279e56b67dc6379ca2a18" class="message" data-pjax="true" title="Note about keyboard shortcuts">Note about keyboard shortcuts</a>
+            </span>
+          </td>
+          <td class="age">
+            <span class="css-truncate css-truncate-target"><time datetime="2014-09-05T01:49:02Z" is="time-ago">Sep 5, 2014</time></span>
+          </td>
+        </tr>
+        <tr>
+          <td class="icon">
+            <span class="octicon octicon-file-text"></span>
+            <img alt="" class="spinner" height="16" src="https://assets-cdn.github.com/images/spinners/octocat-spinner-32.gif" width="16" />
+          </td>
+          <td class="content">
+            <span class="css-truncate css-truncate-target"><a href="/slowe/VirtualSky/blob/master/jquery-1.10.0.min.js" class="js-directory-link" id="1a58e0215b4b891ef014c674bbf22748-01c688164ad8d7aec3d4fd75541e02a526d772eb" title="jquery-1.10.0.min.js">jquery-1.10.0.min.js</a></span>
+          </td>
+          <td class="message">
+            <span class="css-truncate css-truncate-target">
+              <a href="/slowe/VirtualSky/commit/c8635d9bcc9ffcb39615cf7a6628311b46466658" class="message" data-pjax="true" title="Update jQuery">Update jQuery</a>
+            </span>
+          </td>
+          <td class="age">
+            <span class="css-truncate css-truncate-target"><time datetime="2013-07-15T16:53:29Z" is="time-ago">Jul 15, 2013</time></span>
+          </td>
+        </tr>
+        <tr>
+          <td class="icon">
+            <span class="octicon octicon-file-text"></span>
+            <img alt="" class="spinner" height="16" src="https://assets-cdn.github.com/images/spinners/octocat-spinner-32.gif" width="16" />
+          </td>
+          <td class="content">
+            <span class="css-truncate css-truncate-target"><a href="/slowe/VirtualSky/blob/master/jquery-1.7.1.min.js" class="js-directory-link" id="3431d1f985062166f039f36d87f222d0-198b3ff07d801dffa2c42fcf3b67eb3295eef85f" title="jquery-1.7.1.min.js">jquery-1.7.1.min.js</a></span>
+          </td>
+          <td class="message">
+            <span class="css-truncate css-truncate-target">
+              <a href="/slowe/VirtualSky/commit/0240f768235bce89508d11b727d0191f1900c1ac" class="message" data-pjax="true" title="Added helper Javascript libraries">Added helper Javascript libraries</a>
+            </span>
+          </td>
+          <td class="age">
+            <span class="css-truncate css-truncate-target"><time datetime="2012-05-04T13:23:31Z" is="time-ago">May 4, 2012</time></span>
+          </td>
+        </tr>
+        <tr>
+          <td class="icon">
+            <span class="octicon octicon-file-text"></span>
+            <img alt="" class="spinner" height="16" src="https://assets-cdn.github.com/images/spinners/octocat-spinner-32.gif" width="16" />
+          </td>
+          <td class="content">
+            <span class="css-truncate css-truncate-target"><a href="/slowe/VirtualSky/blob/master/lines_latin.json" class="js-directory-link" id="93067fb773d9ab89601d593494b4e0bc-30a3d6e4656ce042fabe7fb587e02c43e8a1564f" title="lines_latin.json">lines_latin.json</a></span>
+          </td>
+          <td class="message">
+            <span class="css-truncate css-truncate-target">
+              <a href="/slowe/VirtualSky/commit/003952d6a4353fc500139d22d3c8abe55eb9b3bb" class="message" data-pjax="true" title="Put different languages in separate files">Put different languages in separate files</a>
+            </span>
+          </td>
+          <td class="age">
+            <span class="css-truncate css-truncate-target"><time datetime="2014-08-13T18:42:26Z" is="time-ago">Aug 13, 2014</time></span>
+          </td>
+        </tr>
+        <tr>
+          <td class="icon">
+            <span class="octicon octicon-file-text"></span>
+            <img alt="" class="spinner" height="16" src="https://assets-cdn.github.com/images/spinners/octocat-spinner-32.gif" width="16" />
+          </td>
+          <td class="content">
+            <span class="css-truncate css-truncate-target"><a href="/slowe/VirtualSky/blob/master/planets.json" class="js-directory-link" id="cd901ea015be032583e2a704c88ca32f-1e3c1bc7119cfc5b5501cd63068e2e79f21a125c" title="planets.json">planets.json</a></span>
+          </td>
+          <td class="message">
+            <span class="css-truncate css-truncate-target">
+              <a href="/slowe/VirtualSky/commit/003952d6a4353fc500139d22d3c8abe55eb9b3bb" class="message" data-pjax="true" title="Put different languages in separate files">Put different languages in separate files</a>
+            </span>
+          </td>
+          <td class="age">
+            <span class="css-truncate css-truncate-target"><time datetime="2014-08-13T18:42:26Z" is="time-ago">Aug 13, 2014</time></span>
+          </td>
+        </tr>
+        <tr>
+          <td class="icon">
+            <span class="octicon octicon-file-text"></span>
+            <img alt="" class="spinner" height="16" src="https://assets-cdn.github.com/images/spinners/octocat-spinner-32.gif" width="16" />
+          </td>
+          <td class="content">
+            <span class="css-truncate css-truncate-target"><a href="/slowe/VirtualSky/blob/master/showers.json" class="js-directory-link" id="563ebac44af92213520a41e2743ad7f8-89393ef25bce79476f388fbbce110a9758b14fa9" title="showers.json">showers.json</a></span>
+          </td>
+          <td class="message">
+            <span class="css-truncate css-truncate-target">
+              <a href="/slowe/VirtualSky/commit/f7f1cb467ca9380e152ecf80c4e9c176e7f91ac4" class="message" data-pjax="true" title="Changed keyboard shortcuts for magnitude limit">Changed keyboard shortcuts for magnitude limit</a>
+            </span>
+          </td>
+          <td class="age">
+            <span class="css-truncate css-truncate-target"><time datetime="2012-09-19T11:08:36Z" is="time-ago">Sep 19, 2012</time></span>
+          </td>
+        </tr>
+        <tr>
+          <td class="icon">
+            <span class="octicon octicon-file-text"></span>
+            <img alt="" class="spinner" height="16" src="https://assets-cdn.github.com/images/spinners/octocat-spinner-32.gif" width="16" />
+          </td>
+          <td class="content">
+            <span class="css-truncate css-truncate-target"><a href="/slowe/VirtualSky/blob/master/stars.json" class="js-directory-link" id="7a10d418883a4d84eed10316ffdb4b19-ba6f273f600cf8692a3d0927a3af228ce97fb28a" title="stars.json">stars.json</a></span>
+          </td>
+          <td class="message">
+            <span class="css-truncate css-truncate-target">
+              <a href="/slowe/VirtualSky/commit/031afdd393c97b131ae5a7828f406eacf46a90ae" class="message" data-pjax="true" title="Put default magnitude limit back to 5. Deep stars contains magnitudes 4 to 5.5">Put default magnitude limit back to 5. Deep stars contains magnitudes…</a>
+            </span>
+          </td>
+          <td class="age">
+            <span class="css-truncate css-truncate-target"><time datetime="2013-11-11T20:48:29Z" is="time-ago">Nov 11, 2013</time></span>
+          </td>
+        </tr>
+        <tr>
+          <td class="icon">
+            <span class="octicon octicon-file-text"></span>
+            <img alt="" class="spinner" height="16" src="https://assets-cdn.github.com/images/spinners/octocat-spinner-32.gif" width="16" />
+          </td>
+          <td class="content">
+            <span class="css-truncate css-truncate-target"><a href="/slowe/VirtualSky/blob/master/tests.html" class="js-directory-link" id="1bc60d552b88b6da17ccc3f7faa84e2f-c300924db91dee9610899f3b38607f835eedd1b5" title="tests.html">tests.html</a></span>
+          </td>
+          <td class="message">
+            <span class="css-truncate css-truncate-target">
+              <a href="/slowe/VirtualSky/commit/ee24ea21551ed527503797e674b62e3a8c800172" class="message" data-pjax="true" title="Make second instance larger to test help positioning and displaying keyboard shortcuts in two columns.">Make second instance larger to test help positioning and displaying k…</a>
+            </span>
+          </td>
+          <td class="age">
+            <span class="css-truncate css-truncate-target"><time datetime="2013-12-30T00:45:29Z" is="time-ago">Dec 30, 2013</time></span>
+          </td>
+        </tr>
+        <tr>
+          <td class="icon">
+            <span class="octicon octicon-file-text"></span>
+            <img alt="" class="spinner" height="16" src="https://assets-cdn.github.com/images/spinners/octocat-spinner-32.gif" width="16" />
+          </td>
+          <td class="content">
+            <span class="css-truncate css-truncate-target"><a href="/slowe/VirtualSky/blob/master/virtualsky-planets.js" class="js-directory-link" id="187754d0a5e11022229cc1891bbd91e4-9a69eac35204963b7d8e8bdbf65b8f2d7cfab8f3" title="virtualsky-planets.js">virtualsky-planets.js</a></span>
+          </td>
+          <td class="message">
+            <span class="css-truncate css-truncate-target">
+              <a href="/slowe/VirtualSky/commit/003952d6a4353fc500139d22d3c8abe55eb9b3bb" class="message" data-pjax="true" title="Put different languages in separate files">Put different languages in separate files</a>
+            </span>
+          </td>
+          <td class="age">
+            <span class="css-truncate css-truncate-target"><time datetime="2014-08-13T18:42:26Z" is="time-ago">Aug 13, 2014</time></span>
+          </td>
+        </tr>
+        <tr>
+          <td class="icon">
+            <span class="octicon octicon-file-text"></span>
+            <img alt="" class="spinner" height="16" src="https://assets-cdn.github.com/images/spinners/octocat-spinner-32.gif" width="16" />
+          </td>
+          <td class="content">
+            <span class="css-truncate css-truncate-target"><a href="/slowe/VirtualSky/blob/master/virtualsky-planets.min.js" class="js-directory-link" id="fe8765bf3eb6624ce9fdfb6918ce7ecf-58156a5c81e7b502ec7477340c7af7f49f488b82" title="virtualsky-planets.min.js">virtualsky-planets.min.js</a></span>
+          </td>
+          <td class="message">
+            <span class="css-truncate css-truncate-target">
+              <a href="/slowe/VirtualSky/commit/003952d6a4353fc500139d22d3c8abe55eb9b3bb" class="message" data-pjax="true" title="Put different languages in separate files">Put different languages in separate files</a>
+            </span>
+          </td>
+          <td class="age">
+            <span class="css-truncate css-truncate-target"><time datetime="2014-08-13T18:42:26Z" is="time-ago">Aug 13, 2014</time></span>
+          </td>
+        </tr>
+        <tr>
+          <td class="icon">
+            <span class="octicon octicon-file-text"></span>
+            <img alt="" class="spinner" height="16" src="https://assets-cdn.github.com/images/spinners/octocat-spinner-32.gif" width="16" />
+          </td>
+          <td class="content">
+            <span class="css-truncate css-truncate-target"><a href="/slowe/VirtualSky/blob/master/virtualsky.js" class="js-directory-link" id="ce6323c9065095df8f975aeb8a79c895-9d57a8d1617d7555f36e90a63044674bc6f395b8" title="virtualsky.js">virtualsky.js</a></span>
+          </td>
+          <td class="message">
+            <span class="css-truncate css-truncate-target">
+              <a href="/slowe/VirtualSky/commit/293c506b1eaf03007088e36f031d2707898d42b4" class="message" data-pjax="true" title="Bug fix">Bug fix</a>
+            </span>
+          </td>
+          <td class="age">
+            <span class="css-truncate css-truncate-target"><time datetime="2014-11-27T00:30:13Z" is="time-ago">Nov 27, 2014</time></span>
+          </td>
+        </tr>
+        <tr>
+          <td class="icon">
+            <span class="octicon octicon-file-text"></span>
+            <img alt="" class="spinner" height="16" src="https://assets-cdn.github.com/images/spinners/octocat-spinner-32.gif" width="16" />
+          </td>
+          <td class="content">
+            <span class="css-truncate css-truncate-target"><a href="/slowe/VirtualSky/blob/master/virtualsky.min.js" class="js-directory-link" id="366f85b790d9911101e74a9c4e913e54-466612a79eb133b157802b3814b7bf4b96fe6579" title="virtualsky.min.js">virtualsky.min.js</a></span>
+          </td>
+          <td class="message">
+            <span class="css-truncate css-truncate-target">
+              <a href="/slowe/VirtualSky/commit/293c506b1eaf03007088e36f031d2707898d42b4" class="message" data-pjax="true" title="Bug fix">Bug fix</a>
+            </span>
+          </td>
+          <td class="age">
+            <span class="css-truncate css-truncate-target"><time datetime="2014-11-27T00:30:13Z" is="time-ago">Nov 27, 2014</time></span>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+</div>
+
+
+  <div id="readme" class="boxed-group flush clearfix announce instapaper_body md">
+    <h3>
+      <span class="octicon octicon-book"></span>
+      README.md
+    </h3>
+
+    <article class="markdown-body entry-content" itemprop="mainContentOfPage"><h1><a id="user-content-virtualsky" class="anchor" href="#virtualsky" aria-hidden="true"><span class="octicon octicon-link"></span></a>VirtualSky</h1>
+
+<p>A browser-based planetarium that can be <a href="http://lcogt.net/virtualsky/embed/custom.html">customized and embedded in web pages</a>. View as <a href="http://lcogt.net/virtualsky/embed/index.html?projection=stereo">full-window</a>. Some <a href="http://slowe.github.io/VirtualSky/">examples with code excerpts</a> and some <a href="http://slowe.github.io/VirtualSky/tests.html">unit tests</a>.</p>
+
+<h2><a id="user-content-usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<pre><code>&lt;html&gt;
+&lt;head&gt;
+&lt;!--[if lt IE 9]&gt;&lt;script src="excanvas.js" type="text/javascript"&gt;&lt;/script&gt;&lt;![endif]--&gt;
+&lt;script src="jquery-1.7.1.min.js" type="text/javascript"&gt;&lt;/script&gt;
+&lt;script src="virtualsky.js" type="text/javascript"&gt;&lt;/script&gt;
+&lt;script type="text/javascript"&gt;
+&lt;!--
+    $(document).ready(function(){
+        planetarium = $.virtualsky({id:'starmap',projection:'polar'}); // Assumes you want to draw this to a &lt;div&gt; with the id 'starmapper'
+    });
+// --&gt;
+&lt;/script&gt;
+
+&lt;/head&gt;
+&lt;body&gt;
+
+    &lt;div id="starmap" style="width:944x;height:400px;"&gt;&lt;/div&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<h2><a id="user-content-options" class="anchor" href="#options" aria-hidden="true"><span class="octicon octicon-link"></span></a>Options</h2>
+
+<p>The following options can be specified (defaults in brackets):</p>
+
+<ul>
+<li><code>id</code> ('starmap') - The ID for the HTML element where you want the sky inserted</li>
+<li><code>projection</code> (<code>polar</code>)
+
+<ul>
+<li>Polar - <code>polar</code></li>
+<li>Stereographic - <code>stereo</code> - with a fixed horizon</li>
+<li>Lambert - <code>lambert</code> - with a fixed horizon</li>
+<li>Equirectangular - <code>equirectangular</code></li>
+<li>Mollweide - <code>mollweide</code></li>
+<li>Plane chart - <code>planechart</code></li>
+<li>Orthographic - <code>ortho</code></li>
+<li>Fish-eye - <code>fisheye</code></li>
+</ul></li>
+<li><code>width</code> (500) - Set the width of the sky unless you've set the width of the element</li>
+<li><code>height</code> (250) - Set the height of the sky unless you've set the height of the element</li>
+<li><code>planets</code> - either an object containing an array of planets or a JSON file</li>
+<li><code>magnitude</code> (5) - the magnitude limit of displayed stars</li>
+<li><code>longitude</code> (53.0) - the longitude of the observer</li>
+<li><code>latitude</code> (-2.5) - the latitude of the observer</li>
+<li><code>clock</code> (now) - a Javascript Date() object with the starting date/time</li>
+<li><code>background</code> ('rgba(0,0,0,0)') - the background colour</li>
+<li><code>az</code> (180) - an azimuthal offset with 0 = north and 90 = east</li>
+<li><code>negative</code> (false) - invert the default colours i.e. to black on white</li>
+<li><code>sky_gradient</code> (true) - reduce the brightness of stars near the horizon</li>
+<li><code>cardinalpoints</code> (true) - show/hide the N/E/S/W labels</li>
+<li><code>constellations</code> (false) - show/hide the constellation lines</li>
+<li><code>constellationlabels</code> (false) - show/hide the constellation labels</li>
+<li><code>showplanets</code> (true) - show/hide the planets</li>
+<li><code>showplanetlabels</code> (true) - show/hide the planets</li>
+<li><code>showstarlabels</code> (false) - show/hide the planets</li>
+<li><code>showorbits</code> (false) - show/hide the orbits of the planets</li>
+<li><code>showgalaxy</code> (false) - show/hide an outline of the Milky Way</li>
+<li><code>showdate</code> (true) - show/hide the date and time</li>
+<li><code>showposition</code> (true) - show/hide the latitude and longitude</li>
+<li><code>ground</code> (false) - show/hide the local ground (for full sky projections)</li>
+<li><code>keyboard</code> (true) - allow keyboard controls</li>
+<li><code>mouse</code> (true) - allow mouse controls</li>
+<li><code>gridlines_az</code> (false) - show/hide the azimuth/elevation grid lines</li>
+<li><code>gridlines_eq</code> (false) - show/hide the RA/Dec grid lines</li>
+<li><code>gridlines_gal</code> (false) - show/hide the Galactic Coordinate grid lines</li>
+<li><code>gridstep</code> (30) - the size of the grid step when showing grid lines</li>
+<li><code>ra</code> (0) - the RA (degrees) for the centre of the view in gnomic projection</li>
+<li><code>dec</code> (0) - the Declination (degrees) for the centre of the view in gnomic projection</li>
+<li><code>fov</code> (30) - the vertical field-of-view (degrees) in the gnomic projection</li>
+<li><code>fontsize</code> - set the font size in pixels if you want to over-ride the auto sizing</li>
+<li><code>fontfamily</code> - set the font family using a CSS style font-family string otherwise it inherits from the container element</li>
+<li><code>objects</code> - a semi-colon-separated string of recognized object names to display e.g. "M1;M42;Horsehead Nebula" (requires internet connection)</li>
+</ul>
+
+<h2><a id="user-content-author" class="anchor" href="#author" aria-hidden="true"><span class="octicon octicon-link"></span></a>Author</h2>
+
+<p>Stuart Lowe developed this at <a href="http://lcogt.net/">Las Cumbres Observatory Global Telescope</a>. LCOGT is a private operating foundation, building a global network of telescopes for professional research and citizen investigations.</p>
+</article>
+  </div>
+
+
+          </div>
+        </div>
+        <div class="modal-backdrop"></div>
+      </div>
+  </div>
+
+
+    </div><!-- /.wrapper -->
+
+      <div class="container">
+  <div class="site-footer" role="contentinfo">
+    <ul class="site-footer-links right">
+        <li><a href="https://status.github.com/" data-ga-click="Footer, go to status, text:status">Status</a></li>
+      <li><a href="https://developer.github.com" data-ga-click="Footer, go to api, text:api">API</a></li>
+      <li><a href="https://training.github.com" data-ga-click="Footer, go to training, text:training">Training</a></li>
+      <li><a href="https://shop.github.com" data-ga-click="Footer, go to shop, text:shop">Shop</a></li>
+        <li><a href="https://github.com/blog" data-ga-click="Footer, go to blog, text:blog">Blog</a></li>
+        <li><a href="https://github.com/about" data-ga-click="Footer, go to about, text:about">About</a></li>
+        <li><a href="https://help.github.com" data-ga-click="Footer, go to help, text:help">Help</a></li>
+
+    </ul>
+
+    <a href="https://github.com" aria-label="Homepage">
+      <span class="mega-octicon octicon-mark-github" title="GitHub"></span>
+</a>
+    <ul class="site-footer-links">
+      <li>&copy; 2015 <span title="0.04750s from github-fe144-cp1-prd.iad.github.net">GitHub</span>, Inc.</li>
+        <li><a href="https://github.com/site/terms" data-ga-click="Footer, go to terms, text:terms">Terms</a></li>
+        <li><a href="https://github.com/site/privacy" data-ga-click="Footer, go to privacy, text:privacy">Privacy</a></li>
+        <li><a href="https://github.com/security" data-ga-click="Footer, go to security, text:security">Security</a></li>
+        <li><a href="https://github.com/contact" data-ga-click="Footer, go to contact, text:contact">Contact</a></li>
+    </ul>
+  </div>
+</div>
+
+
+    <div class="fullscreen-overlay js-fullscreen-overlay" id="fullscreen_overlay">
+  <div class="fullscreen-container js-suggester-container">
+    <div class="textarea-wrap">
+      <textarea name="fullscreen-contents" id="fullscreen-contents" class="fullscreen-contents js-fullscreen-contents" placeholder="" aria-label=""></textarea>
+      <div class="suggester-container">
+        <div class="suggester fullscreen-suggester js-suggester js-navigation-container"></div>
+      </div>
+    </div>
+  </div>
+  <div class="fullscreen-sidebar">
+    <a href="#" class="exit-fullscreen js-exit-fullscreen tooltipped tooltipped-w" aria-label="Exit Zen Mode">
+      <span class="mega-octicon octicon-screen-normal"></span>
+    </a>
+    <a href="#" class="theme-switcher js-theme-switcher tooltipped tooltipped-w"
+      aria-label="Switch themes">
+      <span class="octicon octicon-color-mode"></span>
+    </a>
+  </div>
+</div>
+
+
+
+    
+    
+
+    <div id="ajax-error-message" class="flash flash-error">
+      <span class="octicon octicon-alert"></span>
+      <a href="#" class="octicon octicon-x flash-close js-ajax-error-dismiss" aria-label="Dismiss error"></a>
+      Something went wrong with that request. Please try again.
+    </div>
+
+
+      <script crossorigin="anonymous" src="https://assets-cdn.github.com/assets/frameworks-55bdb89972afd4b256fc7c3ed42001976a03fb3eaba96e625d5806c659bc19c6.js"></script>
+      <script async="async" crossorigin="anonymous" src="https://assets-cdn.github.com/assets/github/index-fe2e1fa6704baa94c97c39847254262f674803845a2b1addd89d4f9eca3fa297.js"></script>
+      
+      
+    <div class="js-stale-session-flash stale-session-flash flash flash-warn flash-banner hidden">
+      <span class="octicon octicon-alert"></span>
+      <span class="signed-in-tab-flash">You signed in with another tab or window. <a href="">Reload</a> to refresh your session.</span>
+      <span class="signed-out-tab-flash">You signed out in another tab or window. <a href="">Reload</a> to refresh your session.</span>
+    </div>
+  </body>
+</html>
+

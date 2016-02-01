@@ -1,0 +1,98 @@
+<p>This is the partial for view 2.</p>
+<p>
+  Showing of 'interpolate' filter:
+  {{ 'Current version is v%VERSION%.' | interpolate }}
+</p>
+
+<aside id="toolbar-right" class="sidebar--right col-xs-10 col-sm-5 col-md-4 col-lg-3 sidebar active">
+  <a href="#" id="toolbar-right-toggle" data-toggle="tooltip" data-placement="left" title="Hide/Show Tracking data"
+     class="sidebar-toggle sidebar-toggle--right"></a>
+
+  <section class="sidebar__inner">
+    <table class="table table-striped table-hover">
+      <tbody>
+      <tr>
+        <td colspan="2"><strong>Now Tracking <label id="label-satellite">ISS (Zarya)</label></strong></td>
+      </tr>
+      <tr>
+        <td>Latitude</td>
+        <td id="label-latitude"></td>
+      </tr>
+      <tr>
+        <td>Longitude</td>
+        <td id="label-longitude"></td>
+      </tr>
+      <tr>
+        <td><span data-toggle="tooltip" data-placement="left" title="Kilometers">Altitude</span></td>
+        <td id="label-altitude" ></td>
+      </tr>
+      <tr>
+        <td><span>Velocity</span></td>
+        <td id="label-velocity" ></td>
+      </tr>
+      <tr>
+        <td><span data-toggle="tooltip" data-placement="left" title="Time period needed for satellite to finish one orbit">Period</span></td>
+        <td id="label-period" ></td>
+      </tr>
+      <tr>
+        <td>Passing over</td>
+        <td id="label-passing-over" >-</td>
+      </tr>
+      <tr>
+        <td colspan="2"><strong>User's View</strong></td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <div id="user-view-compass" data-toggle="tooltip" data-placement="left" title="Azimuth">
+            <div id="compass-circle">
+              <div id="station"></div>
+              <label class="north">N</label>
+              <label class="south">S</label>
+              <label class="east">E</label>
+              <label class="west">W</label>
+              <label id="label-azimuth"></label>
+            </div>
+          </div>
+
+          <!--       <svg width="110" height="110" id="user-view-compass">
+                  <circle cx="50" cy="50" r="50" stroke="black" stroke-width="3" fill="red" />
+                  <image id="station" xlink:href="assets/station.png" x="0" y="0" height="12px" width="12px" transform="rotate(-90 0 0)"/>
+                </svg> -->
+
+          <div id="user-view-elevation" data-toggle="tooltip" data-placement="left" title="Elevation">
+            <div id="arcs"><div></div></div>
+            <div id="circle"><span id="label-elvation"></span></div>
+            <svg width="82" height="110">
+              <line id="elevation" x1="0" y1="55" x2="55" y2="55" style="stroke:#4757bd; stroke-width:2"
+                    transform="rotate(0 0 55)"/>
+              <line id="horizon" x1="0" y1="55" x2="55" y2="55" style="stroke:#3646a7; stroke-width:2"/>
+            </svg>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td><span>Passing over in:</span></td>
+        <td id="passing-over-time"></td>
+      </tr>
+
+      <tr>
+        <td colspan="2"><div id="polar-chart"></div></td>
+      </tr>
+
+      <tr>
+        <td colspan="2"><div id="passing-over-chart"></div></td>
+      </tr>
+
+
+      <tr>
+        <td colspan="2"><strong>Altitude Change</strong></td>
+      </tr>
+      <tr>
+        <td colspan="2"><div id="altitude-chart"></div></td>
+      </tr>
+
+      </tbody>
+    </table>
+  </section>
+</aside>

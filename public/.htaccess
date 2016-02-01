@@ -13,12 +13,12 @@ ServerSignature Off
 #    RewriteCond %{HTTPS} !=on
 #    RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 #  </IfModule>
-  RewriteCond %{REQUEST_URI} !cache.manifest.*$ [NC]
-  RewriteCond %{REQUEST_URI} !\/fonts\/.*$ [NC]
-  RewriteCond %{REQUEST_URI} !\/images\/.*$ [NC]
-  RewriteCond %{REQUEST_URI} !\/stylesheets\/.*$ [NC]
-  RewriteCond %{REQUEST_URI} !\/vendor\/.*$ [NC]
-  RewriteCond %{REQUEST_URI} !\/javascripts\/.*$ [NC]
-  RewriteCond %{REQUEST_URI} !\/docs\/.*$ [NC]
-  RewriteRule ^(.*)$ index.php?q=$1 [L,QSA]
+#  RewriteCond %{REQUEST_URI} !cache.manifest.*$ [NC]
+#  RewriteCond %{REQUEST_URI} !\/fonts\/.*$ [NC]
+#  RewriteCond %{REQUEST_URI} !\/images\/.*$ [NC]
+#  RewriteCond %{REQUEST_URI} !\/stylesheets\/.*$ [NC]
+#  RewriteCond %{REQUEST_URI} !\/vendor\/.*$ [NC]
+#  RewriteCond %{REQUEST_URI} !\/javascripts\/.*$ [NC]
+#  RewriteCond %{REQUEST_URI} !\/docs\/.*$ [NC]
+#  RewriteRule ^(.*)$ index.php?q=$1 [L,QSA]
 </IfModule>

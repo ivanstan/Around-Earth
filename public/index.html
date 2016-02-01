@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <link href="stylesheets/styles.css" rel="stylesheet" />
+    <link href="stylesheets/select2.min.css" rel="stylesheet" />
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+        <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false&libraries=visualization,geometry"></script>
+        <script type="text/javascript" src="javascripts/framework.js"></script>
+        <script type="text/javascript" src="javascripts/functions.js"></script>
+        <script type="text/javascript" src="vendor/bootstrap.min.js"></script>
+        <script type="text/javascript" src="vendor/daynightoverlay.js"></script>
+        <script type="text/javascript" src="vendor/d3.v3.min.js"></script>
+        <script type="text/javascript" src="vendor/radar.chart.js"></script>
+        <script type="text/javascript" src="javascripts/mapStyles.js"></script>
+        <script type="text/javascript" src="javascripts/app.js"></script>
+        <script type="text/javascript" src="javascripts/map.js"></script>
+        <script type="text/javascript" src="javascripts/orbit.js"></script>
+        <script type="text/javascript" src="javascripts/altitudeChart.js"></script>
+        <script type="text/javascript" src="javascripts/astronomical.js"></script>
+        <script type="text/javascript" src="javascripts/rightPanel.js"></script>
+        <script type="text/javascript" src="javascripts/contextualPopup.js"></script>
+        <script type="text/javascript" src="javascripts/groundStations.js"></script>
+        <script type="text/javascript" src="vendor/highcharts/highcharts.js"></script>
+        <script type="text/javascript" src="vendor/lightstreamer.js"></script>
+        <script type="text/javascript" src="javascripts/isstelemetry.js"></script>
+        <script type="text/javascript" src="vendor/highcharts/highcharts-more.js"></script>
+        <script type="text/javascript" src="vendor/highcharts/modules/solid-gauge.js"></script>
+        <script type="text/javascript" src="vendor/infobox.js"></script>
+        <script type="text/javascript" src="vendor/select2.full.min.js"></script>
+        <script type="text/javascript" src="vendor/handlebars-v3.0.3.js"></script>
+        <script type="text/javascript" src="vendor/orb.js/core.js"></script>
+        <script type="text/javascript" src="vendor/orb.js/satellite.js"></script>
+        <script type="text/javascript" src="vendor/moment/moment.js"></script>
+        <script type="text/javascript" src="javascripts/sky.js"></script>
+
+    <script type="text/javascript">
+        App.settings.apiEndpoint = 'http://dev.byteout.com/around-earth-dev/public/';
+    </script>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+
+        <div class="collapse navbar-collapse" id="main-navbar">
+            <ul class="nav navbar-nav tabs-nav">
+                <li class="active"><a href="#page-map">Map</a></li>
+                {#<li ><a href="#page-sky">Sky</a></li>#}
+                {#<li class="active"><a href="#">Home</a></li>#}
+                <li class="select-satellite-wrapper">
+
+                    <select id="select-satellite" class="bootstrap-select">
+                        {% for key,value in satelliteList %}
+                            <option value="{{ key }}">{{ value['name'] }}</option>
+                        {% endfor %}
+                    </select>
+
+                    <span class="satellite-num">Currently tracking {{ satelliteCount }} satellites</span>
+                </li>
+            </ul>
+
+            <p class="navbar-text navbar-right navbar-message">Made with
+
+                <span class="icon-heart glyphicon glyphicon-heart"></span>
+                for
+                <a target="_blank" href="https://2015.spaceappschallenge.org/"> Space Apps challenge</a>
+            </p>
+        </div>
+    </div>
+</nav>
+
+
+<aside id="float-bar">
+    <div class="collapse" id="videoStream">
+        <iframe width="360" height="235" src="http://www.ustream.tv/embed/17074538?v=3&amp;wmode=direct" scrolling="no" frameborder="0" style="border: 0px none transparent;">    </iframe>
+        <br /><a href="http://www.ustream.tv" style="font-size: 12px; line-height: 20px; font-weight: normal; text-align: left;" target="_blank">Broadcast live streaming video on Ustream</a>
+    </div>
+
+
+</aside>
+
+
+<div id="page-map" class="container-fluid tabs-page">
+    <div class="row">
+        <div id="map" class="main"></div>
+    </div>
+
+    <aside id="toolbar-right" class="sidebar--right col-xs-10 col-sm-5 col-md-4 col-lg-3 sidebar active">
+        <a href="#" id="toolbar-right-toggle" data-toggle="tooltip" data-placement="left" title="Hide/Show Tracking data"
+           class="sidebar-toggle sidebar-toggle--right"></a>
+
+        <section class="sidebar__inner">
+            <table class="table table-striped table-hover">
+                <tbody>
+                <tr>
+                    <td colspan="2"><strong>Now Tracking <label id="label-satellite">ISS (Zarya)</label></strong></td>
+                </tr>
+                <tr>
+                    <td>Latitude</td>
+                    <td id="label-latitude"></td>
+                </tr>
+                <tr>
+                    <td>Longitude</td>
+                    <td id="label-longitude"></td>
+                </tr>
+                <tr>
+                    <td><span data-toggle="tooltip" data-placement="left" title="Kilometers">Altitude</span></td>
+                    <td id="label-altitude" ></td>
+                </tr>
+                <tr>
+                    <td><span>Velocity</span></td>
+                    <td id="label-velocity" ></td>
+                </tr>
+                <tr>
+                    <td><span data-toggle="tooltip" data-placement="left" title="Time period needed for satellite to finish one orbit">Period</span></td>
+                    <td id="label-period" ></td>
+                </tr>
+                <tr>
+                    <td>Passing over</td>
+                    <td id="label-passing-over" >-</td>
+                </tr>
+                <tr>
+                    <td colspan="2"><strong>User's View</strong></td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <div id="user-view-compass" data-toggle="tooltip" data-placement="left" title="Azimuth">
+                            <div id="compass-circle">
+                                <div id="station"></div>
+                                <label class="north">N</label>
+                                <label class="south">S</label>
+                                <label class="east">E</label>
+                                <label class="west">W</label>
+                                <label id="label-azimuth"></label>
+                            </div>
+                        </div>
+
+                        <!--       <svg width="110" height="110" id="user-view-compass">
+                                <circle cx="50" cy="50" r="50" stroke="black" stroke-width="3" fill="red" />
+                                <image id="station" xlink:href="assets/station.png" x="0" y="0" height="12px" width="12px" transform="rotate(-90 0 0)"/>
+                              </svg> -->
+
+                        <div id="user-view-elevation" data-toggle="tooltip" data-placement="left" title="Elevation">
+                            <div id="arcs"><div></div></div>
+                            <div id="circle"><span id="label-elvation"></span></div>
+                            <svg width="82" height="110">
+                                <line id="elevation" x1="0" y1="55" x2="55" y2="55" style="stroke:#4757bd; stroke-width:2"
+                                      transform="rotate(0 0 55)"/>
+                                <line id="horizon" x1="0" y1="55" x2="55" y2="55" style="stroke:#3646a7; stroke-width:2"/>
+                            </svg>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><span>Passing over in:</span></td>
+                    <td id="passing-over-time"></td>
+                </tr>
+
+                <tr>
+                    <td colspan="2"><div id="polar-chart"></div></td>
+                </tr>
+
+                <tr>
+                    <td colspan="2"><div id="passing-over-chart"></div></td>
+                </tr>
+
+
+                <tr>
+                    <td colspan="2"><strong>Altitude Change</strong></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><div id="altitude-chart"></div></td>
+                </tr>
+
+                </tbody>
+            </table>
+        </section>
+    </aside>
+
+
+    <aside id="toolbar-bottom" class="toolbar--bottom sidebar active">
+        <a href="#" id="toolbar-bottom-toggle" data-toggle="tooltip" data-placement="right" title="Hide/Show Telemetry dashboard"
+           class="sidebar-toggle sidebar-toggle--bottom"></a>
+        <div class="col-xs-9">
+            <section class="footer__inner">
+                <div id="voltage-chart"></div>
+                <div class="telemetry-inline">
+                    <div>
+                        <div id="pressure-chart"></div>
+                        <div id="temperature-chart"></div>
+                    </div>
+                    <div>
+                        <div id="water-chart"></div>
+                        <div id="air-chart"></div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </aside>
+</div>
+
+{% include 'page-sky.html.twig' %}
+
+<div id="contextual-popup" style="display: none"></div>
+<div id="ajax-loader" style="display: none">Loading</div>
+<script id="satellite-context" type="text/x-handlebars-template">
+    <table id="satellite-context-table">
+        <tr>
+            <td><strong>Orbital Elements</strong></td>
+            <td><a target="_blank" data-toggle="tooltip" data-placement="left" title="Learn more about orbits on Wikipedia" href="https://en.wikipedia.org/wiki/Orbital_elements"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></a></td>
+        </tr>
+        <tr>
+            <td><span data-toggle="tooltip" data-placement="left" title="Epoch">Epoch</span></td>
+            <td id="label-epoch"></td>
+        </tr>
+        <tr>
+            <td><span data-toggle="tooltip" data-placement="left" title="Right ascension of the ascending node">RAAN</span></td>
+            <td id="label-raan"></td>
+        </tr>
+        <tr>
+            <td><span data-toggle="tooltip" data-placement="left" title="Argument of perigee">Arg. Perigee</span></td>
+            <td id="label-argp"></td>
+        </tr>
+        <tr>
+            <td><span data-toggle="tooltip" data-placement="left" title="Eccentricity">Ecce.</span></td>
+            <td id="label-ecce"></td>
+        </tr>
+        <tr>
+            <td><span data-toggle="tooltip" data-placement="left" title="Inclination">Inclination</span></td>
+            <td id="label-inclination"></td>
+        </tr>
+        <tr>
+            <td><span data-toggle="tooltip" data-placement="left" title="Mean motion">Mean motion</span></td>
+            <td id="label-mean-motion"></td>
+        </tr>
+        <tr>
+            <td><span data-toggle="tooltip" data-placement="left" title="Mean anomaly">Mean anomaly</span></td>
+            <td id="label-ma"></td>
+        </tr>
+        <tr>
+            <td><span data-toggle="tooltip" data-placement="left" title="BStar drag term">BStar</span></td>
+            <td id="label-drag"></td>
+        </tr>
+        <tr>
+            <td><span data-toggle="tooltip" data-placement="left" title="Number of orbits since launch">Orbit Nr.</span></td>
+            <td id="label-orbit-number"></td>
+        </tr>
+    </table>
+</script>
+<script id="user-context" type="text/x-handlebars-template">
+    <table id="user-context-table">
+        <tr>
+            <td>Location </td>
+            <td><span id="location">{{location}}</span></td>
+        </tr>
+        <tr>
+            <td>Latitude </td>
+            <td><span id="latitude">{{latitude}}</span></td>
+        </tr>
+        <tr>
+            <td>Longitude </td>
+            <td><span id="longitude">{{longitude}}</span></td>
+        </tr>
+        <tr>
+            <td>Altitude </td>
+            <td><span id="altitude">{{altitude}}</span></td>
+        </tr>
+    </table>
+</script>
+
+
+
+<div class="modal fade" id="alert-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Modal title</h4>
+            </div>
+            <div class="modal-body">
+                <p></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+</body>
+</html>
